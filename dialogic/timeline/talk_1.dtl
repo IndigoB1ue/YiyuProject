@@ -1,0 +1,13 @@
+Hello
+label Jump
+我是第一句话
+今天怎么样
+- 好
+	那就好
+	[end_timeline]
+- 不好
+	那很不好了
+	发生什么了吗
+	[wait time="1.0" hide_text="false"]
+	能和我说说吗
+jump Jump

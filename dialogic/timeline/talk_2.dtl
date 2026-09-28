@@ -1,0 +1,13 @@
+label 输入名字
+[text_input text="请输入你的名字" var="player.name_1" allow_empty="true"]
+if {player.name_1} == "":
+	你的名字不能为空！重新输入你的名字吧！
+	jump 
+你确定你叫这个名字吗？
+- 是
+	你的名字是：{player.name_1}
+- 否
+	jump 输入名字
+set {player.name_1} = "John"
+名字已更改为\: {player.name_1}
+[signal arg="player.name_1"]

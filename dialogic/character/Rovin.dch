@@ -1,0 +1,40 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "",
+"suffix": ""
+},
+&"default_portrait": "Idle",
+&"description": "",
+&"display_name": "ロヴィン",
+&"mirror": false,
+&"nicknames": ["Rovin"],
+&"offset": Vector2(0, 0),
+&"portraits": {
+"Idle": {
+"export_overrides": {
+"image": "\"res://asserts/image/character/Rovin/Rovin_Idle.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 150),
+"scale": 1,
+"scene": ""
+},
+"WaveHand": {
+"export_overrides": {
+"image": "\"res://asserts/image/character/Rovin/Rovin_Pose_1.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 150),
+"scale": 1,
+"scene": ""
+}
+},
+&"scale": 1.0
+}

@@ -1,0 +1,50 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(0.9921875, 0.8604126, 0, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "",
+"suffix": ""
+},
+&"default_portrait": "Idle",
+&"description": "",
+&"display_name": "エレフリヤ",
+&"mirror": false,
+&"nicknames": ["Elefriya"],
+&"offset": Vector2(0, 0),
+&"portraits": {
+"CrossHand": {
+"export_overrides": {
+"image": "\"res://asserts/image/character/Elefriya/Elefriya_Pose_2.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 150),
+"scale": 1,
+"scene": ""
+},
+"Idle": {
+"export_overrides": {
+"image": "\"res://asserts/image/character/Elefriya/Elefriya_Idle.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 150),
+"scale": 1,
+"scene": ""
+},
+"WaveHand": {
+"export_overrides": {
+"image": "\"res://asserts/image/character/Elefriya/Elefriya_Pose_1.png\""
+},
+"ignore_char_scale": true,
+"mirror": false,
+"offset": Vector2(0, 150),
+"scale": 1.0,
+"scene": ""
+}
+},
+&"scale": 1.0
+}
