@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3vto1ckvwcfq"
-path="res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"
+uid="uid://bp4007cidptc8"
+path="res://.godot/imported/button_gallery.svg-33b6a7cb19ddbc3d7c7c09bb61f3303f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dialogic/style/VisualNovelTextbox/next.svg"
-dest_files=["res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"]
+source_file="res://asserts/image/ui/button_gallery.svg"
+dest_files=["res://.godot/imported/button_gallery.svg-33b6a7cb19ddbc3d7c7c09bb61f3303f.ctex"]
 
 [params]
 

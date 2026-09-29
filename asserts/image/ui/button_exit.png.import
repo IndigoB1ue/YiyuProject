@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3vto1ckvwcfq"
-path="res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"
+uid="uid://d0r5biujpctoa"
+path="res://.godot/imported/button_exit.png-e8281e26e56c44e6abf685a42b7a7122.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dialogic/style/VisualNovelTextbox/next.svg"
-dest_files=["res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"]
+source_file="res://asserts/image/ui/button_exit.png"
+dest_files=["res://.godot/imported/button_exit.png-e8281e26e56c44e6abf685a42b7a7122.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

@@ -1,9 +1,0 @@
-[background arg="res://asserts/image/background/background_test.jpg" fade="0.0"]
-join Elefriya (WaveHand) center [animation="Bounce In" wait="true"]
-Elefriya: 你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。你好！我叫艾蕾芙莉雅。
-join Rovin (WaveHand) rightmost [animation="Slide From Right" wait="true"]
-Rovin: 我叫罗维。
-update Elefriya (CrossHand) left [move_time="0.5"]
-Elefriya: 啊！老...老师，您怎么来了！
-update Rovin right [move_time="0.5"]
-Rovin (WaveHand): 哟。

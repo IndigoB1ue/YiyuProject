@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3vto1ckvwcfq"
-path="res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"
+uid="uid://bx4c5qlxrag4"
+path="res://.godot/imported/Elder_Idle.png-5ec93acf1b9911a2169a87e45a35ff0b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dialogic/style/VisualNovelTextbox/next.svg"
-dest_files=["res://.godot/imported/next.svg-934358c3dfd023ec603967d2c6f8f069.ctex"]
+source_file="res://asserts/image/character/Elder/Elder_Idle.png"
+dest_files=["res://.godot/imported/Elder_Idle.png-5ec93acf1b9911a2169a87e45a35ff0b.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

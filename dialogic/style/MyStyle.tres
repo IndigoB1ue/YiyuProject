@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="3_b7ahs"]
 [ext_resource type="PackedScene" uid="uid://cy1y14inwkplb" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn" id="4_7cw8a"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="5_f5iph"]
-[ext_resource type="PackedScene" uid="uid://dq2q702rman3f" path="res://dialogic/style/VisualNovelTextbox/custom_visual_novel_textbox.tscn" id="6_f8oek"]
+[ext_resource type="PackedScene" uid="uid://dobibmc5yuo2v" path="res://dialogic/style/VisualNovelTextbox/custom_visual_novel_textbox.tscn" id="6_f8oek"]
 [ext_resource type="PackedScene" uid="uid://dsbwnp5hegnu3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn" id="7_eulsf"]
 [ext_resource type="PackedScene" uid="uid://dhk6j6eb6e3q" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn" id="8_jmjos"]
 [ext_resource type="PackedScene" uid="uid://cvgf4c6gg0tsy" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn" id="9_cfqdp"]
@@ -35,9 +35,10 @@ overrides = {
 "box_color_custom": "Color(0.6431373, 0.8235294, 0.91764706, 0.16862746)",
 "box_color_use_global": "false",
 "box_margin_bottom": "0.0",
-"box_size": "Vector2(1152, 150)",
+"box_size": "Vector2(1000, 150)",
 "name_label_box_modulate": "Color(0, 0, 0, 0)",
 "name_label_box_use_global_color": "false",
+"name_label_custom_font_size": "30.0",
 "name_label_use_global_font": "false",
 "name_label_use_global_font_size": "false",
 "text_size": "24.0",
@@ -75,4 +76,4 @@ layer_info = {
 "16": SubResource("Resource_wao8a"),
 "17": SubResource("Resource_b37mj")
 }
-metadata/_latest_layer = "14"
+metadata/_latest_layer = "13"

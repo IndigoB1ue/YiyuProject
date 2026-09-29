@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="YiyuDemo"
-run/main_scene="uid://u6ev4pm1j1mx"
+run/main_scene="uid://cpl2q7l15gi6n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,13 +22,21 @@ Dialogic="*uid://ds2q0uclmolvu"
 [dialogic]
 
 directories/dch_directory={
+"Ammy": "res://dialogic/character/Ammy.dch",
+"Elder": "res://dialogic/character/Elder.dch",
 "Elefriya": "res://dialogic/character/Elefriya.dch",
+"Lai": "res://dialogic/character/Lai.dch",
+"Leila": "res://dialogic/character/Leila.dch",
 "Rovin": "res://dialogic/character/Rovin.dch"
 }
 directories/dtl_directory={
+"CP01_EP01_SI01": "res://dialogic/timeline/CP01_EP01_SI01.dtl",
+"CP01_EP02_SI01": "res://dialogic/timeline/CP01_EP02_SI01.dtl",
+"CP01_EP02_SI02": "res://dialogic/timeline/CP01_EP02_SI02.dtl",
+"CP_02": "res://dialogic/timeline/CP_02.dtl",
+"TestTimeline": "res://dialogic/timeline/TestTimeline.dtl",
 "talk_1": "res://dialogic/timeline/talk_1.dtl",
-"talk_2": "res://dialogic/timeline/talk_2.dtl",
-"talk_3": "res://dialogic/timeline/talk_3.dtl"
+"talk_2": "res://dialogic/timeline/talk_2.dtl"
 }
 layout/style_directory={
 "": "res://dialogic/style/MyStyle.tres",

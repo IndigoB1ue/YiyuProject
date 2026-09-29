@@ -1,0 +1,286 @@
+[gd_scene format=3 uid="uid://cpl2q7l15gi6n"]
+
+[ext_resource type="Script" uid="uid://blwt07cfknobc" path="res://scripts/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ccwhim2214e2e" path="res://asserts/image/ui/main_menu_background.svg" id="2_background"]
+[ext_resource type="Texture2D" uid="uid://8wmfucvdtpqc" path="res://asserts/image/ui/button_load_game.svg" id="3_load"]
+[ext_resource type="Texture2D" uid="uid://cqe3e34ni7d4i" path="res://asserts/image/ui/button_new_game.svg" id="4_new"]
+[ext_resource type="Texture2D" uid="uid://bp4007cidptc8" path="res://asserts/image/ui/button_gallery.svg" id="5_gallery"]
+[ext_resource type="Texture2D" uid="uid://dcbl1ibviaji5" path="res://asserts/image/ui/button_options.svg" id="6_options"]
+[ext_resource type="Texture2D" uid="uid://c1tn7dth05swu" path="res://asserts/image/ui/button_exit.svg" id="7_exit"]
+
+[sub_resource type="SystemFont" id="SystemFont_title"]
+font_names = PackedStringArray("Source Han Serif SC", "Noto Serif CJK SC", "Microsoft YaHei", "SimSun")
+font_weight = 700
+
+[sub_resource type="SystemFont" id="SystemFont_ui"]
+font_names = PackedStringArray("Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei")
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_dialog"]
+bg_color = Color(0.035, 0.038, 0.055, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.18, 0.27, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_close"]
+bg_color = Color(0.36, 0.055, 0.095, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88, 0.64, 0.68, 0.65)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="MainMenu" type="Control" unique_id=104382659]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=2091836827]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Atmosphere" type="ColorRect" parent="." unique_id=2100782884]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.018, 0.035, 0.13)
+
+[node name="BottomShade" type="ColorRect" parent="." unique_id=927406837]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.665
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.015, 0.012, 0.025, 0.54)
+
+[node name="TitleBlock" type="VBoxContainer" parent="." unique_id=1569137727]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.61
+anchor_top = 0.07
+anchor_right = 0.94
+anchor_bottom = 0.37
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="TitleBlock" unique_id=288066215]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.95, 0.97, 1)
+theme_override_colors/font_shadow_color = Color(0.06, 0.01, 0.02, 0.92)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = SubResource("SystemFont_title")
+theme_override_font_sizes/font_size = 104
+text = "异语"
+horizontal_alignment = 2
+
+[node name="Rule" type="HSeparator" parent="TitleBlock" unique_id=1827720035]
+modulate = Color(0.76, 0.17, 0.27, 0.85)
+layout_mode = 2
+
+[node name="Subtitle" type="Label" parent="TitleBlock" unique_id=1968531246]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.76, 0.82, 1)
+theme_override_fonts/font = SubResource("SystemFont_ui")
+theme_override_font_sizes/font_size = 18
+text = "Y I Y U   /   A  TALE  BEYOND  WORDS"
+horizontal_alignment = 2
+
+[node name="MenuBar" type="HBoxContainer" parent="." unique_id=1392520249]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.045
+anchor_top = 0.735
+anchor_right = 0.69
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 18
+
+[node name="LoadGame" type="TextureButton" parent="MenuBar" unique_id=1850849202]
+custom_minimum_size = Vector2(150, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "读取存档"
+focus_neighbor_right = NodePath("../NewGame")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_load")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="NewGame" type="TextureButton" parent="MenuBar" unique_id=173469374]
+custom_minimum_size = Vector2(150, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "开始新游戏"
+focus_neighbor_left = NodePath("../LoadGame")
+focus_neighbor_right = NodePath("../Gallery")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_new")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Gallery" type="TextureButton" parent="MenuBar" unique_id=942719243]
+custom_minimum_size = Vector2(150, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "画廊"
+focus_neighbor_left = NodePath("../NewGame")
+focus_neighbor_right = NodePath("../Options")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_gallery")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Options" type="TextureButton" parent="MenuBar" unique_id=678062283]
+custom_minimum_size = Vector2(150, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "设置"
+focus_neighbor_left = NodePath("../Gallery")
+focus_neighbor_right = NodePath("../Exit")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_options")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Exit" type="TextureButton" parent="MenuBar" unique_id=66328446]
+custom_minimum_size = Vector2(150, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "退出游戏"
+focus_neighbor_left = NodePath("../Options")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("7_exit")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Version" type="Label" parent="." unique_id=312867213]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.925
+anchor_right = 0.965
+anchor_bottom = 0.975
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.63, 0.64, 0.7, 0.9)
+theme_override_fonts/font = SubResource("SystemFont_ui")
+theme_override_font_sizes/font_size = 15
+text = "VER. 0.1.0  /  YIYU PROJECT"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NoticeLayer" type="Control" parent="." unique_id=931574152]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="NoticeLayer" unique_id=3552418]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.68)
+
+[node name="NoticePanel" type="PanelContainer" parent="NoticeLayer" unique_id=1591459071]
+custom_minimum_size = Vector2(560, 230)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -115.0
+offset_right = 280.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_dialog")
+
+[node name="Margin" type="MarginContainer" parent="NoticeLayer/NoticePanel" unique_id=704105899]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 28
+
+[node name="Content" type="VBoxContainer" parent="NoticeLayer/NoticePanel/Margin" unique_id=1191736698]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="NoticeTitle" type="Label" parent="NoticeLayer/NoticePanel/Margin/Content" unique_id=1188575877]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.87, 0.89, 1)
+theme_override_fonts/font = SubResource("SystemFont_title")
+theme_override_font_sizes/font_size = 30
+text = "功能准备中"
+horizontal_alignment = 1
+
+[node name="NoticeText" type="Label" parent="NoticeLayer/NoticePanel/Margin/Content" unique_id=138428340]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.79, 0.79, 0.84, 1)
+theme_override_fonts/font = SubResource("SystemFont_ui")
+theme_override_font_sizes/font_size = 18
+text = "该入口已完成界面占位，后续可接入实际内容。"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Close" type="Button" parent="NoticeLayer/NoticePanel/Margin/Content" unique_id=1169652368]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.98, 0.94, 0.95, 1)
+theme_override_fonts/font = SubResource("SystemFont_ui")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBox_close")
+theme_override_styles/pressed = SubResource("StyleBox_close")
+theme_override_styles/hover = SubResource("StyleBox_close")
+text = "关闭"
+
+[connection signal="pressed" from="MenuBar/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="MenuBar/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MenuBar/Gallery" to="." method="_on_gallery_pressed"]
+[connection signal="pressed" from="MenuBar/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuBar/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="NoticeLayer/NoticePanel/Margin/Content/Close" to="." method="_on_notice_close_pressed"]

@@ -55,6 +55,8 @@ enum AnimationsNewText {NONE, WIGGLE}
 
 @export_subgroup("Size & Position")
 @export var box_size: Vector2 = Vector2(550, 110)
+@export var box_expand_to_viewport_width: bool = false
+@export_range(0, 1000, 1, "or_greater") var box_margin_horizontal: float = 0.0
 @export var box_margin_bottom: int = 15
 
 @export_subgroup("Animation")
@@ -119,6 +121,7 @@ enum AnimationsNewText {NONE, WIGGLE}
 func _apply_export_overrides() -> void:
 	if !is_inside_tree():
 		await ready
+	_connect_viewport_resize()
 
 	## FONT SETTINGS
 	_apply_text_settings()
@@ -158,9 +161,27 @@ func _apply_box_settings() -> void:
 	else:
 		dialog_text_panel.self_modulate = box_color_custom
 
+	_apply_box_geometry()
+
+
+func _connect_viewport_resize() -> void:
+	var viewport := get_viewport()
+	if not viewport.size_changed.is_connected(_on_viewport_size_changed):
+		viewport.size_changed.connect(_on_viewport_size_changed)
+
+
+func _on_viewport_size_changed() -> void:
+	_apply_box_geometry()
+
+
+func _apply_box_geometry() -> void:
+	var applied_box_size := box_size
+	if box_expand_to_viewport_width:
+		applied_box_size.x = maxf(0.0, get_viewport().get_visible_rect().size.x - box_margin_horizontal * 2.0)
+
 	var sizer: Control = %Sizer
-	sizer.size = box_size
-	sizer.position = box_size * Vector2(-0.5, -1)+Vector2(0, -box_margin_bottom)
+	sizer.size = applied_box_size
+	sizer.position = applied_box_size * Vector2(-0.5, -1) + Vector2(0, -box_margin_bottom)
 
 
 ## Applies box animations settings to the scene.

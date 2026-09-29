@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dq2q702rman3f"]
+[gd_scene format=3 uid="uid://dobibmc5yuo2v"]
 
-[ext_resource type="Script" uid="uid://bl43m5qw8pso3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.gd" id="1_bpydr"]
+[ext_resource type="Script" uid="uid://qi4hs2bocfcg" path="res://dialogic/style/VisualNovelTextbox/vn_textbox_layer.gd" id="1_bpydr"]
 [ext_resource type="Script" uid="uid://bfc03rn8slceu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/animations.gd" id="2_xy7a2"]
 [ext_resource type="Script" uid="uid://drhfq6rmdeuri" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="3_4634k"]
 [ext_resource type="StyleBox" uid="uid://dkv1pl1c1dq6" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_default_panel.tres" id="3_ssa84"]
@@ -213,6 +213,7 @@ mouse_filter = 2
 script = ExtResource("1_bpydr")
 box_panel = "res://dialogic/style/VisualNovelTextbox/vn_textbox_default_panel.tres"
 box_size = Vector2(550, 150)
+box_expand_to_viewport_width = true
 name_label_box_panel = "res://dialogic/style/VisualNovelTextbox/vn_textbox_name_label_panel.tres"
 name_label_box_modulate = Color(0, 0, 0, 1)
 
@@ -274,7 +275,6 @@ metadata/_edit_layout_mode = 1
 [node name="DialogicNode_DialogText" type="RichTextLabel" parent="Anchor/AnimationParent/Sizer/DialogTextPanel" unique_id=363434230 node_paths=PackedStringArray("textbox_root")]
 unique_name_in_owner = true
 layout_mode = 2
-offset_transform_enabled = true
 offset_transform_position = Vector2(80, 20)
 mouse_filter = 1
 theme_override_colors/default_color = Color(1, 1, 1, 1)
@@ -284,7 +284,6 @@ theme_override_font_sizes/bold_font_size = 15
 theme_override_font_sizes/bold_italics_font_size = 15
 theme_override_font_sizes/italics_font_size = 15
 bbcode_enabled = true
-text = "你好"
 visible_characters_behavior = 1
 script = ExtResource("3_4634k")
 textbox_root = NodePath("..")
