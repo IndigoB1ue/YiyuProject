@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="AlchemyRecipe" format=3 uid="uid://cmm2a3untoja7"]
+
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="1_juhk8"]
+[ext_resource type="Script" uid="uid://ba6k3jtqlwu4c" path="res://scripts/alchemy/ingredient_requirement.gd" id="1_v60jv"]
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="2_juhk8"]
+
+[sub_resource type="Resource" id="HerbRequirement"]
+script = ExtResource("1_v60jv")
+item_id = &"cleaning_powder"
+
+[sub_resource type="Resource" id="WaterRequirement"]
+script = ExtResource("1_v60jv")
+item_id = &"Water"
+
+[sub_resource type="Resource" id="Resource_juhk8"]
+script = ExtResource("1_v60jv")
+item_id = &"Water"
+
+[sub_resource type="Resource" id="Resource_m143t"]
+script = ExtResource("1_v60jv")
+item_id = &"Water"
+
+[resource]
+script = ExtResource("2_juhk8")
+recipe_id = &"ClearPotion"
+display_name = "清洗剂"
+description = "是清洗剂"
+icon = ExtResource("1_juhk8")
+result_item_id = &"clear_potion"
+ingredients = Array[ExtResource("1_v60jv")]([SubResource("HerbRequirement"), SubResource("WaterRequirement"), SubResource("Resource_juhk8"), SubResource("Resource_m143t")])
+metadata/_custom_type_script = "uid://b5ef3bwwvl38b"

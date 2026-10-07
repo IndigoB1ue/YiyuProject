@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="1"]
+[ext_resource type="Texture2D" path="res://data/items/herb.svg" id="2"]
+
+[node name="MaterialCellUI" type="Button"]
+custom_minimum_size = Vector2(82, 82)
+offset_right = 82.0
+offset_bottom = 82.0
+theme = ExtResource("1")
+theme_type_variation = &"AlchemyMaterialCell"
+icon = ExtResource("2")
+expand_icon = true

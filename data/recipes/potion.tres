@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="AlchemyRecipe" format=3 uid="uid://co8t5kxcibcnp"]
+
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="1"]
+[ext_resource type="Script" uid="uid://ba6k3jtqlwu4c" path="res://scripts/alchemy/ingredient_requirement.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="3"]
+
+[sub_resource type="Resource" id="HerbRequirement"]
+script = ExtResource("2")
+item_id = &"Herb"
+
+[sub_resource type="Resource" id="WaterRequirement"]
+script = ExtResource("2")
+item_id = &"Water"
+
+[sub_resource type="Resource" id="Resource_jolf1"]
+script = ExtResource("2")
+item_id = &"Water"
+
+[sub_resource type="Resource" id="Resource_5hovw"]
+script = ExtResource("2")
+item_id = &"Water"
+
+[resource]
+script = ExtResource("1")
+recipe_id = &"PotionRecipe"
+display_name = "回复药"
+description = "将药草与清水调和，制成一瓶基础回复药。"
+icon = ExtResource("3")
+result_item_id = &"Potion"
+ingredients = Array[ExtResource("2")]([SubResource("HerbRequirement"), SubResource("WaterRequirement"), SubResource("Resource_jolf1"), SubResource("Resource_5hovw")])

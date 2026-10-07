@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dpvy8cq34meeo"]
+
+[ext_resource type="Texture2D" uid="uid://cdxo61f7khpgr" path="res://asserts/image/game/RovinRoom/RoomTopDown.png" id="1_uw8tt"]
+[ext_resource type="Script" uid="uid://b5qikaykqb72a" path="res://scripts/rovin_room.gd" id="2_room"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="3_recipe"]
+
+[node name="RovinRoom" type="Control" unique_id=124905229]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_room")
+found_recipe = ExtResource("3_recipe")
+material_rewards = {
+"bedside": {
+"amount": 1,
+"item_id": &"cleaning_powder"
+},
+"calculation": {
+"amount": 1,
+"item_id": &"Water"
+},
+"desk": {
+"amount": 1,
+"item_id": &"Water"
+},
+"shoe": {
+"amount": 1,
+"item_id": &"Water"
+}
+}
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=919028875]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_uw8tt")
+expand_mode = 1
+stretch_mode = 5

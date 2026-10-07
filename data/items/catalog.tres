@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://dv47u8cwlopq6"]
+
+[ext_resource type="Script" uid="uid://cuxiqkip25ayb" path="res://scripts/items/item_catalog.gd" id="1"]
+[ext_resource type="Script" uid="uid://cm7txbld12xq3" path="res://scripts/items/item_data.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://cl0ubfvkp8k4e" path="res://data/items/herb.svg" id="3"]
+[ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="4"]
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="5"]
+[ext_resource type="Texture2D" uid="uid://cxxityin0h47w" path="res://data/items/cleaning_powder.svg" id="5_5do8y"]
+
+[sub_resource type="Resource" id="Herb"]
+script = ExtResource("2")
+item_id = &"Herb"
+display_name = "药草"
+icon = ExtResource("3")
+description = "用于调制回复药的基础药草。"
+category = &"Herb"
+
+[sub_resource type="Resource" id="Water"]
+script = ExtResource("2")
+item_id = &"Water"
+display_name = "清水"
+icon = ExtResource("4")
+description = "干净的炼金用水。"
+
+[sub_resource type="Resource" id="Potion"]
+script = ExtResource("2")
+item_id = &"Potion"
+display_name = "回复药"
+icon = ExtResource("5")
+description = "以药草和清水调制的基础回复药。"
+
+[sub_resource type="Resource" id="Resource_qlydm"]
+script = ExtResource("2")
+item_id = &"clear_potion"
+display_name = "清洗剂"
+icon = ExtResource("5")
+description = "这是清洗剂"
+metadata/_custom_type_script = "uid://cm7txbld12xq3"
+
+[sub_resource type="Resource" id="Resource_vq64y"]
+script = ExtResource("2")
+item_id = &"cleaning_powder"
+display_name = "清洗剂粉末"
+icon = ExtResource("5_5do8y")
+description = "是清洁剂粉末"
+metadata/_custom_type_script = "uid://cm7txbld12xq3"
+
+[resource]
+script = ExtResource("1")
+items = Array[ExtResource("2")]([SubResource("Herb"), SubResource("Water"), SubResource("Potion"), SubResource("Resource_qlydm"), SubResource("Resource_vq64y")])
+initial_inventory = {
+&"Herb": 2
+}

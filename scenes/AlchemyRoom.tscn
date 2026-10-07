@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://dxvnycpxpafjj"]
+
+[ext_resource type="Script" uid="uid://da7smdsfk71qs" path="res://scripts/ui/alchemy/alchemy_ui.gd" id="1"]
+[ext_resource type="Resource" uid="uid://co8t5kxcibcnp" path="res://data/recipes/potion.tres" id="2"]
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="2_ipdqp"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="4_lsjsh"]
+[ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="5_theme"]
+[ext_resource type="PackedScene" uid="uid://dgtjjaws4kbgu" path="res://scenes/ui/alchemy/recipe_list_ui.tscn" id="6_list"]
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/ingredient_slot_ui.tscn" id="7_slot"]
+[ext_resource type="Texture2D" uid="uid://dh81qbluvr6qr" path="res://asserts/image/character/Rovin/Rovin_Pose_1.png" id="7_vq64y"]
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/ingredient_select_ui.tscn" id="8_select"]
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/alchemy_result_ui.tscn" id="9_result"]
+[ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="10_water"]
+
+[node name="AlchemyRoom" type="Control" unique_id=793798234]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_theme")
+script = ExtResource("1")
+recipes = Array[ExtResource("2_ipdqp")]([ExtResource("2"), ExtResource("4_lsjsh")])
+ingredient_slot_scene = ExtResource("7_slot")
+
+[node name="Background" type="Panel" parent="." unique_id=1129942952]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"AlchemyBackground"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=282991583]
+layout_mode = 0
+offset_left = 722.0
+offset_top = 2.0
+offset_right = 1121.0
+offset_bottom = 648.0
+texture = ExtResource("7_vq64y")
+expand_mode = 1
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=692782684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -462.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Columns" type="HBoxContainer" parent="Margin" unique_id=1669628960]
+layout_mode = 2
+
+[node name="LeftSpacer" type="Control" parent="Margin/Columns" unique_id=1264107310]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ContentScroll" type="ScrollContainer" parent="Margin/Columns" unique_id=370544691]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+horizontal_scroll_mode = 0
+
+[node name="Page" type="VBoxContainer" parent="Margin/Columns/ContentScroll" unique_id=755657927]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="HBoxContainer" parent="Margin/Columns/ContentScroll/Page" unique_id=207998253]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="Margin/Columns/ContentScroll/Page/Header" unique_id=79281060]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"AlchemyTitle"
+text = "选择材料"
+
+[node name="Back" type="Button" parent="Margin/Columns/ContentScroll/Page/Header" unique_id=1493003009]
+layout_mode = 2
+text = "返回房间"
+
+[node name="RecipeList" parent="Margin/Columns/ContentScroll/Page" unique_id=1238468336 instance=ExtResource("6_list")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RecipeDescription" type="Label" parent="Margin/Columns/ContentScroll/Page" unique_id=1418177319]
+unique_name_in_owner = true
+layout_mode = 2
+text = "将药草与清水调和，制成一瓶基础回复药。 · 成品：回复药 ×1"
+autowrap_mode = 3
+
+[node name="SlotScroll" type="ScrollContainer" parent="Margin/Columns/ContentScroll/Page" unique_id=1701386298]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="IngredientSlots" type="HBoxContainer" parent="Margin/Columns/ContentScroll/Page/SlotScroll" unique_id=488050999]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewHerbSlot" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots" unique_id=131900068 instance=ExtResource("7_slot")]
+layout_mode = 2
+button_pressed = true
+
+[node name="PreviewWaterSlot" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots" unique_id=1373730207 instance=ExtResource("7_slot")]
+layout_mode = 2
+
+[node name="Icon" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="0"]
+texture = ExtResource("10_water")
+
+[node name="IngredientName" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="1"]
+text = "清水"
+
+[node name="Count" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="2"]
+text = "0 / 1"
+
+[node name="IngredientSelect" parent="Margin/Columns/ContentScroll/Page" unique_id=829074821 instance=ExtResource("8_select")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="Margin/Columns/ContentScroll/Page" unique_id=1382715043]
+layout_mode = 2
+
+[node name="ClearSlot" type="Button" parent="Margin/Columns/ContentScroll/Page/Footer" unique_id=627998160]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "清空当前槽（Backspace），或右键需求图标"
+disabled = true
+text = "清空当前槽"
+
+[node name="Status" type="Label" parent="Margin/Columns/ContentScroll/Page/Footer" unique_id=146483363]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "请先选择足够的素材。"
+autowrap_mode = 3
+
+[node name="StartAlchemy" type="Button" parent="Margin/Columns/ContentScroll/Page/Footer" unique_id=1777885634]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 48)
+layout_mode = 2
+disabled = true
+text = "开始炼金"
+
+[node name="RightSpacer" type="Control" parent="Margin/Columns" unique_id=1730902922]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Result" parent="." unique_id=1813492881 instance=ExtResource("9_result")]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="Margin/Columns/ContentScroll/Page/Header/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Margin/Columns/ContentScroll/Page/Footer/ClearSlot" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="Margin/Columns/ContentScroll/Page/Footer/StartAlchemy" to="." method="_synthesize"]
+
+[editable path="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot"]

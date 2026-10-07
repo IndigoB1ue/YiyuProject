@@ -18,6 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*uid://ds2q0uclmolvu"
+SceneManager="*uid://c20qjapljbkhl"
+PlayerInventory="*res://scripts/inventory/inventory_system.gd"
+GameProgress="*res://scripts/game_progress.gd"
 
 [dialogic]
 

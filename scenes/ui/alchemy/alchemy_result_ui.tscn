@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/alchemy/alchemy_result_ui.gd" id="1"]
+[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="2"]
+
+[node name="AlchemyResultUI" type="AcceptDialog"]
+title = "炼金结果"
+size = Vector2i(380, 190)
+visible = false
+theme = ExtResource("2")
+dialog_text = "获得：\n回复药 ×1"
+ok_button_text = "确认"
+script = ExtResource("1")

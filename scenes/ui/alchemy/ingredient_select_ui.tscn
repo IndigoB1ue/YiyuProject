@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/alchemy/ingredient_select_ui.gd" id="1"]
+[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/material_cell_ui.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/empty_material_cell.tscn" id="4"]
+
+[node name="IngredientSelectUI" type="VBoxContainer"]
+offset_right = 760.0
+offset_bottom = 350.0
+size_flags_vertical = 3
+theme = ExtResource("2")
+script = ExtResource("1")
+material_cell_scene = ExtResource("3")
+empty_cell_scene = ExtResource("4")
+
+[node name="Heading" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"AlchemySectionTitle"
+text = "药草 · 可选素材 5 个"
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 2
+text = "每格代表 1 个素材，点击选入；当前槽还需 2 个。"
+autowrap_mode = 3
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Grid" type="GridContainer" parent="Scroll"]
+layout_mode = 2
+columns = 7
+
+[node name="PreviewCell0" parent="Scroll/Grid" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="PreviewCell1" parent="Scroll/Grid" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="PreviewCell2" parent="Scroll/Grid" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="PreviewCell3" parent="Scroll/Grid" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="PreviewCell4" parent="Scroll/Grid" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="PreviewCell5" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell6" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell7" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell8" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell9" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell10" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell11" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell12" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell13" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell14" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell15" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell16" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell17" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell18" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell19" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell20" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell21" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell22" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[node name="PreviewCell23" parent="Scroll/Grid" instance=ExtResource("4")]
+layout_mode = 2
+
+[connection signal="resized" from="Scroll" to="." method="_resize_grid"]
