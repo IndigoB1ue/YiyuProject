@@ -1,0 +1,1027 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/inventory/inventory_ui.gd" id="1_script"]
+[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory/inventory_slot_ui.tscn" id="3_slot"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory/inventory_requirement_ui.tscn" id="4_requirement"]
+[ext_resource type="Script" path="res://scripts/ui/room_canvas_fit.gd" id="5_fit"]
+
+[node name="InventoryUI" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_script")
+slot_scene = ExtResource("3_slot")
+requirement_scene = ExtResource("4_requirement")
+
+[node name="OpenButton" type="Button" parent="."]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -164.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme = ExtResource("2_theme")
+text = "背包  [I]"
+mouse_default_cursor_shape = 2
+
+[node name="Overlay" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="Shade" type="ColorRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.025, 0.04, 0.72)
+
+[node name="Body" type="Control" parent="Overlay"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 620.0
+mouse_filter = 2
+script = ExtResource("5_fit")
+reference_size = Vector2(1000, 620)
+
+[node name="Panels" type="HBoxContainer" parent="Overlay/Body"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 988.0
+offset_bottom = 608.0
+theme_override_constants/separation = 20
+
+[node name="Bag" type="PanelContainer" parent="Overlay/Body/Panels"]
+custom_minimum_size = Vector2(464, 596)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"InventoryPanel"
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Body/Panels/Bag"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Body/Panels/Bag/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Overlay/Body/Panels/Bag/Margin/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Overlay/Body/Panels/Bag/Margin/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"AlchemyTitle"
+text = "背包"
+
+[node name="CloseButton" type="Button" parent="Overlay/Body/Panels/Bag/Margin/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "关闭"
+mouse_default_cursor_shape = 2
+
+[node name="Legend" type="HBoxContainer" parent="Overlay/Body/Panels/Bag/Margin/Content"]
+layout_mode = 2
+
+[node name="Recipes" type="Label" parent="Overlay/Body/Panels/Bag/Margin/Content/Legend"]
+layout_mode = 2
+theme_type_variation = &"InventoryRecipeLegend"
+text = "■ 配方"
+
+[node name="Materials" type="Label" parent="Overlay/Body/Panels/Bag/Margin/Content/Legend"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"InventoryMaterialLegend"
+text = "■ 素材"
+
+[node name="CapacityLabel" type="Label" parent="Overlay/Body/Panels/Bag/Margin/Content/Legend"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InventoryCaption"
+text = "0 / 200 格"
+
+[node name="ItemScroll" type="ScrollContainer" parent="Overlay/Body/Panels/Bag/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+follow_focus = true
+
+[node name="Grid" type="GridContainer" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+
+[node name="Slot001" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot002" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot003" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot004" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot005" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot006" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot007" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot008" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot009" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot010" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot011" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot012" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot013" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot014" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot015" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot016" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot017" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot018" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot019" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot020" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot021" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot022" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot023" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot024" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot025" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot026" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot027" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot028" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot029" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot030" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot031" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot032" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot033" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot034" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot035" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot036" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot037" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot038" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot039" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot040" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot041" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot042" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot043" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot044" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot045" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot046" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot047" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot048" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot049" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot050" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot051" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot052" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot053" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot054" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot055" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot056" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot057" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot058" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot059" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot060" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot061" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot062" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot063" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot064" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot065" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot066" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot067" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot068" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot069" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot070" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot071" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot072" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot073" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot074" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot075" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot076" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot077" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot078" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot079" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot080" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot081" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot082" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot083" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot084" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot085" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot086" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot087" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot088" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot089" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot090" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot091" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot092" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot093" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot094" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot095" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot096" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot097" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot098" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot099" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot100" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot101" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot102" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot103" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot104" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot105" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot106" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot107" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot108" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot109" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot110" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot111" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot112" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot113" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot114" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot115" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot116" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot117" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot118" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot119" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot120" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot121" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot122" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot123" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot124" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot125" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot126" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot127" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot128" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot129" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot130" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot131" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot132" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot133" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot134" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot135" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot136" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot137" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot138" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot139" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot140" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot141" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot142" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot143" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot144" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot145" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot146" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot147" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot148" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot149" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot150" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot151" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot152" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot153" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot154" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot155" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot156" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot157" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot158" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot159" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot160" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot161" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot162" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot163" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot164" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot165" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot166" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot167" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot168" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot169" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot170" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot171" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot172" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot173" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot174" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot175" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot176" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot177" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot178" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot179" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot180" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot181" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot182" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot183" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot184" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot185" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot186" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot187" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot188" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot189" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot190" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot191" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot192" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot193" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot194" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot195" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot196" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot197" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot198" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot199" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot200" parent="Overlay/Body/Panels/Bag/Margin/Content/ItemScroll/Grid" instance=ExtResource("3_slot")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Hint" type="Label" parent="Overlay/Body/Panels/Bag/Margin/Content"]
+layout_mode = 2
+theme_type_variation = &"InventoryCaption"
+text = "选择物品查看详情 · I / Esc 关闭"
+horizontal_alignment = 1
+
+[node name="DetailsSpace" type="Control" parent="Overlay/Body/Panels"]
+custom_minimum_size = Vector2(460, 596)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Details" type="PanelContainer" parent="Overlay/Body/Panels/DetailsSpace"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"InventoryPanel"
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Body/Panels/DetailsSpace/Details"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin"]
+layout_mode = 2
+
+[node name="IconCenter" type="CenterContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 190)
+
+[node name="IconFrame" type="PanelContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/IconCenter"]
+custom_minimum_size = Vector2(200, 180)
+layout_mode = 2
+theme_type_variation = &"InventoryIconPanel"
+
+[node name="DetailIcon" type="TextureRect" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/IconCenter/IconFrame"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DescriptionFrame" type="PanelContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"InventoryIconPanel"
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Scroll" type="ScrollContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="DetailsContent" type="VBoxContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DetailName" type="Label" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin/Scroll/DetailsContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"AlchemySectionTitle"
+text = "物品名称"
+autowrap_mode = 3
+
+[node name="DetailDescription" type="Label" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin/Scroll/DetailsContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "选中物品后显示介绍。"
+autowrap_mode = 3
+
+[node name="IngredientsHeading" type="Label" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin/Scroll/DetailsContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InventoryCaption"
+text = "所需素材"
+
+[node name="Ingredients" type="GridContainer" parent="Overlay/Body/Panels/DetailsSpace/Details/Margin/Content/DescriptionFrame/Margin/Scroll/DetailsContent"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+
+[connection signal="pressed" from="OpenButton" to="." method="open_inventory"]
+[connection signal="pressed" from="Overlay/Body/Panels/Bag/Margin/Content/Header/CloseButton" to="." method="close_inventory"]
+

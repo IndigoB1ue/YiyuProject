@@ -11,3 +11,6 @@ theme = ExtResource("2")
 dialog_text = "获得：\n回复药 ×1"
 ok_button_text = "确认"
 script = ExtResource("1")
+
+[connection signal="confirmed" from="." to="." method="_on_result_dismissed"]
+[connection signal="canceled" from="." to="." method="_on_result_dismissed"]

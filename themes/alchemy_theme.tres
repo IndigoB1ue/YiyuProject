@@ -83,6 +83,114 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="InventoryEmptyStyle"]
+bg_color = Color(0.12, 0.16, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.3, 0.32, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_je4be"]
+bg_color = Color(0.1764706, 0.21176471, 0.22745098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2901961, 0.3254902, 0.3137255, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="InventoryMaterialHover"]
+bg_color = Color(0.08, 0.32, 0.47, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.74, 0.45, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="InventoryMaterialStyle"]
+bg_color = Color(0.045, 0.23, 0.36, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16, 0.46, 0.61, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="InventoryMaterialSelected"]
+bg_color = Color(0.045, 0.23, 0.36, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.74, 0.45, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="TutorialCardStyle"]
+bg_color = Color(0.1, 0.14, 0.16, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.74, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="InventoryRecipeHover"]
+bg_color = Color(0.36, 0.39, 0.42, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.74, 0.45, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="InventoryRecipeStyle"]
+bg_color = Color(0.29, 0.32, 0.35, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.52, 0.54, 0.55, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="InventoryRecipeSelected"]
+bg_color = Color(0.29, 0.32, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.74, 0.45, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qeqx3"]
 content_margin_left = 12.0
 content_margin_top = 6.0
@@ -163,13 +271,13 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_je4be"]
-bg_color = Color(0.1764706, 0.21176471, 0.22745098, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.3254902, 0.3137255, 1)
+[sub_resource type="StyleBoxFlat" id="TutorialHighlightStyle"]
+bg_color = Color(1, 0.83, 0.3, 0.12)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.87, 0.38, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -196,6 +304,35 @@ Button/styles/pressed = SubResource("StyleBoxFlat_mytw3")
 GridContainer/constants/h_separation = 6
 GridContainer/constants/v_separation = 6
 HBoxContainer/constants/separation = 12
+InventoryCaption/base_type = &"Label"
+InventoryCaption/font_sizes/font_size = 16
+InventoryEmptyCell/base_type = &"Button"
+InventoryEmptyCell/styles/disabled = SubResource("InventoryEmptyStyle")
+InventoryEmptyCell/styles/normal = SubResource("InventoryEmptyStyle")
+InventoryIconPanel/base_type = &"PanelContainer"
+InventoryIconPanel/styles/panel = SubResource("StyleBoxFlat_je4be")
+InventoryMaterialCell/base_type = &"Button"
+InventoryMaterialCell/styles/hover = SubResource("InventoryMaterialHover")
+InventoryMaterialCell/styles/normal = SubResource("InventoryMaterialStyle")
+InventoryMaterialCell/styles/pressed = SubResource("InventoryMaterialSelected")
+InventoryMaterialLegend/base_type = &"Label"
+InventoryMaterialLegend/colors/font_color = Color(0.26, 0.72, 0.92, 1)
+InventoryMaterialLegend/font_sizes/font_size = 16
+InventoryPanel/base_type = &"PanelContainer"
+InventoryPanel/styles/panel = SubResource("TutorialCardStyle")
+InventoryQuantity/base_type = &"Label"
+InventoryQuantity/colors/font_color = Color(1, 0.95, 0.82, 1)
+InventoryQuantity/colors/font_shadow_color = Color(0, 0, 0, 1)
+InventoryQuantity/constants/shadow_offset_x = 1
+InventoryQuantity/constants/shadow_offset_y = 1
+InventoryQuantity/font_sizes/font_size = 15
+InventoryRecipeCell/base_type = &"Button"
+InventoryRecipeCell/styles/hover = SubResource("InventoryRecipeHover")
+InventoryRecipeCell/styles/normal = SubResource("InventoryRecipeStyle")
+InventoryRecipeCell/styles/pressed = SubResource("InventoryRecipeSelected")
+InventoryRecipeLegend/base_type = &"Label"
+InventoryRecipeLegend/colors/font_color = Color(0.7, 0.72, 0.75, 1)
+InventoryRecipeLegend/font_sizes/font_size = 16
 Label/colors/font_color = Color(0.9372549, 0.9019608, 0.8117647, 1)
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
@@ -209,4 +346,13 @@ OptionButton/styles/hover = SubResource("StyleBoxFlat_1y7fy")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_o48ty")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_do4hn")
 Panel/styles/panel = SubResource("StyleBoxFlat_je4be")
+RovinTutorialCard/base_type = &"PanelContainer"
+RovinTutorialCard/styles/panel = SubResource("TutorialCardStyle")
+RovinTutorialHighlight/base_type = &"Panel"
+RovinTutorialHighlight/styles/panel = SubResource("TutorialHighlightStyle")
+RovinTutorialTargetLabel/base_type = &"Label"
+RovinTutorialTargetLabel/colors/font_color = Color(1, 0.91, 0.56, 1)
+RovinTutorialTargetLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
+RovinTutorialTargetLabel/constants/shadow_offset_x = 1
+RovinTutorialTargetLabel/constants/shadow_offset_y = 1
 VBoxContainer/constants/separation = 12

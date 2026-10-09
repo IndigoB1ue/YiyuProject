@@ -4,6 +4,7 @@ extends Node
 signal inventory_changed
 
 @export var catalog: ItemCatalog = preload("res://data/items/catalog.tres")
+@export_range(1, 999) var capacity: int = 200
 var _items: Dictionary = {}
 
 func _ready() -> void:
@@ -18,6 +19,9 @@ func get_amount(item_id: StringName) -> int:
 
 func get_items() -> Dictionary:
 	return _items.duplicate()
+
+func get_occupied_slots() -> int:
+	return _items.size()
 
 func add_item(item_id: StringName, amount: int) -> Dictionary:
 	return exchange({}, item_id, amount)
@@ -49,6 +53,9 @@ func exchange(costs: Dictionary, result_id: StringName = &"", result_amount: int
 			updated.erase(key)
 	if result_id != &"":
 		updated[result_id] = int(updated.get(result_id, 0)) + result_amount
+	# One ItemID occupies one shared slot; check the final transaction, not its intermediate steps.
+	if updated.size() > capacity:
+		return _error("背包已满，最多可存放 %d 种物品。" % capacity)
 	_items = updated
 	inventory_changed.emit()
 	return {"ok": true, "error": ""}

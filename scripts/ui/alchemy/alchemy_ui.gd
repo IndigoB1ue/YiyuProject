@@ -20,6 +20,7 @@ var _slots: Array[IngredientSlotUI] = []
 @onready var _status: Label = %Status
 @onready var _picker: IngredientSelectUI = %IngredientSelect
 @onready var _result: AlchemyResultUI = %Result
+@onready var _story: AlchemyStoryTrigger = $StoryTrigger
 
 func _ready() -> void:
 	_inventory = get_node("/root/PlayerInventory") as InventorySystem
@@ -126,7 +127,7 @@ func _synthesize() -> void:
 	_result.show_result(result, _inventory)
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if _result.visible or not event is InputEventKey or not event.pressed or event.echo:
+	if _story.is_playing or _result.visible or not event is InputEventKey or not event.pressed or event.echo:
 		return
 	match event.physical_keycode:
 		KEY_Q:
@@ -138,3 +139,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_:
 			return
 	get_viewport().set_input_as_handled()
+
+func _on_story_playback_failed(message: String) -> void:
+	_result.show_result({"ok": false, "error": message}, _inventory)

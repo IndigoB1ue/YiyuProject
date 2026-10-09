@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://dpvy8cq34meeo"]
 
 [ext_resource type="Texture2D" uid="uid://cdxo61f7khpgr" path="res://asserts/image/game/RovinRoom/RoomTopDown.png" id="1_uw8tt"]
-[ext_resource type="Script" uid="uid://b5qikaykqb72a" path="res://scripts/rovin_room.gd" id="2_room"]
+[ext_resource type="Script" uid="uid://b5qikaykqb72a" path="res://scripts/rovin_room/rovin_room.gd" id="2_room"]
 [ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="3_recipe"]
+[ext_resource type="PackedScene" uid="uid://b6xk8f6fy3jkj" path="res://scenes/ui/rovin_tutorial_ui.tscn" id="4_tutorial"]
+[ext_resource type="Script" uid="uid://dyri4im2kr1hu" path="res://scripts/rovin_room/rovin_tutorial_controller.gd" id="5_controller"]
+[ext_resource type="Script" uid="uid://u30uokhsog3" path="res://scripts/rovin_room/rovin_stairs_trigger.gd" id="6_stairs"]
+[ext_resource type="Theme" uid="uid://de81iqt034brf" path="res://themes/rovin_room_theme.tres" id="7_theme"]
+[ext_resource type="Script" uid="uid://bdf53bd0xu05" path="res://scripts/ui/room_canvas_fit.gd" id="8_canvas"]
 
 [node name="RovinRoom" type="Control" unique_id=124905229]
 layout_mode = 3
@@ -11,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_theme")
 script = ExtResource("2_room")
 found_recipe = ExtResource("3_recipe")
 material_rewards = {
@@ -32,14 +38,154 @@ material_rewards = {
 }
 }
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=919028875]
+[node name="RoomCanvas" type="Control" parent="." unique_id=1009928229]
+anchors_preset = 0
+offset_left = 135.49173
+offset_right = 1205.4917
+offset_bottom = 787.0
+scale = Vector2(0.82337993, 0.82337993)
+mouse_filter = 2
+script = ExtResource("8_canvas")
+
+[node name="TextureRect" type="TextureRect" parent="RoomCanvas" unique_id=919028875]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 301.81485
+offset_top = 75.29941
+offset_right = 158.93225
+offset_bottom = -13.359497
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("1_uw8tt")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Hotspots" type="Control" parent="RoomCanvas" unique_id=1839045114]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 162.14664
+offset_top = 15.788481
+offset_right = 162.1466
+offset_bottom = -13.359497
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RecipeHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=1001736836]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 567.1744
+offset_top = 132.38127
+offset_right = 664.1744
+offset_bottom = 294.3813
+tooltip_text = "书柜"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="BedsideHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=1603974433]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 393.5
+offset_top = 80.15751
+offset_right = 428.5
+offset_bottom = 312.12817
+tooltip_text = "床头柜"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="ShoeHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=1703998960]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 290.26703
+offset_top = 535.5973
+offset_right = 330.26703
+offset_bottom = 652.5973
+tooltip_text = "鞋柜"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="DeskHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=837696193]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 148.16975
+offset_top = 252.61739
+offset_right = 197.16975
+offset_bottom = 406.61737
+tooltip_text = "书桌"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="CalculationHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=295209588]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 663.12036
+offset_top = 551.38586
+offset_right = 950.3596
+offset_bottom = 618.07117
+tooltip_text = "测算长桌"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="AlchemyHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=1375091338]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 824.6497
+offset_top = 78.943
+offset_right = 1060.5046
+offset_bottom = 261.11893
+tooltip_text = "炼金区域"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+
+[node name="StairsHotspot" type="Button" parent="RoomCanvas/Hotspots" unique_id=1731503178]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 580.53394
+offset_top = 613.3257
+offset_right = 671.53394
+offset_bottom = 745.3257
+tooltip_text = "楼梯"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RovinHotspot"
+disabled = true
+
+[node name="Status" type="Label" parent="." unique_id=805657787]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 900.0
+offset_bottom = 50.0
+theme_type_variation = &"RovinStatusLabel"
+text = "清洗剂配方：未获得    已搜集：0 / 4处"
+
+[node name="Message" type="AcceptDialog" parent="." unique_id=75907395]
+unique_name_in_owner = true
+title = "提示"
+size = Vector2i(380, 170)
+ok_button_text = "确定"
+dialog_text = "获得物品的提示会显示在这里。"
+
+[node name="TutorialUI" parent="." unique_id=1508181503 instance=ExtResource("4_tutorial")]
+
+[node name="TutorialController" type="Node" parent="." unique_id=1844919572]
+script = ExtResource("5_controller")
+
+[node name="StairsTrigger" type="Node" parent="." unique_id=1838969524]
+script = ExtResource("6_stairs")
+
+[connection signal="layout_updated" from="RoomCanvas" to="." method="_on_room_canvas_layout_updated"]
+[connection signal="pressed" from="RoomCanvas/Hotspots/RecipeHotspot" to="." method="_on_hotspot_pressed" binds= ["recipe"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/BedsideHotspot" to="." method="_on_hotspot_pressed" binds= ["bedside"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/ShoeHotspot" to="." method="_on_hotspot_pressed" binds= ["shoe"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/DeskHotspot" to="." method="_on_hotspot_pressed" binds= ["desk"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/CalculationHotspot" to="." method="_on_hotspot_pressed" binds= ["calculation"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/AlchemyHotspot" to="." method="_on_hotspot_pressed" binds= ["alchemy"]]
+[connection signal="pressed" from="RoomCanvas/Hotspots/StairsHotspot" to="." method="_on_hotspot_pressed" binds= ["stairs"]]
+[connection signal="playback_failed" from="StairsTrigger" to="." method="_show_message"]

@@ -4,18 +4,18 @@
 
 在 Godot 编辑器打开 `scenes/RovinRoom.tscn`，按 F6 体验探索到炼金的完整流程，也可从现有剧情进入房间。
 
-1. 点击书柜，获得“清洗剂”配方。
+1. 点击书柜，获得“清洗剂配方”物品 ×1，同时解锁清洗剂配方。
 2. 点击床头柜，获得清洗剂粉末 ×1。
 3. 点击鞋柜、书桌、测算长桌，每处各获得清水 ×1。
 4. 点击右上角炼金区域，界面只显示已经获取的配方。
 5. 依次在粉末和三个清水需求槽中各选入一个素材，点击“开始炼金”。
 6. 获得清洗剂 ×1，粉末和清水全部扣除，原有药草不变。
 
-直接运行 `AlchemyRoom.tscn` 时，新的游戏会显示“尚未获取配方”，点击“返回房间”即可探索。房间各地点只能领取一次。点击房间炼金区域时，必须已经获取清洗剂配方，且实际背包具备粉末 ×1、清水 ×3；否则留在房间并提示未获得的配方或缺少的素材数量。
+直接运行 `AlchemyRoom.tscn` 时，新的游戏会显示“尚未获取配方”，点击“返回房间”即可探索。房间各地点只能领取一次。点击房间炼金区域时，满足以下任意条件即可进入：背包有清洗剂配方 ×1（`clear_potion_recipe`）和清水 ×3；或者背包有清洁剂成品 ×1（沿用当前清洗剂物品 `clear_potion`）。否则留在房间，并提示缺少配方或清水的数量。
 
-入口检查依据当前配方数据合并重复素材需求，并读取实际背包库存，不使用已领取地点数代替库存。已经搜过的素材若被其他系统消耗，仍会阻止进入；入口检查不会扣除物品，真正点击“开始炼金”时仍会再次验证和扣除素材。
+入口读取实际背包数量，不使用搜过的地点数或已解锁标记代替物品数量。成品条件优先检查，即使没有配方和素材也可以进入，入口不消耗成品、配方或清水。粉末不属于此次入口条件，实际炼金仍需要粉末 ×1、清水 ×3，并在点击“开始炼金”时再次验证及扣除。配方物品不消耗。
 
-奖励数据配置在 `RovinRoom` 根节点的 `found_recipe` 和 `material_rewards` 中。初始背包仍由 `data/items/catalog.tres` 的 `initial_inventory` 配置，目前保留药草 ×2，清水和粉末通过房间领取。
+奖励数据配置在 `RovinRoom` 根节点的 `found_recipe`、`recipe_item_id` 和 `material_rewards` 中。初始背包仍由 `data/items/catalog.tres` 的 `initial_inventory` 配置，目前保留药草 ×2，配方、清水和粉末通过房间领取。
 
 界面采用上中下三层：上层配方选择，中层横向需求图标，下层匹配素材网格。需求图标数量根据配方数据生成，不固定为四个。
 
@@ -37,6 +37,10 @@
 - `AlchemySystem`：配方检查、素材候选、选择记录、跨槽预留统计、最终校验及调用背包提交。选择为每个素材槽一个 `{ItemID: 数量}` 字典。
 - `AlchemyUI`：组合界面，转交操作并刷新显示。
 - `GameProgressState`：记录已获取配方和已领取地点，供房间与炼金 UI 共享。
+- `RovinTutorialController`：按背包和领取状态判断引导阶段，指定当前目标。
+- `RovinTutorialUI`：显示提示卡、进度和目标描边，接收跳过操作。
+- `AlchemyStoryTrigger`：播放清洗剂后续剧情，结束后返回房间并开放楼梯。
+- `RovinStairsTrigger`：管理楼梯可交互状态和下一段 Dialogic 剧情播放。
 - `RecipeListUI`、`IngredientSlotUI`、`IngredientSelectUI`、`AlchemyResultUI`：各自负责配方列表、素材槽、素材选择和结果显示。
 
 ## 增加配方
@@ -50,7 +54,47 @@
 
 其他系统应通过 `PlayerInventory.add_item/remove_item` 修改库存；炼金的消耗和产出通过 `exchange` 一次完成，成功只发出一次变化通知。当前流程同步执行，无随机成功率、品质或动画。
 
+## 首次进入房间的教程
+
+第一次进入 RovinRoom 时会显示左下角提示卡和目标描边，依次引导玩家获取配方、收集素材、点击炼金区域。素材进度从当前配方的 ItemID 需求和实际背包数量计算；搜过或已经满足需求的地点不再高亮。玩家可自由选择搜集顺序，也可以提前搜集素材，提示会根据已拥有的物品继续下一阶段。
+
+“跳过引导”按钮会立即关闭提示卡及教程描边，不发放物品、不解锁配方、不影响领取与炼金入口检查。成功从房间进入炼金场景后，教程记录为完成；场景没有实际切换时不会记录完成。未完成的教程返回房间时按现有进度继续，已完成或已跳过的教程不再出现。已经拥有清洗剂成品的玩家也会自动结束引导。
+
+完成和跳过状态保存在 `GameProgress` 中，本次运行内跨场景保留；重新启动游戏后重置，目前没有写入存档。
+
+在编辑器中打开 `scenes/ui/rovin_tutorial_ui.tscn` 可调整提示卡位置、大小及跳过按钮。`scenes/ui/rovin_tutorial_target.tscn` 是目标描边模板；颜色和边框在 `themes/alchemy_theme.tres` 的 `RovinTutorialCard`、`RovinTutorialHighlight`、`RovinTutorialTargetLabel` 类型变体中配置。高亮区域跟随实际房间按钮的缩放和位置，并允许鼠标点击穿透。
+
+## 获得清洗剂后的 timeline
+
+`AlchemyRoom` 中的 `StoryTrigger` 节点负责后续 Dialogic 剧情，现已配置为 `CP01_EP02_SI02`。编辑器保存的 `uid://` 引用和 `res://` 文件路径都支持。路径留空时炼金仍正常进行，不播放剧情，也不记录为已经播放。
+
+创建好新的 Dialogic timeline 后，打开 `scenes/AlchemyRoom.tscn`，选中 `StoryTrigger`，在检查器的 `Timeline Path` 选择 `.dtl` 文件并保存场景。`Target Item Id` 默认是清洗剂成品 `clear_potion`。
+
+流程为：成功炼金并加入背包 → 显示获得清洗剂的结果 → 玩家确认或关闭结果窗口 → 下一帧开始 timeline。失败炼金、其他成品不会触发。剧情播放时隐藏炼金操作区，保留场景背景；剧情结束后自动进入 `RovinRoom`，并记录清洗剂剧情已完成。
+
+剧情每次游戏运行只触发一次，状态保存在 `GameProgress.cleanser_timeline_started`，跨场景保留；重复获得清洗剂不会再次播放。配置路径不存在时显示错误，已经获得的物品不会丢失，也不会标记为已播放。当前没有存档持久化。
+
+## 剧情结束后的楼梯
+
+只有在清洗剂后续 timeline 结束、`GameProgress.cleanser_timeline_completed` 为 true 后，房间底部标注“楼梯”的区域才会出现与素材收集相同的交互高亮。仅拥有清洗剂或仅开始播放剧情不会提前开放楼梯。
+
+点击楼梯后播放 `CP01_EP02_SI03`，可在 `RovinRoom` 的 `StairsTrigger` 节点的 `Timeline Path` 中调整目标。楼梯区域使用原图坐标 `Rect2(517, 641, 91, 132)`，跟随房间背景缩放。无需向 timeline 额外添加返回房间信号，前置剧情的 `timeline_ended` 会自动处理返回和开放楼梯。
+
+楼梯剧情播放时隐藏房间操作，连续点击不会重复启动。实际开始播放后记录 `GameProgress.stairs_timeline_started`；结束后恢复房间，楼梯不再重复触发。无效路径会显示错误并保留重试机会。这些剧情状态在本次运行内跨场景保留。
+
 ## 在编辑器中调整 UI
+
+### 房间 UI
+
+`RovinRoom.tscn` 已包含全部房间 UI：`RoomCanvas/Hotspots` 下的书柜、床头柜、鞋柜、书桌、测算长桌、炼金区域和楼梯按钮，根节点下的 `Status` 状态文字及 `Message` 提示窗口。按钮的点击信号也保存在场景中。
+
+选中相应热点按钮，即可在 2D 编辑器中拖动或调整尺寸。所有热点和背景共用 1070 ×787 的 `RoomCanvas` 参考画布，`room_canvas_fit.gd` 在编辑器和运行时将整个画布等比缩放、居中，不会覆盖单个按钮的布局。教程描边会自动跟随真实按钮位置。
+
+高亮的颜色、透明度、边框及状态文字样式位于 `themes/rovin_room_theme.tres`：`RovinHotspot` 管理 normal/hover/pressed/disabled 样式，`RovinStatusLabel` 管理字号和阴影。状态文字保留字号 25、阴影偏移 5；位置可以直接拖动 `Status`，提示窗口可编辑 `Message`。
+
+楼梯默认隐藏且不可用，运行时由剧情进度控制。编辑其区域时可以选中 `StairsHotspot` 查看边框，或临时显示以调整布局。请保留这些节点的唯一名称和点击信号连接，它们是脚本的交互入口。
+
+### 炼金 UI
 
 固定布局已移入场景，打开 `scenes/AlchemyRoom.tscn` 后可直接在 2D 编辑器中查看和调整三层界面。`Margin/Columns` 的两侧 Spacer 和中间 ContentScroll 负责界面宽度，Page 下依次为标题、配方选择、配方说明、需求图标区、素材网格及底部操作区。
 
@@ -80,6 +124,12 @@ godot --headless --path . --script res://tests/alchemy_test.gd
 godot --headless --path . --script res://tests/alchemy_ui_test.gd
 godot --headless --path . --script res://tests/alchemy_config_test.gd
 godot --headless --path . --script res://tests/rovin_alchemy_test.gd
+godot --headless --path . --script res://tests/rovin_entry_test.gd
+godot --headless --path . --script res://tests/rovin_tutorial_test.gd
+godot --headless --path . --script res://tests/rovin_tutorial_skip_test.gd
+godot --headless --path . --script res://tests/alchemy_story_test.gd
+godot --headless --path . --script res://tests/rovin_stairs_story_test.gd
+godot --headless --path . --script res://tests/rovin_room_ui_test.gd
 godot --headless --path . res://scenes/AlchemyRoom.tscn --quit-after 3
 ```
 

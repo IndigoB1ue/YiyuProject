@@ -20,7 +20,8 @@ config/icon="res://icon.svg"
 Dialogic="*uid://ds2q0uclmolvu"
 SceneManager="*uid://c20qjapljbkhl"
 PlayerInventory="*res://scripts/inventory/inventory_system.gd"
-GameProgress="*res://scripts/game_progress.gd"
+GameProgress="*res://scripts/core/game_progress.gd"
+InventoryUI="*res://scenes/ui/inventory/inventory_ui.tscn"
 
 [dialogic]
 
@@ -30,14 +31,17 @@ directories/dch_directory={
 "Elefriya": "res://dialogic/character/Elefriya.dch",
 "Lai": "res://dialogic/character/Lai.dch",
 "Leila": "res://dialogic/character/Leila.dch",
-"Rovin": "res://dialogic/character/Rovin.dch"
+"Rovin": "res://dialogic/character/Rovin.dch",
+"testcharacter": "res://dialogic/character/testcharacter.dch"
 }
 directories/dtl_directory={
 "CP01_EP01_SI01": "res://dialogic/timeline/CP01_EP01_SI01.dtl",
 "CP01_EP02_SI01": "res://dialogic/timeline/CP01_EP02_SI01.dtl",
 "CP01_EP02_SI02": "res://dialogic/timeline/CP01_EP02_SI02.dtl",
+"CP01_EP02_SI03": "res://dialogic/timeline/CP01_EP02_SI03.dtl",
 "CP_02": "res://dialogic/timeline/CP_02.dtl",
 "TestTimeline": "res://dialogic/timeline/TestTimeline.dtl",
+"character_test_timeline": "res://dialogic/timeline/character_test_timeline.dtl",
 "talk_1": "res://dialogic/timeline/talk_1.dtl",
 "talk_2": "res://dialogic/timeline/talk_2.dtl"
 }
@@ -85,6 +89,7 @@ variables={
 }
 layout/style_list=["res://dialogic/style/MyStyle.tres"]
 layout/default_style="res://dialogic/style/MyStyle.tres"
+portraits/default_portrait="res://scenes/dialogue/speaking_portrait.tscn"
 glossary/default_case_sensitive=true
 translation/enabled=false
 translation/original_locale="en"
@@ -95,16 +100,28 @@ translation/add_separator=false
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://asserts/": "green",
+"res://scenes/": "red",
+"res://scripts/": "orange"
+}
 
 [input]
 
+inventory_toggle={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":73,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 dialogic_default_action={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)

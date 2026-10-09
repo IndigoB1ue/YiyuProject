@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://b6xk8f6fy3jkj"]
+
+[ext_resource type="Script" uid="uid://g55dimsvnp16" path="res://scripts/ui/rovin_tutorial_ui.gd" id="1"]
+[ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://cycgd6wu843g1" path="res://scenes/ui/rovin_tutorial_target.tscn" id="3"]
+
+[node name="RovinTutorialUI" type="CanvasLayer" unique_id=1822554183]
+layer = 20
+script = ExtResource("1")
+target_highlight_scene = ExtResource("3")
+
+[node name="Overlay" type="Control" parent="." unique_id=762705824]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2")
+
+[node name="Highlights" type="Control" parent="Overlay" unique_id=2107489340]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Card" type="PanelContainer" parent="Overlay" unique_id=1846991305]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -265.0
+offset_right = 352.0
+offset_bottom = -6.0
+grow_vertical = 0
+theme_type_variation = &"RovinTutorialCard"
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Card" unique_id=826030312]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Card/Margin" unique_id=1262192723]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Overlay/Card/Margin/Content" unique_id=1883243723]
+layout_mode = 2
+theme_type_variation = &"AlchemySectionTitle"
+text = "第一步 · 寻找配方"
+
+[node name="Message" type="Label" parent="Overlay/Card/Margin/Content" unique_id=1386883995]
+layout_mode = 2
+text = "先检查高亮的书柜，寻找清洗剂配方。"
+autowrap_mode = 3
+
+[node name="Progress" type="Label" parent="Overlay/Card/Margin/Content" unique_id=2136253261]
+layout_mode = 2
+text = "清洗剂配方：0 / 1
+清洗剂粉末：0 / 1
+清水：0 / 3"
+
+[node name="Skip" type="Button" parent="Overlay/Card/Margin/Content" unique_id=9898826]
+layout_mode = 2
+tooltip_text = "关闭本次探索引导，仍可自由搜集和炼金。"
+text = "跳过引导"
+
+[connection signal="resized" from="Overlay" to="." method="update_highlight_positions"]
+[connection signal="pressed" from="Overlay/Card/Margin/Content/Skip" to="." method="_on_skip_pressed"]

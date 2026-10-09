@@ -6,3 +6,5 @@ extends Resource
 @export var icon: Texture2D
 @export_multiline var description: String
 @export var category: StringName
+## A recipe item points to the same resource used by the alchemy system.
+@export var alchemy_recipe: AlchemyRecipe

@@ -1,6 +1,11 @@
-join Leila center
+join Leila leftmost [animation="Instant In"]
 Leila: 你好
-join Ammy center
-join Rovin center
-join Lai center
-join Elder center
+join Ammy left [animation="Instant In"]
+Ammy: 你好
+update Leila [z_index="1"]
+Leila: 你好啊Ammy
+update Ammy [z_index="2"]
+Ammy: 你好啊 Leila
+update Leila [z_index="3"]
+Leila: 再见
+leave --All-- [animation="Instant Out"]

@@ -28,10 +28,13 @@
 },
 "Idle": {
 "export_overrides": {
-"image": "\"res://asserts/image/character/Elefriya/Elefriya_Idle.png\""
+"image": "\"res://asserts/image/character/Elefriya/艾蕾芙莉雅VER1.0 - （去背景）.png\"",
+"inactive_color": "Color(0.34901962, 0.34901962, 0.34901962, 1)",
+"speaking_z_order": "100.0"
 },
+"ignore_char_scale": false,
 "mirror": false,
-"offset": Vector2(0, 150),
+"offset": Vector2(-80, 100),
 "scale": 1,
 "scene": ""
 },

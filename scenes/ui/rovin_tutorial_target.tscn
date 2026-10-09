@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cycgd6wu843g1"]
+
+[ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="1"]
+
+[node name="TutorialTarget" type="Panel" unique_id=1581207932]
+offset_right = 140.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme = ExtResource("1")
+theme_type_variation = &"RovinTutorialHighlight"
+
+[node name="TargetName" type="Label" parent="." unique_id=174198833]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 40.0
+offset_right = 268.0
+offset_bottom = 70.0
+theme_type_variation = &"RovinTutorialTargetLabel"
+text = "引导目标"

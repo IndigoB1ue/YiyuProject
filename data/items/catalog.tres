@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="4"]
 [ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="5"]
 [ext_resource type="Texture2D" uid="uid://cxxityin0h47w" path="res://data/items/cleaning_powder.svg" id="5_5do8y"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="7_cleanser_recipe"]
 
 [sub_resource type="Resource" id="Herb"]
 script = ExtResource("2")
@@ -45,9 +46,17 @@ icon = ExtResource("5_5do8y")
 description = "是清洁剂粉末"
 metadata/_custom_type_script = "uid://cm7txbld12xq3"
 
+[sub_resource type="Resource" id="CleanserRecipeItem"]
+script = ExtResource("2")
+item_id = &"clear_potion_recipe"
+display_name = "清洗剂配方"
+icon = ExtResource("5")
+description = "记录清洗剂制作方法的配方。"
+alchemy_recipe = ExtResource("7_cleanser_recipe")
+
 [resource]
 script = ExtResource("1")
-items = Array[ExtResource("2")]([SubResource("Herb"), SubResource("Water"), SubResource("Potion"), SubResource("Resource_qlydm"), SubResource("Resource_vq64y")])
+items = Array[ExtResource("2")]([SubResource("Herb"), SubResource("Water"), SubResource("Potion"), SubResource("Resource_qlydm"), SubResource("Resource_vq64y"), SubResource("CleanserRecipeItem")])
 initial_inventory = {
 &"Herb": 2
 }

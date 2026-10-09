@@ -1,0 +1,40 @@
+[gd_resource type="Theme" format=3 uid="uid://de81iqt034brf"]
+
+[sub_resource type="StyleBoxEmpty" id="HotspotDisabled"]
+
+[sub_resource type="StyleBoxFlat" id="HotspotHover"]
+bg_color = Color(1, 0.85, 0.3, 0.35)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.7, 0.1, 1)
+
+[sub_resource type="StyleBoxFlat" id="HotspotNormal"]
+bg_color = Color(1, 0.75, 0.15, 0.16)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.7, 0.1, 1)
+
+[sub_resource type="StyleBoxFlat" id="HotspotPressed"]
+bg_color = Color(1, 0.85, 0.3, 0.5)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.7, 0.1, 1)
+
+[resource]
+RovinHotspot/base_type = &"Button"
+RovinHotspot/styles/disabled = SubResource("HotspotDisabled")
+RovinHotspot/styles/hover = SubResource("HotspotHover")
+RovinHotspot/styles/normal = SubResource("HotspotNormal")
+RovinHotspot/styles/pressed = SubResource("HotspotPressed")
+RovinStatusLabel/base_type = &"Label"
+RovinStatusLabel/colors/font_color = Color(1, 1, 1, 1)
+RovinStatusLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
+RovinStatusLabel/constants/shadow_offset_x = 5
+RovinStatusLabel/constants/shadow_offset_y = 5
+RovinStatusLabel/font_sizes/font_size = 25

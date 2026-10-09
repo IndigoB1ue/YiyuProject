@@ -299,3 +299,9 @@ func _apply_sounds_settings() -> void:
 	type_sounds.pitch_variance = typing_sounds_pitch_variance
 	type_sounds.volume_variance = typing_sounds_volume_variance
 	type_sounds.ignore_characters = typing_sounds_ignore_characters
+
+func _on_fast_forward_button_pressed() -> void:
+	var skip = Dialogic.Inputs.auto_skip
+	skip.disable_on_unread_text = false
+	skip.time_per_event = 0.1
+	skip.enabled = not skip.enabled

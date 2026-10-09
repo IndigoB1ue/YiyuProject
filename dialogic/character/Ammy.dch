@@ -19,7 +19,8 @@
 &"portraits": {
 "Idle": {
 "export_overrides": {
-"image": "\"res://asserts/image/character/Amy/Amy_Idle.png\""
+"image": "\"res://asserts/image/character/Amy/Amy_Idle.png\"",
+"inactive_color": "Color(0.34901962, 0.34901962, 0.34901962, 1)"
 },
 "mirror": false,
 "offset": Vector2(0, 80),

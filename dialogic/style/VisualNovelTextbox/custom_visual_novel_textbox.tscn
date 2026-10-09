@@ -343,3 +343,25 @@ theme_override_font_sizes/font_size = 15
 text = "S"
 script = ExtResource("7_bi7sh")
 name_label_root = NodePath("..")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Anchor/AnimationParent/Sizer" unique_id=200598230]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -50.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FastForwardButton" type="Button" parent="Anchor/AnimationParent/Sizer/HBoxContainer" unique_id=1252221547]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "快进"
+
+[connection signal="pressed" from="Anchor/AnimationParent/Sizer/HBoxContainer/FastForwardButton" to="." method="_on_fast_forward_button_pressed"]

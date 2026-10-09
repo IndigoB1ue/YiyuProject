@@ -50,9 +50,16 @@ func _run() -> void:
 	_collect(room, "recipe")
 	_expect(not progress.is_interaction_claimed(&"RovinRoom/recipe") and not progress.is_recipe_unlocked(&"ClearPotion"), "Invalid recipe reward is not claimed")
 	room.found_recipe = original_recipe
+	var original_recipe_item: StringName = room.recipe_item_id
+	room.recipe_item_id = &"Missing"
+	_collect(room, "recipe")
+	_expect(not progress.is_interaction_claimed(&"RovinRoom/recipe") and not progress.is_recipe_unlocked(&"ClearPotion"), "Invalid recipe item reward does not claim or unlock the bookshelf")
+	room.recipe_item_id = original_recipe_item
 	_collect(room, "recipe")
 	_expect(progress.is_recipe_unlocked(&"ClearPotion") and room._hotspots.recipe.disabled, "Bookshelf unlocks the cleanser recipe once")
+	_expect(inventory.get_amount(&"clear_potion_recipe") == 1, "Bookshelf also places one recipe item in inventory")
 	_collect(room, "recipe")
+	_expect(inventory.get_amount(&"clear_potion_recipe") == 1, "Repeated bookshelf input cannot duplicate the recipe item")
 	var original_reward: Dictionary = room.material_rewards.bedside.duplicate()
 	room.material_rewards.bedside = {"item_id": &"Missing", "amount": 1}
 	_collect(room, "bedside")
@@ -121,9 +128,11 @@ func _run() -> void:
 		_collect(room, id)
 	_expect(inventory.get_amount(&"Water") == 0 and inventory.get_amount(&"cleaning_powder") == 0, "Returning after crafting cannot refill ingredients")
 	_expect(progress.is_recipe_unlocked(&"ClearPotion"), "Crafting does not consume the learned recipe")
+	_expect(inventory.get_amount(&"clear_potion_recipe") == 1, "Crafting does not consume the recipe item")
+	var inventory_before_reentry := inventory.get_items()
 	room._hotspots.alchemy.pressed.emit()
 	await _settle()
-	_expect(current_scene == room and room._message.dialog_text.contains("素材不足"), "Spent ingredients block reentry even though every location was collected")
-	room._message.hide()
+	_expect(current_scene is AlchemyUI, "Owning the cleanser permits reentry after ingredients are spent")
+	_expect(inventory.get_items() == inventory_before_reentry, "Reentry does not consume the cleanser or recipe")
 	print("Rovin exploration → alchemy tests: ", "PASS" if _failures == 0 else "FAIL", " (", _failures, " failures)")
 	quit(0 if _failures == 0 else 1)
