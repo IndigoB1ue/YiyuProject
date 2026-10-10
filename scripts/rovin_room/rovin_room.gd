@@ -21,6 +21,7 @@ var _progress: GameProgressState
 @onready var _message: AcceptDialog = %Message
 @onready var _tutorial: RovinTutorialController = $TutorialController
 @onready var _stairs: RovinStairsTrigger = $StairsTrigger
+@onready var _map_button: Button = $MapButton
 
 func _ready() -> void:
 	_inventory = get_node("/root/PlayerInventory") as InventorySystem
@@ -28,6 +29,20 @@ func _ready() -> void:
 	_update_status()
 	_stairs.setup(_progress, _hotspots.stairs)
 	_tutorial.setup(_inventory, _progress, found_recipe, recipe_item_id, material_rewards, _hotspots)
+	_progress.rovin_tutorial_changed.connect(_refresh_map_button)
+	_refresh_map_button()
+
+func _refresh_map_button() -> void:
+	_map_button.visible = not _progress.should_show_rovin_tutorial()
+
+func _on_map_pressed() -> void:
+	if _map_button.visible and not _message.visible:
+		SceneManager.open_map()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_M:
+		_on_map_pressed()
+		get_viewport().set_input_as_handled()
 
 func _on_room_canvas_layout_updated() -> void:
 	if is_instance_valid(_tutorial):

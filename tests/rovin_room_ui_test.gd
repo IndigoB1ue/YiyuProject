@@ -72,14 +72,16 @@ func _run() -> void:
 		room._message.hide()
 		_expect(room._hotspots[id].disabled, "Scene-authored material hotspot is disabled after collection")
 	_expect(inventory.get_amount(&"cleaning_powder") == 1 and inventory.get_amount(&"Water") == 3, "Scene signal bindings preserve all exploration rewards")
-	var progress := root.get_node("GameProgress") as GameProgressState
+	var progress := root.get_node("GameProgress")
 	_expect(not room._hotspots.stairs.visible, "Stair hotspot remains hidden before the story condition")
 	progress.complete_cleanser_timeline()
 	_expect(room._hotspots.stairs.visible and not room._hotspots.stairs.disabled, "Stairs controller operates on the scene-authored button")
-	room._stairs.timeline_path = ""
 	room._hotspots.stairs.pressed.emit()
-	_expect(room._message.visible, "Stair button is connected to its existing story handler")
-	room._message.hide()
+	await _settle()
+	_expect(current_scene.name == "AcademyMap", "Stair button opens the academy map")
+	current_scene.get_node("%RovinDorm").pressed.emit()
+	await _settle()
+	room = current_scene
 	room._hotspots.alchemy.pressed.emit()
 	await _settle()
 	_expect(current_scene != room and current_scene.name == "AlchemyRoom", "Room still enters alchemy after collecting the requirements")

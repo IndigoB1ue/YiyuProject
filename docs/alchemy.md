@@ -40,7 +40,7 @@
 - `RovinTutorialController`：按背包和领取状态判断引导阶段，指定当前目标。
 - `RovinTutorialUI`：显示提示卡、进度和目标描边，接收跳过操作。
 - `AlchemyStoryTrigger`：播放清洗剂后续剧情，结束后返回房间并开放楼梯。
-- `RovinStairsTrigger`：管理楼梯可交互状态和下一段 Dialogic 剧情播放。
+- `RovinStairsTrigger`：完成清洗剂剧情后开放楼梯，点击返回学院地图。
 - `RecipeListUI`、`IngredientSlotUI`、`IngredientSelectUI`、`AlchemyResultUI`：各自负责配方列表、素材槽、素材选择和结果显示。
 
 ## 增加配方
@@ -78,9 +78,11 @@
 
 只有在清洗剂后续 timeline 结束、`GameProgress.cleanser_timeline_completed` 为 true 后，房间底部标注“楼梯”的区域才会出现与素材收集相同的交互高亮。仅拥有清洗剂或仅开始播放剧情不会提前开放楼梯。
 
-点击楼梯后播放 `CP01_EP02_SI03`，可在 `RovinRoom` 的 `StairsTrigger` 节点的 `Timeline Path` 中调整目标。楼梯区域使用原图坐标 `Rect2(517, 641, 91, 132)`，跟随房间背景缩放。无需向 timeline 额外添加返回房间信号，前置剧情的 `timeline_ended` 会自动处理返回和开放楼梯。
+点击楼梯进入 `scenes/AcademyMap.tscn`，不播放剧情。地图中的罗维宿舍返回完整 `RovinRoom`；学生礼堂在清洗剂剧情完成后开放，点击播放 `CP01_EP02_SI03`。目标在学院地图根节点的 `Hall Timeline Path` 中配置。教学楼和学生宿舍目前显示但不可进入。
 
-楼梯剧情播放时隐藏房间操作，连续点击不会重复启动。实际开始播放后记录 `GameProgress.stairs_timeline_started`；结束后恢复房间，楼梯不再重复触发。无效路径会显示错误并保留重试机会。这些剧情状态在本次运行内跨场景保留。
+礼堂剧情播放时隐藏地图操作，连续点击不会重复启动。实际开始播放礼堂剧情时记录兼容旧字段 `GameProgress.stairs_timeline_started`，离开楼梯不记录该状态。剧情结束后恢复地图并禁止重复播放礼堂剧情。无效路径在地图底部显示错误并保留重试机会。楼梯始终可以返回地图；领取和剧情状态在本次运行内跨场景保留。礼堂原有 Demo 结束提示保持不变。
+
+房间引导完成或跳过后显示“学院地图 [M]”按钮。对话播放、背包打开或物品提示窗口显示时不能从此入口切换地图。首次流程仍可直接通过剧情解锁的楼梯离开。
 
 ## 在编辑器中调整 UI
 

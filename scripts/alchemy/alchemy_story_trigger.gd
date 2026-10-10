@@ -60,7 +60,11 @@ func _on_timeline_started() -> void:
 		_requested = false
 
 func _on_timeline_ended() -> void:
-	print("timeline_end")
+	if not is_playing or _starting:
+		return
+	is_playing = false
+	_progress.complete_cleanser_timeline()
+	_return_to_room.call_deferred()
 
 func _on_dialogic_signal(argument:String) -> void:
 	if argument == "CheckAndActiveStairs":

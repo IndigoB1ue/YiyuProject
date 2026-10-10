@@ -13,15 +13,15 @@
 这句话总会在平民学生与贵族学生冲突时掺杂在骂人的话里。
 也从另一个侧面，证明了这所学院的一个传言。
 相比外面的世界，这里确实是平民与贵族距离更近的地方。
-join Rovin rightmost
+join Rovin rightmost [animation="Instant In"]
 （脚步声）
 罗维找到了礼堂的一个僻静角落。
 这里远离大门，又与讲台相对，大多数的目光都不会落在这边。
 如果不是养父强烈要求，他断然是不会来当这个教师的。
 毕竟谁闲得没事儿给自己找个班上？
 可惜，庞大的研究资金和危险品准入许可证，还是诚意太足了。
-join Leila leftmost
-join Ammy left
+join Leila leftmost [animation="Instant In"]
+join Ammy left [animation="Instant In"]
 （讥笑声）
 不愉快的声音传来，打断了罗维的思绪。
 在距离他不远的地方，礼堂大门的位置，一个身材娇小的女生，正被三个比她高出两头的女生包围。

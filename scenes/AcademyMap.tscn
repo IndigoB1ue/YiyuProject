@@ -1,0 +1,183 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/academy_map.gd" id="1"]
+[ext_resource type="Texture2D" path="res://asserts/image/map/academy_map.png" id="2"]
+[ext_resource type="Script" path="res://scripts/ui/room_canvas_fit.gd" id="3"]
+[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="4"]
+
+[sub_resource type="StyleBoxFlat" id="normal"]
+bg_color = Color(0.08, 0.16, 0.18, 0.08)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_left = 22
+corner_radius_bottom_right = 22
+
+[sub_resource type="StyleBoxFlat" id="hover"]
+bg_color = Color(1, 0.88, 0.45, 0.16)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.9, 0.5, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_left = 22
+corner_radius_bottom_right = 22
+
+[sub_resource type="StyleBoxFlat" id="disabled"]
+bg_color = Color(0.1, 0.14, 0.18, 0.2)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_left = 22
+corner_radius_bottom_right = 22
+
+[node name="AcademyMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4")
+script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.06, 0.12, 0.13, 1)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 28.0
+offset_top = 14.0
+offset_right = 700.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 30
+text = "皇家魔法学院 · 学院地图"
+
+[node name="MapArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 80.0
+offset_right = -24.0
+offset_bottom = -76.0
+
+[node name="MapCanvas" type="Control" parent="MapArea"]
+script = ExtResource("3")
+reference_size = Vector2(1680, 945)
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="MapArea/MapCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+
+[node name="Hint" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -68.0
+offset_right = -28.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 19
+autowrap_mode = 2
+
+[node name="Teaching" type="Button" parent="MapArea/MapCanvas"]
+unique_name_in_owner = true
+offset_left = 170.0
+offset_top = 50.0
+offset_right = 750.0
+offset_bottom = 405.0
+theme_override_colors/font_color = Color(1, 1, 0.92, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.87, 0.87, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("normal")
+theme_override_styles/hover = SubResource("hover")
+theme_override_styles/pressed = SubResource("hover")
+theme_override_styles/focus = SubResource("hover")
+theme_override_styles/disabled = SubResource("disabled")
+text = "教学楼 · 暂未开放"
+mouse_default_cursor_shape = 2
+disabled = true
+
+[node name="Hall" type="Button" parent="MapArea/MapCanvas"]
+unique_name_in_owner = true
+offset_left = 965.0
+offset_top = 50.0
+offset_right = 1490.0
+offset_bottom = 410.0
+theme_override_colors/font_color = Color(1, 1, 0.92, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.87, 0.87, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("normal")
+theme_override_styles/hover = SubResource("hover")
+theme_override_styles/pressed = SubResource("hover")
+theme_override_styles/focus = SubResource("hover")
+theme_override_styles/disabled = SubResource("disabled")
+text = "学生礼堂"
+mouse_default_cursor_shape = 2
+disabled = false
+
+[node name="StudentDorm" type="Button" parent="MapArea/MapCanvas"]
+unique_name_in_owner = true
+offset_left = 185.0
+offset_top = 460.0
+offset_right = 780.0
+offset_bottom = 820.0
+theme_override_colors/font_color = Color(1, 1, 0.92, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.87, 0.87, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("normal")
+theme_override_styles/hover = SubResource("hover")
+theme_override_styles/pressed = SubResource("hover")
+theme_override_styles/focus = SubResource("hover")
+theme_override_styles/disabled = SubResource("disabled")
+text = "学生宿舍 · 暂未开放"
+mouse_default_cursor_shape = 2
+disabled = true
+
+[node name="RovinDorm" type="Button" parent="MapArea/MapCanvas"]
+unique_name_in_owner = true
+offset_left = 1170.0
+offset_top = 545.0
+offset_right = 1470.0
+offset_bottom = 835.0
+theme_override_colors/font_color = Color(1, 1, 0.92, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.87, 0.87, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("normal")
+theme_override_styles/hover = SubResource("hover")
+theme_override_styles/pressed = SubResource("hover")
+theme_override_styles/focus = SubResource("hover")
+theme_override_styles/disabled = SubResource("disabled")
+text = "罗维宿舍 · 进入房间"
+mouse_default_cursor_shape = 2
+disabled = false
+
+[connection signal="pressed" from="MapArea/MapCanvas/Hall" to="." method="_on_hall_pressed"]
+[connection signal="pressed" from="MapArea/MapCanvas/RovinDorm" to="." method="_on_rovin_pressed"]
+
