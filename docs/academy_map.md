@@ -6,7 +6,7 @@
 
 地图根节点检查器可配置 `Hall Timeline Path` 和 `Room Scene Path`。背景图片及建筑按钮在 `MapArea/MapCanvas` 下，参考尺寸 1680 × 945，使用 `room_canvas_fit.gd` 一起等比缩放。可在编辑器直接调整建筑按钮区域；按钮正常、悬停和禁用样式保存在场景中。
 
-礼堂剧情继续使用旧字段 `stairs_timeline_started` 记录单次播放状态，以兼容现有进度结构。离开楼梯不再标记剧情已播放，返回房间保留背包、领取、教程和剧情状态。目前进度仅保留在本次运行中，与原有系统一致。
+礼堂剧情继续使用旧字段 `stairs_timeline_started` 记录单次播放状态，以兼容现有进度结构。离开楼梯不再标记剧情已播放，返回房间保留背包、领取、教程和剧情状态。这些进度现已接入保存／读取，见 `docs/save_load.md`。
 
 验证：Godot 4.7.2 下运行 `tests/rovin_stairs_story_test.gd`、`tests/alchemy_story_test.gd`、`tests/rovin_room_ui_test.gd`。覆盖实际鼠标点击、礼堂前置条件、完整炼金剧情衔接、两种窗口尺寸、重复播放防护、错误配置重试和房间往返状态。
 

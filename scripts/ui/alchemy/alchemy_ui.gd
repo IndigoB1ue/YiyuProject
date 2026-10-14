@@ -142,3 +142,45 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _on_story_playback_failed(message: String) -> void:
 	_result.show_result({"ok": false, "error": message}, _inventory)
+
+func get_save_state() -> Dictionary:
+	return {"recipe_id": _recipe.recipe_id if _recipe != null else &"", "selection": _selection.duplicate(true),
+		"active_slot": _active_slot, "story_playing": _story.is_playing}
+
+## Also runs on an unmounted scene during save-file validation.
+func validate_save_state(state: Dictionary, inventory: InventorySystem, progress_state: Dictionary) -> Dictionary:
+	var error := {"ok": false, "error": "存档中的炼金素材选择无效。"}
+	if not (state.get("recipe_id") is String or state.get("recipe_id") is StringName) or not state.get("selection") is Array or not state.get("active_slot") is int or not state.get("story_playing") is bool:
+		return error
+	if str(state.recipe_id).is_empty():
+		return {"ok": state.selection.is_empty() and state.active_slot == -1, "error": error.error}
+	var recipe: AlchemyRecipe
+	for candidate in recipes:
+		if candidate != null and candidate.recipe_id == StringName(state.recipe_id):
+			recipe = candidate
+	if recipe == null or not progress_state.unlocked_recipes.has(StringName(state.recipe_id)) or state.selection.size() != recipe.ingredients.size() or state.active_slot < -1 or state.active_slot >= state.selection.size():
+		return error
+	var system := AlchemySystem.new(inventory)
+	if not system.check_recipe(recipe).ok:
+		return error
+	var selection := system.create_selection(recipe)
+	for index in state.selection.size():
+		if not state.selection[index] is Dictionary:
+			return error
+		for id in state.selection[index]:
+			var amount: Variant = state.selection[index][id]
+			if not (id is String or id is StringName) or not amount is int or not system.select_material(recipe, index, selection, StringName(id), amount).ok:
+				return error
+	return {"ok": true, "error": ""}
+
+func restore_save_state(state: Dictionary) -> void:
+	for candidate in recipes:
+		if candidate != null and candidate.recipe_id == StringName(state.get("recipe_id", "")):
+			_select_recipe(candidate)
+			for index in _selection.size():
+				for id in state.selection[index]:
+					_system.select_material(candidate, index, _selection, StringName(id), state.selection[index][id])
+			_active_slot = state.active_slot
+			break
+	_story.restore_playback(state.get("story_playing", false))
+	_refresh()

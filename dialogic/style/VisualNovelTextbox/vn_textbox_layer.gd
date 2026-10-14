@@ -300,8 +300,17 @@ func _apply_sounds_settings() -> void:
 	type_sounds.volume_variance = typing_sounds_volume_variance
 	type_sounds.ignore_characters = typing_sounds_ignore_characters
 
+func _ready() -> void:
+	super._ready()
+	if not Engine.is_editor_hint():
+		Dialogic.Inputs.auto_advance.toggled.connect(_sync_auto_button)
+		_sync_auto_button(Dialogic.Inputs.auto_advance.is_enabled())
+
+func _sync_auto_button(enabled: bool) -> void:
+	$Anchor/AnimationParent/Sizer/HBoxContainer/AutoButton.set_pressed_no_signal(enabled)
+
 func _on_fast_forward_button_pressed() -> void:
-	var skip = Dialogic.Inputs.auto_skip
-	skip.disable_on_unread_text = false
-	skip.time_per_event = 0.1
-	skip.enabled = not skip.enabled
+	get_node("/root/GameSettings").toggle_fast_forward()
+
+func _on_auto_button_pressed() -> void:
+	get_node("/root/GameSettings").toggle_auto_advance()

@@ -16,6 +16,49 @@ var stairs_timeline_started: bool = false
 var _unlocked_recipes: Dictionary = {}
 var _claimed_interactions: Dictionary = {}
 
+const SAVE_FLAGS := ["rovin_tutorial_completed", "rovin_tutorial_skipped", "cleanser_timeline_started", "cleanser_timeline_completed", "stairs_timeline_started"]
+
+func get_save_state() -> Dictionary:
+	var state := {"unlocked_recipes": _unlocked_recipes.duplicate(), "claimed_interactions": _claimed_interactions.duplicate()}
+	for flag: String in SAVE_FLAGS:
+		state[flag] = get(flag)
+	return state
+
+func validate_save_state(state: Dictionary) -> Dictionary:
+	for flag: String in SAVE_FLAGS:
+		if not state.get(flag) is bool:
+			return {"ok": false, "error": "存档中的剧情标记无效：%s" % flag}
+	for key: String in ["unlocked_recipes", "claimed_interactions"]:
+		if not state.get(key) is Dictionary:
+			return {"ok": false, "error": "存档中的剧情进度无效。"}
+		for id in state[key]:
+			if not (id is String or id is StringName) or str(id).is_empty() or state[key][id] != true:
+				return {"ok": false, "error": "存档中的配方或收集记录无效。"}
+	return {"ok": true, "error": ""}
+
+func restore_save_state(state: Dictionary, notify: bool = true) -> void:
+	for flag: String in SAVE_FLAGS:
+		set(flag, state[flag])
+	_unlocked_recipes.clear()
+	_claimed_interactions.clear()
+	for id in state.unlocked_recipes:
+		_unlocked_recipes[StringName(id)] = true
+	for id in state.claimed_interactions:
+		_claimed_interactions[StringName(id)] = true
+	if notify:
+		notify_save_state_restored()
+
+func notify_save_state_restored() -> void:
+	recipes_changed.emit()
+	rovin_tutorial_changed.emit()
+	room_story_changed.emit()
+
+func reset_for_new_game() -> void:
+	var initial := {"unlocked_recipes": {}, "claimed_interactions": {}}
+	for flag: String in SAVE_FLAGS:
+		initial[flag] = false
+	restore_save_state(initial)
+
 func _ready() -> void:
 	## 绘制确认框
 	message_dialog = AcceptDialog.new()

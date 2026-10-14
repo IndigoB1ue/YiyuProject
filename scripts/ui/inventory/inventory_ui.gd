@@ -101,6 +101,8 @@ func toggle_inventory() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if _settings_are_open():
+		return
 	# Catch the entry click before Dialogic treats it as a dialogue advance.
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not is_open() and _open_button.visible and _open_button.get_global_rect().has_point(event.position):
@@ -127,8 +129,16 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 func _can_open() -> bool:
+	if _settings_are_open():
+		return false
 	var scene := get_tree().current_scene
 	return _dialogic.current_timeline != null or (scene != null and scene.scene_file_path == room_scene_path)
+
+
+func _settings_are_open() -> bool:
+	var settings_ui := get_node_or_null("/root/SettingsUI")
+	var save_ui := get_node_or_null("/root/SaveUI")
+	return (settings_ui != null and settings_ui.is_open()) or (save_ui != null and save_ui.is_open())
 
 
 func _refresh_entry() -> void:

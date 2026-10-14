@@ -58,20 +58,31 @@ func _load_state(_load_flag := LoadFlags.FULL_LOAD) -> void:
 func _pack_extra_state() -> Dictionary:
 	var portrait_state := {}
 	for i in character_nodes:
-		portrait_state[i] = character_nodes[i].get_child(-1)._get_state()
+		var node: Node = character_nodes[i]
+		if not is_instance_valid(node) or node.is_queued_for_deletion() or node.get_child_count() == 0:
+			continue
+		var portrait_node := node.get_child(-1) as DialogicPortrait
+		if is_instance_valid(portrait_node) and not portrait_node.is_queued_for_deletion():
+			portrait_state[i] = portrait_node._get_state()
 	return {"portrait_state":portrait_state}
 
 
 func _pause() -> void:
 	for node in character_nodes.values():
-		if node.has_meta('animation_node'):
-			node.get_meta('animation_node').pause()
+		if not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_meta('animation_node'):
+			continue
+		var animation_node: Variant = node.get_meta('animation_node')
+		if is_instance_valid(animation_node) and not animation_node.is_queued_for_deletion():
+			animation_node.pause()
 
 
 func _resume() -> void:
 	for node in character_nodes.values():
-		if node.has_meta('animation_node'):
-			node.get_meta('animation_node').resume()
+		if not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_meta('animation_node'):
+			continue
+		var animation_node: Variant = node.get_meta('animation_node')
+		if is_instance_valid(animation_node) and not animation_node.is_queued_for_deletion():
+			animation_node.resume()
 
 
 func _ready() -> void:
@@ -470,11 +481,20 @@ func add_character(character: DialogicCharacter, container: DialogicNode_Portrai
 
 	portraits[character.get_identifier()] = {'portrait': portrait, 'position_id': position_id}
 	character_nodes[character.get_identifier()] = character_node
+	character_node.tree_exiting.connect(_on_character_tree_exiting.bind(character.get_identifier(), character_node.get_instance_id()))
 
 	_move_character(character_node, position_id)
 	await _change_portrait(character_node, portrait)
 
 	return character_node
+
+
+func _on_character_tree_exiting(character_identifier: String, instance_id: int) -> void:
+	var node: Node = character_nodes.get(character_identifier)
+	if is_instance_valid(node) and node.get_instance_id() == instance_id:
+		# The layout owns these nodes; it can free them without remove_character().
+		# Keep serialized portrait info for style reloads, but drop the live reference.
+		character_nodes.erase(character_identifier)
 
 
 ## Changes the portrait of a character. Only works with joined characters.
@@ -619,7 +639,8 @@ func is_character_joined(character: DialogicCharacter) -> bool:
 	if character == null or not character.get_identifier() in portraits:
 		return false
 
-	return true
+	var node: Node = character_nodes.get(character.get_identifier())
+	return is_instance_valid(node) and not node.is_queued_for_deletion()
 
 
 ## Returns a list of the joined charcters (as resources)

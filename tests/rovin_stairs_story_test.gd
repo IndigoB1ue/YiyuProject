@@ -79,7 +79,12 @@ func _run() -> void:
 	await _settle()
 	_expect(dialogic.current_timeline == expected_story and progress.cleanser_timeline_started, "Craft confirmation plays the exact configured timeline, including UID references")
 	_expect(not progress.cleanser_timeline_completed, "Starting the story does not yet unlock the stairs")
+	# Let Dialogic's textbox entrance finish before forcibly ending this test story.
+	if dialogic.current_state == DialogicGameHandler.States.ANIMATING:
+		await dialogic.Text.text_started
+	dialogic.paused = true
 	await dialogic.end_timeline(true)
+	dialogic.paused = false
 	await _settle()
 	_expect(current_scene.name == "RovinRoom" and progress.cleanser_timeline_completed, "Completing the configured story returns to RovinRoom")
 	room = current_scene
@@ -113,7 +118,11 @@ func _run() -> void:
 	map.get_node("%Hall").pressed.emit()
 	map.get_node("%RovinDorm").pressed.emit()
 	_expect(dialogic.current_timeline == active_timeline and current_scene == map, "Repeated input cannot restart dialogue or leave during playback")
+	if dialogic.current_state == DialogicGameHandler.States.ANIMATING:
+		await dialogic.Text.text_started
+	dialogic.paused = true
 	await dialogic.end_timeline(true)
+	dialogic.paused = false
 	await _settle()
 	_expect(map.visible and map.get_node("%Hall").disabled, "Ended hall story restores map without allowing replay")
 	map.get_node("%RovinDorm").pressed.emit()

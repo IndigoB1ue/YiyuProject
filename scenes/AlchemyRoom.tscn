@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="10_water"]
 [ext_resource type="Script" uid="uid://dbepwq604lq6r" path="res://scripts/alchemy/alchemy_story_trigger.gd" id="11_story"]
 
-[node name="AlchemyRoom" type="Control" unique_id=793798234]
+[node name="AlchemyRoom" type="Control" unique_id=793798234 groups=["settings_context"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

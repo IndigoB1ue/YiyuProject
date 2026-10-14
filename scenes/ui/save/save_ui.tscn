@@ -1,0 +1,199 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/save/save_ui.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/save/save_slot_ui.tscn" id="2"]
+[ext_resource type="Theme" path="res://themes/settings_theme.tres" id="3"]
+[ext_resource type="Script" path="res://scripts/ui/room_canvas_fit.gd" id="4"]
+
+[sub_resource type="ButtonGroup" id="modes"]
+
+[node name="SaveUI" type="CanvasLayer"]
+process_mode = 3
+layer = 210
+script = ExtResource("1")
+slot_scene = ExtResource("2")
+
+[node name="OpenButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -450.0
+offset_top = 16.0
+offset_right = -324.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme = ExtResource("3")
+mouse_default_cursor_shape = 2
+text = "存档 [F5]"
+tooltip_text = "保存／读取进度（F5 保存，F9 读取）"
+
+[node name="Overlay" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3")
+
+[node name="Dim" type="ColorRect" parent="Overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.68)
+
+[node name="Canvas" type="Control" parent="Overlay"]
+offset_right = 1200.0
+offset_bottom = 840.0
+mouse_filter = 2
+script = ExtResource("4")
+reference_size = Vector2(1200, 840)
+
+[node name="Frame" type="PanelContainer" parent="Overlay/Canvas"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 1184.0
+offset_bottom = 824.0
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Canvas/Frame"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Overlay/Canvas/Frame/Content"]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="Overlay/Canvas/Frame/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SettingsTitle"
+text = "读取存档"
+
+[node name="LoadMode" type="Button" parent="Overlay/Canvas/Frame/Content/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 44)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("modes")
+text = "读取"
+mouse_default_cursor_shape = 2
+
+[node name="SaveMode" type="Button" parent="Overlay/Canvas/Frame/Content/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 44)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("modes")
+text = "保存"
+mouse_default_cursor_shape = 2
+
+[node name="Close" type="Button" parent="Overlay/Canvas/Frame/Content/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_type_variation = &"SettingsClose"
+text = "×"
+tooltip_text = "关闭（Esc）"
+mouse_default_cursor_shape = 2
+
+[node name="Slots" type="GridContainer" parent="Overlay/Canvas/Frame/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 4
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 10
+
+[node name="PageCenter" type="CenterContainer" parent="Overlay/Canvas/Frame/Content"]
+layout_mode = 2
+
+[node name="Pages" type="HBoxContainer" parent="Overlay/Canvas/Frame/Content/PageCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Page1" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "1"
+
+[node name="Page2" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "2"
+
+[node name="Page3" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "3"
+
+[node name="Page4" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "4"
+
+[node name="Page5" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "5"
+
+[node name="Page6" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "6"
+
+[node name="Page7" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "7"
+
+[node name="Page8" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "8"
+
+[node name="Page9" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "9"
+
+[node name="Page10" type="Button" parent="Overlay/Canvas/Frame/Content/PageCenter/Pages"]
+custom_minimum_size = Vector2(44, 38)
+layout_mode = 2
+toggle_mode = true
+text = "10"
+
+[node name="Status" type="Label" parent="Overlay/Canvas/Frame/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SettingsCaption"
+text = "共120个存档位置，每页12个。"
+autowrap_mode = 2
+
+[node name="Confirm" type="ConfirmationDialog" parent="."]
+title = "确认读取"
+size = Vector2i(460, 190)
+theme = ExtResource("3")
+exclusive = true
+dialog_autowrap = true
+ok_button_text = "读取"
+cancel_button_text = "取消"
+
+[connection signal="pressed" from="OpenButton" to="." method="open_save"]
+[connection signal="pressed" from="Overlay/Canvas/Frame/Content/Header/Close" to="." method="close_window"]
+[connection signal="pressed" from="Overlay/Canvas/Frame/Content/Header/LoadMode" to="." method="_on_mode_pressed" binds=[0]]
+[connection signal="pressed" from="Overlay/Canvas/Frame/Content/Header/SaveMode" to="." method="_on_mode_pressed" binds=[1]]
+[connection signal="confirmed" from="Confirm" to="." method="_on_confirmed"]
+[connection signal="canceled" from="Confirm" to="." method="_on_canceled"]

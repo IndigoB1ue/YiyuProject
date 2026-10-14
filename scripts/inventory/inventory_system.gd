@@ -20,6 +20,39 @@ func get_amount(item_id: StringName) -> int:
 func get_items() -> Dictionary:
 	return _items.duplicate()
 
+func get_save_state() -> Dictionary:
+	return {"capacity": capacity, "items": get_items()}
+
+func validate_save_state(state: Dictionary) -> Dictionary:
+	if not state.get("capacity") is int or state.capacity < 1 or state.capacity > 999 or not state.get("items") is Dictionary:
+		return _error("存档中的背包结构无效。")
+	if state.items.size() > state.capacity:
+		return _error("存档中的物品种类超过背包容量。")
+	for id in state.items:
+		if not (id is String or id is StringName) or get_item(StringName(id)) == null:
+			return _error("存档包含无效 ItemID：%s" % id)
+		if not state.items[id] is int or state.items[id] <= 0:
+			return _error("存档中的物品数量无效：%s" % id)
+	return {"ok": true, "error": ""}
+
+func restore_save_state(state: Dictionary, notify: bool = true) -> Dictionary:
+	var check := validate_save_state(state)
+	if not check.ok:
+		return check
+	capacity = state.capacity
+	_items.clear()
+	for id in state.items:
+		_items[StringName(id)] = state.items[id]
+	if notify:
+		inventory_changed.emit()
+	return check
+
+func reset_for_new_game() -> void:
+	_items.clear()
+	for id in catalog.initial_inventory:
+		add_item(StringName(id), int(catalog.initial_inventory[id]))
+	inventory_changed.emit()
+
 func get_occupied_slots() -> int:
 	return _items.size()
 

@@ -8,6 +8,7 @@ var _playing := false
 var _timeline: DialogicTimeline
 @onready var _progress: GameProgressState = get_node("/root/GameProgress")
 @onready var _dialogic = get_node("/root/Dialogic")
+@onready var _save_system: Node = get_node("/root/SaveSystem")
 @onready var _hall: Button = %Hall
 @onready var _hint: Label = %Hint
 
@@ -16,6 +17,15 @@ func _ready() -> void:
 	_dialogic.timeline_ended.connect(_on_timeline_ended)
 	_progress.room_story_changed.connect(_refresh)
 	_refresh()
+
+func _exit_tree() -> void:
+	if is_instance_valid(_dialogic):
+		if _dialogic.timeline_started.is_connected(_on_timeline_started):
+			_dialogic.timeline_started.disconnect(_on_timeline_started)
+		if _dialogic.timeline_ended.is_connected(_on_timeline_ended):
+			_dialogic.timeline_ended.disconnect(_on_timeline_ended)
+	if is_instance_valid(_progress) and _progress.room_story_changed.is_connected(_refresh):
+		_progress.room_story_changed.disconnect(_refresh)
 
 func _refresh() -> void:
 	_hall.disabled = not _progress.cleanser_timeline_completed or _progress.stairs_timeline_started
@@ -51,19 +61,37 @@ func _on_hall_pressed() -> void:
 	_start_hall.call_deferred()
 
 func _start_hall() -> void:
+	if not is_inside_tree():
+		return
 	hide()
 	_playing = true
 	_dialogic.start(_timeline)
 
 func _on_timeline_started() -> void:
+	if not is_inside_tree():
+		return
 	if _starting and _dialogic.current_timeline == _timeline:
 		_starting = false
 		# Legacy flag now records entering the hall, rather than clicking stairs.
 		_progress.mark_stairs_timeline_started()
 
 func _on_timeline_ended() -> void:
-	if not _playing or _starting:
+	if not is_inside_tree() or not _playing or _starting:
+		return
+	if not is_instance_valid(_save_system) or _save_system.is_restoring:
 		return
 	_playing = false
 	show()
+	_refresh()
+
+func get_save_state() -> Dictionary:
+	return {"playing": _playing}
+
+func validate_save_state(state: Dictionary, _inventory: InventorySystem, _progress_state: Dictionary) -> Dictionary:
+	return {"ok": state.get("playing") is bool, "error": "存档中的地图剧情状态无效。"}
+
+func restore_save_state(state: Dictionary) -> void:
+	_playing = state.get("playing", false)
+	_starting = false
+	visible = not _playing
 	_refresh()

@@ -9,7 +9,7 @@
 [ext_resource type="Theme" uid="uid://de81iqt034brf" path="res://themes/rovin_room_theme.tres" id="7_theme"]
 [ext_resource type="Script" uid="uid://bdf53bd0xu05" path="res://scripts/ui/room_canvas_fit.gd" id="8_canvas"]
 
-[node name="RovinRoom" type="Control" unique_id=124905229]
+[node name="RovinRoom" type="Control" unique_id=124905229 groups=["settings_context"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

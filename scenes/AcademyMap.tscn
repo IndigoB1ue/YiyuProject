@@ -31,7 +31,7 @@ corner_radius_top_right = 22
 corner_radius_bottom_left = 22
 corner_radius_bottom_right = 22
 
-[node name="AcademyMap" type="Control"]
+[node name="AcademyMap" type="Control" groups=["settings_context"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

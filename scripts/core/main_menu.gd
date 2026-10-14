@@ -1,7 +1,5 @@
 extends Control
 
-const WORLD_SCENE := "res://scenes/world.tscn"
-
 @onready var menu_buttons: Array[TextureButton] = [
 	$MenuBar/LoadGame,
 	$MenuBar/NewGame,
@@ -13,9 +11,15 @@ const WORLD_SCENE := "res://scenes/world.tscn"
 @onready var notice_title: Label = $NoticeLayer/NoticePanel/Margin/Content/NoticeTitle
 @onready var notice_text: Label = $NoticeLayer/NoticePanel/Margin/Content/NoticeText
 @onready var notice_close: Button = $NoticeLayer/NoticePanel/Margin/Content/Close
+@onready var settings_ui: CanvasLayer = get_node("/root/SettingsUI")
+@onready var save_ui: CanvasLayer = get_node("/root/SaveUI")
 
 
 func _ready() -> void:
+	settings_ui.settings_opened.connect(_on_settings_opened)
+	settings_ui.settings_closed.connect(_on_settings_closed)
+	save_ui.window_opened.connect(_on_settings_opened)
+	save_ui.window_closed.connect(_on_save_closed)
 	for button in menu_buttons:
 		button.mouse_entered.connect(_animate_button.bind(button, true))
 		button.mouse_exited.connect(_animate_button.bind(button, false))
@@ -35,7 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _finish_layout() -> void:
 	for button in menu_buttons:
 		button.pivot_offset = button.size * 0.5
-	menu_buttons[1].grab_focus()
+	if not settings_ui.is_open() and not save_ui.is_open():
+		menu_buttons[1].grab_focus()
 
 
 func _play_intro() -> void:
@@ -72,11 +77,14 @@ func _show_notice(title: String, message: String) -> void:
 
 
 func _on_load_game_pressed() -> void:
-	_show_notice("读取存档", "存档列表将在接入游戏存档数据后显示。")
+	notice_layer.hide()
+	save_ui.open_load()
 
 
 func _on_new_game_pressed() -> void:
-	get_tree().change_scene_to_file(WORLD_SCENE)
+	var result: Dictionary = await get_node("/root/SaveSystem").start_new_game()
+	if not result.ok:
+		_show_notice("开始失败", result.error)
 
 
 func _on_gallery_pressed() -> void:
@@ -84,7 +92,24 @@ func _on_gallery_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	_show_notice("设置", "文字、画面与声音设置界面将在这里打开。")
+	notice_layer.hide()
+	settings_ui.open_settings()
+
+
+func _on_settings_opened() -> void:
+	for button in menu_buttons:
+		button.disabled = true
+
+
+func _on_settings_closed() -> void:
+	for button in menu_buttons:
+		button.disabled = false
+	menu_buttons[3].grab_focus()
+
+func _on_save_closed() -> void:
+	for button in menu_buttons:
+		button.disabled = false
+	menu_buttons[0].grab_focus()
 
 
 func _on_exit_pressed() -> void:

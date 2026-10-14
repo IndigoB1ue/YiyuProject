@@ -19,11 +19,22 @@ const ROVINROOMSCENE = "res://scenes/RovinRoom.tscn"
 @onready var _progress: GameProgressState = get_node("/root/GameProgress")
 @onready var _interface: Control = get_node(interface_path)
 @onready var _dialogic = get_node("/root/Dialogic")
+@onready var _save_system: Node = get_node("/root/SaveSystem")
 
 func _ready() -> void:
 	_dialogic.timeline_started.connect(_on_timeline_started)
 	_dialogic.timeline_ended.connect(_on_timeline_ended)
-	Dialogic.signal_event.connect(_on_dialogic_signal)
+	_dialogic.signal_event.connect(_on_dialogic_signal)
+
+func _exit_tree() -> void:
+	if not is_instance_valid(_dialogic):
+		return
+	if _dialogic.timeline_started.is_connected(_on_timeline_started):
+		_dialogic.timeline_started.disconnect(_on_timeline_started)
+	if _dialogic.timeline_ended.is_connected(_on_timeline_ended):
+		_dialogic.timeline_ended.disconnect(_on_timeline_ended)
+	if _dialogic.signal_event.is_connected(_on_dialogic_signal):
+		_dialogic.signal_event.disconnect(_on_dialogic_signal)
 
 func on_result_confirmed(result: Dictionary) -> void:
 	if not result.get("ok", false) or result.get("item_id", &"") != target_item_id:
@@ -35,6 +46,9 @@ func on_result_confirmed(result: Dictionary) -> void:
 	_start_timeline.call_deferred()  ## 在帧的末尾调用，确保时序
 
 func _start_timeline() -> void:
+	if not is_inside_tree() or not is_instance_valid(_save_system) or _save_system.is_restoring:
+		_requested = false
+		return
 	if _progress.cleanser_timeline_started:
 		_requested = false
 		return
@@ -53,6 +67,8 @@ func _start_timeline() -> void:
 	_dialogic.start(timeline)
 
 func _on_timeline_started() -> void:
+	if not is_inside_tree():
+		return
 	# Resource identity supports both res:// paths and editor-saved uid:// paths.
 	if _starting and _dialogic.current_timeline == _playing_timeline:
 		_progress.cleanser_timeline_started = true
@@ -60,22 +76,38 @@ func _on_timeline_started() -> void:
 		_requested = false
 
 func _on_timeline_ended() -> void:
-	if not is_playing or _starting:
+	if not is_inside_tree() or not is_playing or _starting:
+		return
+	if not is_instance_valid(_save_system) or _save_system.is_restoring:
 		return
 	is_playing = false
 	_progress.complete_cleanser_timeline()
 	_return_to_room.call_deferred()
 
+func restore_playback(playing: bool) -> void:
+	is_playing = playing
+	_starting = false
+	_requested = false
+	_interface_was_visible = true
+	_interface.visible = not playing
+
 func _on_dialogic_signal(argument:String) -> void:
+	if not is_inside_tree() or not is_instance_valid(_save_system) or _save_system.is_restoring:
+		return
 	if argument == "CheckAndActiveStairs":
 		is_playing = false
 		_starting = false
 		_requested = false
 		_progress.complete_cleanser_timeline()
-		Dialogic.end_timeline(true)
+		await _dialogic.end_timeline(true)
+		# Other scene changes may have detached this controller during cleanup.
+		if not is_inside_tree() or not is_instance_valid(_save_system) or _save_system.is_restoring:
+			return
 		get_tree().change_scene_to_file(ROVINROOMSCENE)
 
 func _return_to_room() -> void:
+	if not is_inside_tree() or not is_instance_valid(_save_system) or _save_system.is_restoring:
+		return
 	if return_scene_path.is_empty():
 		_interface.visible = _interface_was_visible
 		return

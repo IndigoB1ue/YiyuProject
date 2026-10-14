@@ -5,7 +5,8 @@ const ROVINROOMSCENE = "res://scenes/RovinRoom.tscn"
 func _ready() -> void:
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 	# 开始故事
-	Dialogic.start("CP01_EP01_SI01")
+	if not get_node("/root/SaveSystem").is_restoring:
+		Dialogic.start("CP01_EP01_SI01")
 	
 
 func _on_dialogic_signal(argument:String):

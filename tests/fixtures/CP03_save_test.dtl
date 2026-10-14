@@ -1,0 +1,4 @@
+[background arg="res://asserts/image/background/luowei_room_scene.png" fade="0.0"]
+join Rovin (Idle) center [animation="Instant In"]
+Rovin: 这是用于验证存档恢复的文字，测试会在这行文字尚未完全显示时读取存档，确保旧的文字显示过程已经暂停，并且不会在清理旧timeline的下一帧继续触发剧情推进。
+Rovin: 读取后继续下一句。
