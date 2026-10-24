@@ -199,7 +199,7 @@ func _select_item(item_id: StringName) -> void:
 
 func _show_details(item: ItemData) -> void:
 	_details.show()
-	_detail_icon.texture = item.icon if item.icon != null else preload("res://data/items/question_mark.svg")
+	_detail_icon.texture = item.icon if item.icon != null else preload("res://asserts/image/icon/question_mark.svg")
 	_detail_name.text = "%s  ×%d" % [item.display_name, _inventory.get_amount(item.item_id)]
 	_detail_description.text = item.description
 	for child in _ingredients.get_children():
@@ -208,6 +208,14 @@ func _show_details(item: ItemData) -> void:
 	_ingredients_heading.visible = item.alchemy_recipe != null
 	_ingredients.visible = item.alchemy_recipe != null
 	if item.alchemy_recipe == null:
+		return
+	if item.alchemy_recipe.is_experimental():
+		# Preserve four public slots; combining by the hidden ItemID would expose answers.
+		for index in item.alchemy_recipe.ingredients.size():
+			var presentation := item.alchemy_recipe.get_slot_display(index, _inventory.catalog)
+			var badge := requirement_scene.instantiate()
+			_ingredients.add_child(badge)
+			badge.display(presentation.icon, "%s ×%d" % [presentation.name, presentation.amount])
 		return
 	# Alchemy slots may repeat an ItemID; show the combined requirement in the bag.
 	var required := {}

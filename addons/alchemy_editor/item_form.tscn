@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://addons/alchemy_editor/item_form.gd" id="1"]
+[ext_resource type="PackedScene" path="res://addons/alchemy_editor/texture_field.tscn" id="2"]
+
+[node name="ItemForm" type="VBoxContainer"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+script = ExtResource("1")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "物品与素材"
+theme_override_font_sizes/font_size = 19
+
+[node name="ItemIDLabel" type="Label" parent="."]
+layout_mode = 2
+text = "物品 ID · ItemID（保存后固定）"
+
+[node name="ItemID" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "ItemID（首次保存后保持稳定）"
+tooltip_text = "已有 ItemID 保持稳定，避免破坏剧情、存档和配方引用。"
+
+[node name="DisplayNameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "物品名称"
+
+[node name="DisplayName" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "物品名称"
+
+[node name="IconLabel" type="Label" parent="."]
+layout_mode = 2
+text = "物品图标"
+
+[node name="Icon" parent="." instance=ExtResource("2")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="."]
+layout_mode = 2
+text = "文字介绍（玩家可见）"
+
+[node name="Description" type="TextEdit" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+wrap_mode = 1
+
+[node name="CategoryLabel" type="Label" parent="."]
+layout_mode = 2
+text = "单一素材类型"
+
+[node name="Category" type="OptionButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+clip_text = true
+fit_to_longest_item = false
+
+[node name="RecipeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "关联配方（仅配方道具需要）"
+
+[node name="Recipe" type="OptionButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+clip_text = true
+fit_to_longest_item = false
+
+[node name="RecipeNote" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2

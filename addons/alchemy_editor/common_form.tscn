@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://csxsqgk0ifh8n"]
+
+[ext_resource type="Script" uid="uid://d06soswv4dvo4" path="res://addons/alchemy_editor/common_form.gd" id="1"]
+[ext_resource type="PackedScene" path="res://addons/alchemy_editor/texture_field.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://addons/alchemy_editor/item_picker.tscn" id="3"]
+
+[node name="CommonForm" type="VBoxContainer" unique_id=1474944543]
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+script = ExtResource("1")
+
+[node name="Heading" type="Label" parent="." unique_id=201176406]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "类型与通用配置"
+
+[node name="Help" type="Label" parent="." unique_id=1499728014]
+layout_mode = 2
+text = "单一类型只用于素材归类、提示与筛选。已有类型 ID 保持稳定；被引用的类型不能删除。"
+autowrap_mode = 3
+
+[node name="CategoryList" type="ItemList" parent="." unique_id=1137837938]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+fixed_icon_size = Vector2i(28, 28)
+
+[node name="Actions" type="HBoxContainer" parent="." unique_id=753404378]
+layout_mode = 2
+
+[node name="AddCategory" type="Button" parent="Actions" unique_id=155843411]
+unique_name_in_owner = true
+layout_mode = 2
+text = "新增类型"
+
+[node name="RemoveCategory" type="Button" parent="Actions" unique_id=1245561571]
+unique_name_in_owner = true
+layout_mode = 2
+text = "删除类型"
+
+[node name="CategoryFields" type="VBoxContainer" parent="." unique_id=1018129055]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IDLabel" type="Label" parent="CategoryFields" unique_id=841109056]
+layout_mode = 2
+text = "类型 ID（保存后固定）"
+
+[node name="CategoryID" type="LineEdit" parent="CategoryFields" unique_id=57220733]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CategoryFields" unique_id=925872346]
+layout_mode = 2
+text = "显示名称"
+
+[node name="CategoryName" type="LineEdit" parent="CategoryFields" unique_id=1335355051]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CategoryIcon" parent="CategoryFields" unique_id=1349244337 instance=ExtResource("2")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Separator" type="HSeparator" parent="." unique_id=159395155]
+layout_mode = 2
+
+[node name="WasteLabel" type="Label" parent="." unique_id=319729908]
+layout_mode = 2
+text = "统一错误产物：异质"
+
+[node name="WasteItem" type="Button" parent="." unique_id=378898605]
+unique_name_in_owner = true
+layout_mode = 2
+text = "选择统一异质物品"
+
+[node name="WasteHelp" type="Label" parent="." unique_id=887099151]
+layout_mode = 2
+text = "所有推理配方共用这个物品。产出数量在每个配方中单独填写。
+初始背包仍由 data/items/catalog.tres 的 initial_inventory 配置。"
+autowrap_mode = 3
+
+[node name="ItemPicker" parent="." unique_id=1155731747 instance=ExtResource("3")]
+oversampling_override = 1.0
+cancel_button_text = "取消"

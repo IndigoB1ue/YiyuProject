@@ -1,7 +1,18 @@
 class_name AlchemyUI
 extends Control
 
-@export var recipes: Array[AlchemyRecipe] = []
+@export var recipe_catalog: AlchemyCatalog
+var _uses_recipe_override := false
+## Explicit overrides remain available for isolated demos and test scenes.
+@export var recipes: Array[AlchemyRecipe] = []:
+	get:
+		if not _uses_recipe_override and recipe_catalog != null:
+			return recipe_catalog.recipes
+		return recipes
+	set(value):
+		recipes = value
+		_uses_recipe_override = true
+		notify_property_list_changed()
 @export var ingredient_slot_scene: PackedScene
 
 var _inventory: InventorySystem
@@ -22,9 +33,16 @@ var _slots: Array[IngredientSlotUI] = []
 @onready var _result: AlchemyResultUI = %Result
 @onready var _story: AlchemyStoryTrigger = $StoryTrigger
 
+func _validate_property(property: Dictionary) -> void:
+	# Packing a catalog-backed scene must not bake the catalog into a stale override.
+	if property.name == "recipes" and not _uses_recipe_override and recipe_catalog != null:
+		property.usage &= ~PROPERTY_USAGE_STORAGE
+
 func _ready() -> void:
-	_inventory = get_node("/root/PlayerInventory") as InventorySystem
-	_progress = get_node("/root/GameProgress") as GameProgressState
+	if _inventory == null:
+		_inventory = get_node("/root/PlayerInventory") as InventorySystem
+	if _progress == null:
+		_progress = get_node("/root/GameProgress") as GameProgressState
 	_system = AlchemySystem.new(_inventory)
 	_recipe_list.recipe_selected.connect(_select_recipe)
 	_picker.material_selected.connect(_select_material)
@@ -57,6 +75,8 @@ func _select_recipe(recipe: AlchemyRecipe) -> void:
 	_clear_slots()
 	var output := _inventory.get_item(recipe.result_item_id)
 	_description.text = "%s  ·  成品：%s ×%d" % [recipe.description, output.display_name if output != null else str(recipe.result_item_id), recipe.result_amount]
+	if recipe.is_experimental():
+		_description.text += "\n第1、2槽必填；第3、4槽可追加素材，尝试其他产物。"
 	var recipe_check := _system.check_recipe(recipe)
 	if recipe_check.ok:
 		for index in recipe.ingredients.size():
@@ -106,14 +126,14 @@ func _refresh() -> void:
 		_picker.display([], 0, "")
 		return
 	for index in _slots.size():
-		_slots[index].display(_recipe.ingredients[index], _selection[index], _inventory, _system, index == _active_slot)
+		_slots[index].display(_recipe.ingredients[index], _selection[index], _inventory, _system, index == _active_slot,
+			_recipe.get_slot_display(index, _inventory.catalog), _recipe.is_hidden_slot(index))
 	var validation := _system.validate(_recipe, _selection)
 	_start.disabled = not validation.ok
 	_status.text = "素材齐备，可以炼金。" if validation.ok else str(validation.error)
 	if _active_slot >= 0:
 		var requirement := _recipe.ingredients[_active_slot]
-		var item := _inventory.get_item(requirement.item_id)
-		var ingredient_name := item.display_name if item != null else str(requirement.category)
+		var ingredient_name: String = _recipe.get_slot_display(_active_slot, _inventory.catalog).name
 		_clear.disabled = _selection[_active_slot].is_empty()
 		_picker.display(_system.candidates(_recipe, _active_slot, _selection), requirement.amount - _system.selected_amount(_selection[_active_slot]), ingredient_name)
 	else:

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/alchemy_editor/item_picker.gd" id="1"]
+
+[node name="ItemPicker" type="ConfirmationDialog"]
+title = "选择物品"
+size = Vector2i(650, 560)
+script = ExtResource("1")
+
+[node name="Content" type="VBoxContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 642.0
+offset_bottom = 511.0
+
+[node name="Search" type="LineEdit" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "搜索物品名称或 ItemID"
+
+[node name="Items" type="ItemList" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+fixed_icon_size = Vector2i(32, 32)
+icon_mode = 1
+
+[node name="Count" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2

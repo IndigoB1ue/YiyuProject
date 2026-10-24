@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxxityin0h47w"
-path="res://.godot/imported/cleaning_powder.svg-9368d1d43c476bb49d2c5256b0a3eb56.ctex"
+uid="uid://cl0ubfvkp8k4e"
+path="res://.godot/imported/herb.svg-53d05bb49f04b4c5ea1b1016d85cf6b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/items/cleaning_powder.svg"
-dest_files=["res://.godot/imported/cleaning_powder.svg-9368d1d43c476bb49d2c5256b0a3eb56.ctex"]
+source_file="res://asserts/image/icon/ingredient/herb.svg"
+dest_files=["res://.godot/imported/herb.svg-53d05bb49f04b4c5ea1b1016d85cf6b1.ctex"]
 
 [params]
 

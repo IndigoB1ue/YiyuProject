@@ -1,62 +1,153 @@
 [gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://dv47u8cwlopq6"]
 
-[ext_resource type="Script" uid="uid://cuxiqkip25ayb" path="res://scripts/items/item_catalog.gd" id="1"]
-[ext_resource type="Script" uid="uid://cm7txbld12xq3" path="res://scripts/items/item_data.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://cl0ubfvkp8k4e" path="res://data/items/herb.svg" id="3"]
-[ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="4"]
-[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="5"]
-[ext_resource type="Texture2D" uid="uid://cxxityin0h47w" path="res://data/items/cleaning_powder.svg" id="5_5do8y"]
-[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="7_cleanser_recipe"]
+[ext_resource type="Script" uid="uid://cdi7pa4gvt38s" path="res://scripts/items/item_category.gd" id="1_md8wv"]
+[ext_resource type="Texture2D" uid="uid://kcyhkrnh3qy8" path="res://asserts/image/icon/category_plant.svg" id="2_j4g38"]
+[ext_resource type="Texture2D" uid="uid://dm50g6qdhay3h" path="res://asserts/image/icon/category_mineral.svg" id="3_2nwm0"]
+[ext_resource type="Texture2D" uid="uid://f01aqh3tbtiv" path="res://asserts/image/icon/category_chemical.svg" id="4_pu73w"]
+[ext_resource type="Script" uid="uid://cm7txbld12xq3" path="res://scripts/items/item_data.gd" id="5_sm8kv"]
+[ext_resource type="Texture2D" uid="uid://bru1bar1okgmk" path="res://asserts/image/icon/ingredient/熏香草.png" id="6_t23lu"]
+[ext_resource type="Texture2D" uid="uid://yjrlrwx8asik" path="res://asserts/image/icon/ingredient/清水.png" id="7_m5a87"]
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://asserts/image/icon/recipes/potion.svg" id="8_6a3u5"]
+[ext_resource type="Texture2D" uid="uid://cxxityin0h47w" path="res://asserts/image/icon/recipes/cleaning_powder.svg" id="9_w4auy"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="10_flyga"]
+[ext_resource type="Texture2D" uid="uid://bhb54n7wx5t2s" path="res://asserts/image/icon/ingredient/魔力水晶.png" id="11_1timq"]
+[ext_resource type="Texture2D" uid="uid://cvp37vlbpmgxf" path="res://asserts/image/icon/ingredient/heterogeneity.svg" id="12_w84da"]
+[ext_resource type="Texture2D" uid="uid://cl0ubfvkp8k4e" path="res://asserts/image/icon/ingredient/herb.svg" id="13_sev1w"]
+[ext_resource type="Resource" uid="uid://icc1avpjmrxm" path="res://data/recipes/experiment_three.tres" id="14_cix62"]
+[ext_resource type="Resource" uid="uid://bsepwir2011y5" path="res://data/recipes/experiment_four.tres" id="15_a51nx"]
+[ext_resource type="Texture2D" uid="uid://06thylvieu2l" path="res://asserts/image/icon/ingredient/清洁膏.png" id="16_com14"]
+[ext_resource type="Script" uid="uid://cuxiqkip25ayb" path="res://scripts/items/item_catalog.gd" id="17_bgp74"]
+
+[sub_resource type="Resource" id="CategoryHerb"]
+script = ExtResource("1_md8wv")
+category_id = &"Herb"
+display_name = "植物"
+icon = ExtResource("2_j4g38")
+
+[sub_resource type="Resource" id="CategoryMineral"]
+script = ExtResource("1_md8wv")
+category_id = &"Mineral"
+display_name = "矿物"
+icon = ExtResource("3_2nwm0")
+
+[sub_resource type="Resource" id="CategoryChemical"]
+script = ExtResource("1_md8wv")
+category_id = &"Chemical"
+display_name = "化学品"
+icon = ExtResource("4_pu73w")
 
 [sub_resource type="Resource" id="Herb"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"Herb"
-display_name = "药草"
-icon = ExtResource("3")
+display_name = "熏香草"
+icon = ExtResource("6_t23lu")
 description = "用于调制回复药的基础药草。"
 category = &"Herb"
 
 [sub_resource type="Resource" id="Water"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"Water"
 display_name = "清水"
-icon = ExtResource("4")
+icon = ExtResource("7_m5a87")
 description = "干净的炼金用水。"
 
 [sub_resource type="Resource" id="Potion"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"Potion"
 display_name = "回复药"
-icon = ExtResource("5")
+icon = ExtResource("8_6a3u5")
 description = "以药草和清水调制的基础回复药。"
 
 [sub_resource type="Resource" id="Resource_qlydm"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"clear_potion"
 display_name = "清洗剂"
-icon = ExtResource("5")
+icon = ExtResource("8_6a3u5")
 description = "这是清洗剂"
 metadata/_custom_type_script = "uid://cm7txbld12xq3"
 
 [sub_resource type="Resource" id="Resource_vq64y"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"cleaning_powder"
 display_name = "清洗剂粉末"
-icon = ExtResource("5_5do8y")
+icon = ExtResource("9_w4auy")
 description = "是清洁剂粉末"
 metadata/_custom_type_script = "uid://cm7txbld12xq3"
 
 [sub_resource type="Resource" id="CleanserRecipeItem"]
-script = ExtResource("2")
+script = ExtResource("5_sm8kv")
 item_id = &"clear_potion_recipe"
 display_name = "清洗剂配方"
-icon = ExtResource("5")
+icon = ExtResource("8_6a3u5")
 description = "记录清洗剂制作方法的配方。"
-alchemy_recipe = ExtResource("7_cleanser_recipe")
+alchemy_recipe = ExtResource("10_flyga")
+
+[sub_resource type="Resource" id="Resource_ck1xr"]
+script = ExtResource("5_sm8kv")
+item_id = &"MagicCrystal"
+display_name = "魔力水晶"
+icon = ExtResource("11_1timq")
+description = "充满魔力的水晶，看起来很神秘。"
+category = &"Mineral"
+metadata/_custom_type_script = "uid://cm7txbld12xq3"
+
+[sub_resource type="Resource" id="Heterogeneity"]
+script = ExtResource("5_sm8kv")
+item_id = &"Heterogeneity"
+display_name = "异质"
+icon = ExtResource("12_w84da")
+description = "炼金失配产生的废弃物，通常难以利用，少数终极配方会用到它。"
+
+[sub_resource type="Resource" id="ExperimentLeaf"]
+script = ExtResource("5_sm8kv")
+item_id = &"ExperimentLeaf"
+display_name = "试验叶"
+icon = ExtResource("13_sev1w")
+description = "用于验证叙事炼金流程的示例素材。"
+category = &"Herb"
+
+[sub_resource type="Resource" id="ExperimentBase"]
+script = ExtResource("5_sm8kv")
+item_id = &"ExperimentBase"
+display_name = "基础试作品"
+icon = ExtResource("8_6a3u5")
+description = "演示配方的基础产物。"
+
+[sub_resource type="Resource" id="ExperimentAdvanced"]
+script = ExtResource("5_sm8kv")
+item_id = &"ExperimentAdvanced"
+display_name = "精制试作品"
+icon = ExtResource("8_6a3u5")
+description = "演示配方的高级产物。"
+
+[sub_resource type="Resource" id="ExperimentBookThree"]
+script = ExtResource("5_sm8kv")
+item_id = &"ExperimentBookThree"
+display_name = "调和试作·甲配方"
+icon = ExtResource("8_6a3u5")
+description = "记载试作调和方法的示例配方。"
+alchemy_recipe = ExtResource("14_cix62")
+
+[sub_resource type="Resource" id="ExperimentBookFour"]
+script = ExtResource("5_sm8kv")
+item_id = &"ExperimentBookFour"
+display_name = "调和试作·乙配方"
+icon = ExtResource("8_6a3u5")
+description = "记载试作调和方法的示例配方。"
+alchemy_recipe = ExtResource("15_a51nx")
+
+[sub_resource type="Resource" id="Resource_e82d8"]
+script = ExtResource("5_sm8kv")
+item_id = &"Clearing_Paste"
+display_name = "清洁膏"
+icon = ExtResource("16_com14")
+description = "可以清洗东西的清洁膏"
+category = &"Chemical"
 
 [resource]
-script = ExtResource("1")
-items = Array[ExtResource("2")]([SubResource("Herb"), SubResource("Water"), SubResource("Potion"), SubResource("Resource_qlydm"), SubResource("Resource_vq64y"), SubResource("CleanserRecipeItem")])
+script = ExtResource("17_bgp74")
+items = Array[ExtResource("5_sm8kv")]([SubResource("Herb"), SubResource("Water"), SubResource("Potion"), SubResource("Resource_qlydm"), SubResource("Resource_vq64y"), SubResource("CleanserRecipeItem"), SubResource("Resource_ck1xr"), SubResource("Heterogeneity"), SubResource("ExperimentLeaf"), SubResource("ExperimentBase"), SubResource("ExperimentAdvanced"), SubResource("ExperimentBookThree"), SubResource("ExperimentBookFour"), SubResource("Resource_e82d8")])
+categories = Array[ExtResource("1_md8wv")]([SubResource("CategoryHerb"), SubResource("CategoryMineral"), SubResource("CategoryChemical")])
 initial_inventory = {
 &"Herb": 2
 }

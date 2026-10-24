@@ -115,7 +115,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/alchemy_editor/plugin.cfg")
 
 [file_customization]
 

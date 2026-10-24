@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://csgwf2ue5kh5x"]
 
-[ext_resource type="Script" path="res://scripts/ui/alchemy/alchemy_result_ui.gd" id="1"]
-[ext_resource type="Theme" path="res://themes/alchemy_theme.tres" id="2"]
+[ext_resource type="Script" uid="uid://dlf213wagv610" path="res://scripts/ui/alchemy/alchemy_result_ui.gd" id="1"]
+[ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="2"]
 
-[node name="AlchemyResultUI" type="AcceptDialog"]
+[node name="AlchemyResultUI" type="AcceptDialog" unique_id=575496850]
 title = "炼金结果"
 size = Vector2i(380, 190)
-visible = false
 theme = ExtResource("2")
-dialog_text = "获得：\n回复药 ×1"
 ok_button_text = "确认"
+dialog_text = "获得：
+回复药 ×1"
 script = ExtResource("1")
 
-[connection signal="confirmed" from="." to="." method="_on_result_dismissed"]
 [connection signal="canceled" from="." to="." method="_on_result_dismissed"]
+[connection signal="confirmed" from="." to="." method="_on_result_dismissed"]

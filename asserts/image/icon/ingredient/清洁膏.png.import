@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsjvibh1nclwl"
-path="res://.godot/imported/water.svg-80ce9e9c749277e30c476948125dc9e3.ctex"
+uid="uid://06thylvieu2l"
+path="res://.godot/imported/清洁膏.png-9ca8b2bf6ce72316116dad315107da97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/items/water.svg"
-dest_files=["res://.godot/imported/water.svg-80ce9e9c749277e30c476948125dc9e3.ctex"]
+source_file="res://asserts/image/icon/ingredient/清洁膏.png"
+dest_files=["res://.godot/imported/清洁膏.png-9ca8b2bf6ce72316116dad315107da97.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

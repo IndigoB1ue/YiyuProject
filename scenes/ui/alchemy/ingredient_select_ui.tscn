@@ -25,7 +25,7 @@ text = "每格代表 1 个素材，点击选入；当前槽还需 2 个。"
 autowrap_mode = 3
 
 [node name="Scroll" type="ScrollContainer" parent="." unique_id=714298976]
-custom_minimum_size = Vector2(0, 260)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0

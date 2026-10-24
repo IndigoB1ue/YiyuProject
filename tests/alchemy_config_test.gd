@@ -20,7 +20,10 @@ func _run() -> void:
 	for recipe in ui.recipes:
 		progress.unlock_recipe(recipe.recipe_id)
 		var required: Dictionary = {}
-		for requirement in recipe.ingredients:
+		for slot_index in recipe.ingredients.size():
+			if recipe.is_experimental() and slot_index >= recipe.advanced_slot_count:
+				continue
+			var requirement := recipe.ingredients[slot_index]
 			required[requirement.item_id] = int(required.get(requirement.item_id, 0)) + requirement.amount
 		for id in required:
 			var deficit := int(required[id]) - inventory.get_amount(id)

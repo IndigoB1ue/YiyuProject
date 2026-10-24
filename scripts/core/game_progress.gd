@@ -2,6 +2,7 @@ class_name GameProgressState
 extends Control
 
 var message_dialog: AcceptDialog
+@onready var _dialogic: Node = get_node("/root/Dialogic")
 
 signal recipes_changed
 signal rovin_tutorial_changed
@@ -77,7 +78,7 @@ func _ready() -> void:
 	message_dialog.confirmed.connect(_on_confirmed)
 	
 func show_message(text: String) -> void:
-	var skip = Dialogic.Inputs.auto_skip
+	var skip = _dialogic.Inputs.auto_skip
 	skip.enabled = false
 	message_dialog.dialog_text = text
 	message_dialog.popup_centered(Vector2i(420, 180))
@@ -86,7 +87,7 @@ func _on_confirmed() -> void:
 	print("玩家确认了信息")
 	# 在这里执行确认后的逻辑。
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
-	Dialogic.end_timeline(true)
+	_dialogic.end_timeline(true)
 	
 func is_recipe_unlocked(recipe_id: StringName) -> bool:
 	return _unlocked_recipes.has(recipe_id)

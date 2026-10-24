@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://muhlko8e0280"]
+
+[ext_resource type="Script" uid="uid://b5yuabfg05bxa" path="res://addons/alchemy_editor/preview_panel.gd" id="1"]
+[ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="2"]
+
+[node name="PreviewPanel" type="VBoxContainer" unique_id=1838648624]
+custom_minimum_size = Vector2(310, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1")
+
+[node name="Heading" type="Label" parent="." unique_id=1272282751]
+layout_mode = 2
+text = "玩家预览与炼金验证"
+
+[node name="Tabs" type="TabContainer" parent="." unique_id=534396040]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+tab_0/title = "玩家预览"
+tab_1/title = "炼金验证"
+tab_1/disabled = true
+
+[node name="Player" type="ScrollContainer" parent="Tabs" unique_id=1136948739]
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+metadata/_tab_name = "玩家预览"
+
+[node name="Content" type="VBoxContainer" parent="Tabs/Player" unique_id=762018326]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2")
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="Tabs/Player/Content" unique_id=1004577373]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Tabs/Player/Content" unique_id=574890976]
+layout_mode = 2
+text = "请选择配置"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Description" type="Label" parent="Tabs/Player/Content" unique_id=258890946]
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="Slots" type="GridContainer" parent="Tabs/Player/Content" unique_id=1992991986]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="Trial" type="ScrollContainer" parent="Tabs" unique_id=1576823313]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 1
+metadata/_tab_name = "炼金验证"
+
+[node name="Content" type="VBoxContainer" parent="Tabs/Trial" unique_id=675615000]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Help" type="Label" parent="Tabs/Trial/Content" unique_id=1542484318]
+layout_mode = 2
+text = "下方为临时背包，临时背包与游戏背包完全独立。每次验证从下面的起始数量重新开始。"
+autowrap_mode = 2
+
+[node name="StockHeading" type="Button" parent="Tabs/Trial/Content" unique_id=1892222026]
+layout_mode = 2
+toggle_mode = true
+text = "编辑起始库存（展开 / 收起）"
+
+[node name="StockRows" type="VBoxContainer" parent="Tabs/Trial/Content" unique_id=557203109]
+visible = false
+layout_mode = 2
+
+[node name="ResetStock" type="Button" parent="Tabs/Trial/Content" unique_id=701912958]
+visible = false
+layout_mode = 2
+text = "重置为默认值（每种素材 10）"
+
+[node name="SelectionHeading" type="Label" parent="Tabs/Trial/Content" unique_id=1674886462]
+layout_mode = 2
+text = "手动投入素材"
+
+[node name="SelectionRows" type="VBoxContainer" parent="Tabs/Trial/Content" unique_id=1766125716]
+layout_mode = 2
+
+[node name="ClearSelection" type="Button" parent="Tabs/Trial/Content" unique_id=1691507727]
+layout_mode = 2
+text = "清空所有投入"
+
+[node name="Run" type="Button" parent="Tabs/Trial/Content" unique_id=1412592124]
+visible = false
+layout_mode = 2
+text = "执行验证"
+
+[node name="Result" type="Label" parent="Tabs/Trial/Content" unique_id=323747429]
+layout_mode = 2
+text = "选择配方后可以进行炼金验证。"
+autowrap_mode = 2
+
+[node name="Templates" type="Control" parent="." unique_id=1020443582]
+visible = false
+layout_mode = 2
+
+[node name="StockRow" type="HBoxContainer" parent="Templates" unique_id=1991856028]
+layout_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Templates/StockRow" unique_id=2057567263]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Templates/StockRow" unique_id=473592775]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "素材"
+text_overrun_behavior = 3
+
+[node name="Amount" type="SpinBox" parent="Templates/StockRow" unique_id=2040960168]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+max_value = 99999.0
+value = 10.0
+
+[node name="SelectionRow" type="VBoxContainer" parent="Templates" unique_id=467673268]
+layout_mode = 0
+
+[node name="Name" type="Label" parent="Templates/SelectionRow" unique_id=1409673545]
+layout_mode = 2
+text = "素材槽"
+autowrap_mode = 2
+
+[node name="Material" type="OptionButton" parent="Templates/SelectionRow" unique_id=108719636]
+visible = false
+layout_mode = 2
+fit_to_longest_item = false
+
+[node name="Actions" type="HBoxContainer" parent="Templates/SelectionRow" unique_id=1601628990]
+layout_mode = 2
+
+[node name="Amount" type="SpinBox" parent="Templates/SelectionRow/Actions" unique_id=637695608]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+
+[node name="Add" type="Button" parent="Templates/SelectionRow/Actions" unique_id=1231573047]
+layout_mode = 2
+text = "投入"
+
+[node name="Clear" type="Button" parent="Templates/SelectionRow/Actions" unique_id=157890923]
+layout_mode = 2
+text = "清空"
+
+[node name="Selected" type="Label" parent="Templates/SelectionRow" unique_id=1251965324]
+layout_mode = 2
+text = "已投入：无"
+autowrap_mode = 2

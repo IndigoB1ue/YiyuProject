@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AlchemyRecipe" format=3 uid="uid://icc1avpjmrxm"]
+
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="1"]
+[ext_resource type="Script" uid="uid://ba6k3jtqlwu4c" path="res://scripts/alchemy/ingredient_requirement.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://asserts/image/icon/recipes/potion.svg" id="3"]
+[ext_resource type="Texture2D" uid="uid://kcyhkrnh3qy8" path="res://asserts/image/icon/category_plant.svg" id="4"]
+
+[sub_resource type="Resource" id="BaseHerb"]
+script = ExtResource("2")
+item_id = &"Herb"
+
+[sub_resource type="Resource" id="BaseWater"]
+script = ExtResource("2")
+item_id = &"Water"
+
+[sub_resource type="Resource" id="HiddenPlant"]
+script = ExtResource("2")
+item_id = &"ExperimentLeaf"
+hint_name = "植物"
+hint_icon = ExtResource("4")
+candidate_category = &"Herb"
+
+[sub_resource type="Resource" id="Unknown"]
+script = ExtResource("2")
+
+[resource]
+script = ExtResource("1")
+recipe_id = &"ExperimentThree"
+display_name = "调和试作·甲"
+description = "先将熏香草与清水调和，再依据线索尝试追加素材。"
+icon = ExtResource("3")
+result_item_id = &"ExperimentBase"
+ingredients = Array[ExtResource("2")]([SubResource("BaseHerb"), SubResource("BaseWater"), SubResource("HiddenPlant"), SubResource("Unknown")])
+formula_mode = 1
+advanced_result_item_id = &"ExperimentAdvanced"

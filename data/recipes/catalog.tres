@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AlchemyCatalog" format=3 uid="uid://mcnpngve6kqk"]
+
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="1_bnjlg"]
+[ext_resource type="Resource" uid="uid://co8t5kxcibcnp" path="res://data/recipes/potion.tres" id="2_s3r16"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="3_6cpa2"]
+[ext_resource type="Resource" uid="uid://icc1avpjmrxm" path="res://data/recipes/experiment_three.tres" id="4_5pw62"]
+[ext_resource type="Resource" uid="uid://bsepwir2011y5" path="res://data/recipes/experiment_four.tres" id="5_mig1g"]
+[ext_resource type="Script" uid="uid://dma43bdcf7b5v" path="res://scripts/alchemy/alchemy_catalog.gd" id="6_fff4i"]
+
+[resource]
+script = ExtResource("6_fff4i")
+recipes = Array[ExtResource("1_bnjlg")]([ExtResource("2_s3r16"), ExtResource("3_6cpa2"), ExtResource("4_5pw62"), ExtResource("5_mig1g")])

@@ -1,16 +1,14 @@
 [gd_scene format=3 uid="uid://dxvnycpxpafjj"]
 
 [ext_resource type="Script" uid="uid://da7smdsfk71qs" path="res://scripts/ui/alchemy/alchemy_ui.gd" id="1"]
-[ext_resource type="Resource" uid="uid://co8t5kxcibcnp" path="res://data/recipes/potion.tres" id="2"]
-[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="2_ipdqp"]
-[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="4_lsjsh"]
+[ext_resource type="Resource" path="res://data/recipes/catalog.tres" id="2_catalog"]
 [ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="5_theme"]
 [ext_resource type="PackedScene" uid="uid://dgtjjaws4kbgu" path="res://scenes/ui/alchemy/recipe_list_ui.tscn" id="6_list"]
-[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/ingredient_slot_ui.tscn" id="7_slot"]
+[ext_resource type="PackedScene" uid="uid://cub5wm6d12k4c" path="res://scenes/ui/alchemy/ingredient_slot_ui.tscn" id="7_slot"]
 [ext_resource type="Texture2D" uid="uid://dh81qbluvr6qr" path="res://asserts/image/character/Rovin/Rovin_Pose_1.png" id="7_vq64y"]
-[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/ingredient_select_ui.tscn" id="8_select"]
-[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/alchemy_result_ui.tscn" id="9_result"]
-[ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://data/items/water.svg" id="10_water"]
+[ext_resource type="PackedScene" uid="uid://dn8gbjhu147ih" path="res://scenes/ui/alchemy/ingredient_select_ui.tscn" id="8_select"]
+[ext_resource type="PackedScene" uid="uid://csgwf2ue5kh5x" path="res://scenes/ui/alchemy/alchemy_result_ui.tscn" id="9_result"]
+[ext_resource type="Texture2D" uid="uid://dsjvibh1nclwl" path="res://asserts/image/icon/ingredient/water.svg" id="10_water"]
 [ext_resource type="Script" uid="uid://dbepwq604lq6r" path="res://scripts/alchemy/alchemy_story_trigger.gd" id="11_story"]
 
 [node name="AlchemyRoom" type="Control" unique_id=793798234 groups=["settings_context"]]
@@ -22,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_theme")
 script = ExtResource("1")
-recipes = Array[ExtResource("2_ipdqp")]([ExtResource("2"), ExtResource("4_lsjsh")])
+recipe_catalog = ExtResource("2_catalog")
 ingredient_slot_scene = ExtResource("7_slot")
 
 [node name="Background" type="Panel" parent="." unique_id=1129942952]
@@ -112,13 +110,13 @@ button_pressed = true
 [node name="PreviewWaterSlot" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots" unique_id=1373730207 instance=ExtResource("7_slot")]
 layout_mode = 2
 
-[node name="Icon" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="0"]
+[node name="Icon" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" parent_id_path=PackedInt32Array(1373730207, 960784854) index="0" unique_id=1647952529]
 texture = ExtResource("10_water")
 
-[node name="IngredientName" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="1"]
+[node name="IngredientName" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" parent_id_path=PackedInt32Array(1373730207, 960784854) index="1" unique_id=1915387731]
 text = "清水"
 
-[node name="Count" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" index="2"]
+[node name="Count" parent="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot/Layout" parent_id_path=PackedInt32Array(1373730207, 960784854) index="2" unique_id=1854933345]
 text = "0 / 1"
 
 [node name="IngredientSelect" parent="Margin/Columns/ContentScroll/Page" unique_id=829074821 instance=ExtResource("8_select")]

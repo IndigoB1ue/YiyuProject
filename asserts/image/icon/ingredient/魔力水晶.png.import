@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dddgc2nxy8vqw"
-path="res://.godot/imported/question_mark.svg-f0a913b4de4bc7c7ddab1d6a30682a26.ctex"
+uid="uid://bhb54n7wx5t2s"
+path="res://.godot/imported/魔力水晶.png-a2d25b36e6b4a1a8f43bbf8325fe94ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/items/question_mark.svg"
-dest_files=["res://.godot/imported/question_mark.svg-f0a913b4de4bc7c7ddab1d6a30682a26.ctex"]
+source_file="res://asserts/image/icon/ingredient/魔力水晶.png"
+dest_files=["res://.godot/imported/魔力水晶.png-a2d25b36e6b4a1a8f43bbf8325fe94ab.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

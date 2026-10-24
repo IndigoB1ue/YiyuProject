@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/ingredient_slot_ui.tscn" id="1"]
+
+[node name="PreviewIngredientSlot" instance=ExtResource("1")]
+custom_minimum_size = Vector2(130, 148)
+offset_bottom = 148.0
+clip_contents = true
+
+[node name="Layout" parent="." index="0"]
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Icon" parent="Layout" index="0"]
+size_flags_vertical = 4

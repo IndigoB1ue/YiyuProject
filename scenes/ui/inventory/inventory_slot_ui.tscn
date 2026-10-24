@@ -1,18 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://54ibg00j77pv"]
 
-[ext_resource type="Script" path="res://scripts/ui/inventory/inventory_slot_ui.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dbgy3acye2hky" path="res://scripts/ui/inventory/inventory_slot_ui.gd" id="1_script"]
 
-[node name="InventorySlotUI" type="Button"]
+[node name="InventorySlotUI" type="Button" unique_id=1777436004]
 custom_minimum_size = Vector2(78, 78)
 offset_right = 78.0
 offset_bottom = 78.0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"InventoryEmptyCell"
-toggle_mode = true
 disabled = true
+toggle_mode = true
 script = ExtResource("1_script")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=1598064497]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,7 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Quantity" type="Label" parent="."]
+[node name="Quantity" type="Label" parent="." unique_id=728342504]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -40,7 +40,6 @@ offset_right = -6.0
 offset_bottom = -3.0
 grow_horizontal = 0
 grow_vertical = 0
-mouse_filter = 2
 theme_type_variation = &"InventoryQuantity"
 horizontal_alignment = 2
 

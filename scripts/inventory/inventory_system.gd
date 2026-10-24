@@ -1,3 +1,4 @@
+@tool
 class_name InventorySystem
 extends Node
 
@@ -8,6 +9,8 @@ signal inventory_changed
 var _items: Dictionary = {}
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	for id in catalog.initial_inventory:
 		add_item(StringName(id), int(catalog.initial_inventory[id]))
 

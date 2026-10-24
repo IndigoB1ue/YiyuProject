@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="1"]
 [ext_resource type="Script" uid="uid://ba6k3jtqlwu4c" path="res://scripts/alchemy/ingredient_requirement.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://data/items/potion.svg" id="3"]
+[ext_resource type="Texture2D" uid="uid://bl4owwi7s50x8" path="res://asserts/image/icon/recipes/potion.svg" id="3"]
 
 [sub_resource type="Resource" id="HerbRequirement"]
 script = ExtResource("2")

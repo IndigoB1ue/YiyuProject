@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dvnxcj2x7worf"]
+
+[ext_resource type="PackedScene" uid="uid://dxvnycpxpafjj" path="res://scenes/AlchemyRoom.tscn" id="1"]
+[ext_resource type="Script" uid="uid://c4w4wihxr3btd" path="res://scripts/ui/alchemy/alchemy_experiment_demo.gd" id="2"]
+[ext_resource type="Resource" uid="uid://icc1avpjmrxm" path="res://data/recipes/experiment_three.tres" id="3"]
+[ext_resource type="Resource" uid="uid://bsepwir2011y5" path="res://data/recipes/experiment_four.tres" id="4"]
+[ext_resource type="Script" uid="uid://b5ef3bwwvl38b" path="res://scripts/alchemy/alchemy_recipe.gd" id="5"]
+
+[node name="AlchemyExperimentDemo" unique_id=1442438707 instance=ExtResource("1")]
+script = ExtResource("2")
+recipes = Array[ExtResource("5")]([ExtResource("3"), ExtResource("4")])
+
+[node name="Heading" parent="Margin/Columns/ContentScroll/Page/Header" parent_id_path=PackedInt32Array(207998253) index="0" unique_id=79281060]
+text = "叙事炼金演示（临时背包）"
+
+[node name="Back" parent="Margin/Columns/ContentScroll/Page/Header" parent_id_path=PackedInt32Array(207998253) index="1" unique_id=1493003009]
+text = "退出演示"
+
+[editable path="Margin/Columns/ContentScroll/Page/SlotScroll/IngredientSlots/PreviewWaterSlot"]

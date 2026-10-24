@@ -359,18 +359,18 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="FastForwardButton" type="Button" parent="Anchor/AnimationParent/Sizer/HBoxContainer" unique_id=1252221547]
-tooltip_text = "仅已读模式下，首次阅读的文本不会快进。"
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "仅已读模式下，首次阅读的文本不会快进。"
 text = "快进"
 
-[node name="AutoButton" type="Button" parent="Anchor/AnimationParent/Sizer/HBoxContainer"]
+[node name="AutoButton" type="Button" parent="Anchor/AnimationParent/Sizer/HBoxContainer" unique_id=1559536285]
 custom_minimum_size = Vector2(64, 50)
 layout_mode = 2
 toggle_mode = true
 text = "自动"
 
-[connection signal="pressed" from="Anchor/AnimationParent/Sizer/HBoxContainer/AutoButton" to="." method="_on_auto_button_pressed"]
 [connection signal="pressed" from="Anchor/AnimationParent/Sizer/HBoxContainer/FastForwardButton" to="." method="_on_fast_forward_button_pressed"]
+[connection signal="pressed" from="Anchor/AnimationParent/Sizer/HBoxContainer/AutoButton" to="." method="_on_auto_button_pressed"]

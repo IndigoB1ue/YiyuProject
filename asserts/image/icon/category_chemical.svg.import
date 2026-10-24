@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl0ubfvkp8k4e"
-path="res://.godot/imported/herb.svg-bc03c2fd1a4e6c0e1520f2417fdda018.ctex"
+uid="uid://f01aqh3tbtiv"
+path="res://.godot/imported/category_chemical.svg-f2ed418342672c771fec13321b36e7fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/items/herb.svg"
-dest_files=["res://.godot/imported/herb.svg-bc03c2fd1a4e6c0e1520f2417fdda018.ctex"]
+source_file="res://asserts/image/icon/category_chemical.svg"
+dest_files=["res://.godot/imported/category_chemical.svg-f2ed418342672c771fec13321b36e7fe.ctex"]
 
 [params]
 

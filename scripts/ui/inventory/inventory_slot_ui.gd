@@ -22,7 +22,7 @@ func display(item: ItemData, amount: int, selected: bool) -> void:
 	else:
 		theme_type_variation = &"InventoryRecipeCell" if item.alchemy_recipe != null else &"InventoryMaterialCell"
 		if item.icon == null:
-			_icon.texture = preload("res://data/items/question_mark.svg")
+			_icon.texture = preload("res://asserts/image/icon/question_mark.svg")
 
 
 func _on_pressed() -> void:

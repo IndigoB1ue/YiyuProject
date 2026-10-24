@@ -34,6 +34,7 @@ func _collect(room: Control, id: String) -> void:
 	await _settle()
 
 func _run() -> void:
+	root.size = Vector2i(1280, 720)
 	var progress := root.get_node("GameProgress") as GameProgressState
 	var inventory := root.get_node("PlayerInventory") as InventorySystem
 	change_scene_to_file("res://scenes/RovinRoom.tscn")
@@ -80,6 +81,9 @@ func _run() -> void:
 	await _mouse_click(target)
 	await _settle()
 	_expect(current_scene is AlchemyUI and progress.rovin_tutorial_completed, "Successful entry completes the tutorial")
+	if not current_scene is AlchemyUI:
+		quit(1)
+		return
 	_expect(not progress.rovin_tutorial_skipped, "Completion is distinct from skipping")
 	(current_scene as AlchemyUI)._on_back_pressed()
 	await _settle()

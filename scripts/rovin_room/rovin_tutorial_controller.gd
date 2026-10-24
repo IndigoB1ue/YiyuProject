@@ -25,7 +25,10 @@ func setup(inventory: InventorySystem, progress: GameProgressState, recipe: Alch
 	_hotspots = hotspots
 	_view = get_node(tutorial_ui_path) as RovinTutorialUI
 	if _recipe != null:
-		for requirement in _recipe.ingredients:
+		for index in _recipe.ingredients.size():
+			if _recipe.is_hidden_slot(index):
+				continue
+			var requirement := _recipe.ingredients[index]
 			if requirement != null and requirement.item_id != &"":
 				_required_materials[requirement.item_id] = int(_required_materials.get(requirement.item_id, 0)) + requirement.amount
 	_inventory.inventory_changed.connect(refresh)
