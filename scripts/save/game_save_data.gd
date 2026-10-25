@@ -9,5 +9,8 @@ extends Resource
 @export var thumbnail_png: PackedByteArray
 @export var inventory: Dictionary = {}
 @export var progress: Dictionary = {}
+## Empty only in saves made before the quest system was introduced.
+@export var quests: Dictionary = {}
+@export var quest_flow: Dictionary = {}
 @export var scene_state: Dictionary = {}
 @export var dialogic_state: DialogicSaveState

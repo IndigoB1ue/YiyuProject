@@ -5,6 +5,8 @@
 
 [node name="AlchemyResultUI" type="AcceptDialog" unique_id=575496850]
 title = "炼金结果"
+dialog_close_on_escape = false
+uncloseable = true
 size = Vector2i(380, 190)
 theme = ExtResource("2")
 ok_button_text = "确认"
@@ -12,5 +14,5 @@ dialog_text = "获得：
 回复药 ×1"
 script = ExtResource("1")
 
-[connection signal="canceled" from="." to="." method="_on_result_dismissed"]
+[connection signal="canceled" from="." to="." method="_on_result_canceled"]
 [connection signal="confirmed" from="." to="." method="_on_result_dismissed"]

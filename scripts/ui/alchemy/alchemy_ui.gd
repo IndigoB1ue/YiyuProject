@@ -142,6 +142,10 @@ func _refresh() -> void:
 func _synthesize() -> void:
 	var result := _system.synthesize(_recipe, _selection)
 	if result.ok:
+		result["source"] = &"alchemy"
+		result["recipe_id"] = _recipe.recipe_id
+		# Confirmation forwards this one committed synthesis, not a stock change.
+		result["event_id"] = "alchemy:%d:%d" % [get_instance_id(), Time.get_ticks_usec()]
 		_selection = _system.create_selection(_recipe)
 	_refresh()
 	_result.show_result(result, _inventory)

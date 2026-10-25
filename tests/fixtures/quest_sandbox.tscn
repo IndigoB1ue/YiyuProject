@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://cdfjtbkgdqoen"]
+
+[ext_resource type="Script" uid="uid://dfjtrknyq78c7" path="res://tests/fixtures/quest_sandbox.gd" id="1"]
+[ext_resource type="Theme" uid="uid://c4c2xeerqq0re" path="res://themes/quest_theme.tres" id="2"]
+[ext_resource type="Resource" path="res://tests/fixtures/quest_sandbox_catalog.tres" id="3"]
+
+[node name="QuestSandbox" type="Control" unique_id=466006109 groups=["quest_sandbox"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+quest_catalog = ExtResource("3")
+
+[node name="Background" type="ColorRect" parent="." unique_id=665517052]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.055, 0.075, 0.1, 1)
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=1512622621]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="VBoxContainer" parent="Margin" unique_id=207124340]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/Content" unique_id=1288893305]
+layout_mode = 2
+theme_type_variation = &"QuestTitle"
+text = "通用任务 · 独立验收场景"
+
+[node name="Notice" type="Label" parent="Margin/Content" unique_id=1000383513]
+layout_mode = 2
+text = "仅用于 F6 测试：使用独立背包、任务和剧情记录，不接入 demo，也不读写正式存档槽。"
+autowrap_mode = 3
+
+[node name="Actions" type="HFlowContainer" parent="Margin/Content" unique_id=4230165]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+
+[node name="Accept" type="Button" parent="Margin/Content/Actions" unique_id=2067329650]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1. 接受学生委托"
+
+[node name="Talk" type="Button" parent="Margin/Content/Actions" unique_id=460636973]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2. 与测试学生交谈"
+
+[node name="Supplies" type="Button" parent="Margin/Content/Actions" unique_id=214957671]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3. 补充测试材料"
+
+[node name="Deliver" type="Button" parent="Margin/Content/Actions" unique_id=1540642443]
+unique_name_in_owner = true
+layout_mode = 2
+text = "4. 交付给测试学生"
+
+[node name="WrongRecipient" type="Button" parent="Margin/Content/Actions" unique_id=517165608]
+unique_name_in_owner = true
+layout_mode = 2
+text = "交给错误对象（拒绝）"
+
+[node name="Ending" type="Button" parent="Margin/Content/Actions" unique_id=871790803]
+unique_name_in_owner = true
+layout_mode = 2
+text = "5. 阅读后续剧情"
+
+[node name="NextLine" type="Button" parent="Margin/Content/Actions" unique_id=607715261]
+unique_name_in_owner = true
+layout_mode = 2
+text = "继续剧情"
+
+[node name="Save" type="Button" parent="Margin/Content/Actions" unique_id=1797937885]
+unique_name_in_owner = true
+layout_mode = 2
+text = "保存测试检查点"
+
+[node name="Load" type="Button" parent="Margin/Content/Actions" unique_id=1219923007]
+unique_name_in_owner = true
+layout_mode = 2
+text = "恢复测试检查点"
+
+[node name="Reset" type="Button" parent="Margin/Content/Actions" unique_id=435794378]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置测试"
+
+[node name="Status" type="Label" parent="Margin/Content" unique_id=127267080]
+unique_name_in_owner = true
+layout_mode = 2
+text = "先接取任务，也可以提前准备材料，检查自由顺序收集。"
+autowrap_mode = 3
+
+[node name="Columns" type="HSplitContainer" parent="Margin/Content" unique_id=1860510763]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(360)
+split_offset = 360
+
+[node name="Tasks" type="ItemList" parent="Margin/Content/Columns" unique_id=1171340090]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DetailsScroll" type="ScrollContainer" parent="Margin/Content/Columns" unique_id=1281834069]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Details" type="Label" parent="Margin/Content/Columns/DetailsScroll" unique_id=350596079]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "任务与目标进度将在这里显示。"
+autowrap_mode = 3
+
+[node name="Stock" type="Label" parent="Margin/Content" unique_id=1767126206]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"QuestCaption"
+text = "测试背包：空"

@@ -79,12 +79,10 @@ func _run() -> void:
 	await _settle()
 	_expect(dialogic.current_timeline == expected_story and progress.cleanser_timeline_started, "Craft confirmation plays the exact configured timeline, including UID references")
 	_expect(not progress.cleanser_timeline_completed, "Starting the story does not yet unlock the stairs")
-	# Let Dialogic's textbox entrance finish before forcibly ending this test story.
+	# Reach the authored ending; stopping Dialogic is not story completion.
 	if dialogic.current_state == DialogicGameHandler.States.ANIMATING:
 		await dialogic.Text.text_started
-	dialogic.paused = true
-	await dialogic.end_timeline(true)
-	dialogic.paused = false
+	dialogic.signal_event.emit("CheckAndActiveStairs")
 	await _settle()
 	_expect(current_scene.name == "RovinRoom" and progress.cleanser_timeline_completed, "Completing the configured story returns to RovinRoom")
 	room = current_scene

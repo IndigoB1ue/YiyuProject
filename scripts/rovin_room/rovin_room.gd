@@ -5,9 +5,11 @@ extends Control
 @export var found_recipe: AlchemyRecipe
 @export var recipe_item_id: StringName = &"clear_potion_recipe"
 @export var material_rewards: Dictionary = {}
+@export var introductory_quest_id: StringName = &"make_cleanser"
 
 var _inventory: InventorySystem
 var _progress: GameProgressState
+var _quests: Node
 @onready var _hotspots: Dictionary = {
 	"recipe": %RecipeHotspot,
 	"bedside": %BedsideHotspot,
@@ -17,7 +19,7 @@ var _progress: GameProgressState
 	"alchemy": %AlchemyHotspot,
 	"stairs": %StairsHotspot,
 }
-@onready var _status: Label = %Status
+#@onready var _status: Label = %Status
 @onready var _message: AcceptDialog = %Message
 @onready var _tutorial: RovinTutorialController = $TutorialController
 @onready var _stairs: RovinStairsTrigger = $StairsTrigger
@@ -26,14 +28,17 @@ var _progress: GameProgressState
 func _ready() -> void:
 	_inventory = get_node("/root/PlayerInventory") as InventorySystem
 	_progress = get_node("/root/GameProgress") as GameProgressState
+	_quests = get_node("/root/QuestSystem")
+	if not get_node("/root/SaveSystem").is_restoring:
+		_quests.report_event(&"scene_entered", {"scene_path": scene_file_path}, "scene:%d" % get_instance_id())
 	_update_status()
 	_stairs.setup(_progress, _hotspots.stairs)
-	_tutorial.setup(_inventory, _progress, found_recipe, recipe_item_id, material_rewards, _hotspots)
-	_progress.rovin_tutorial_changed.connect(_refresh_map_button)
+	_tutorial.setup(_inventory, _progress, found_recipe, recipe_item_id, material_rewards, _hotspots, introductory_quest_id)
 	_refresh_map_button()
 
 func _refresh_map_button() -> void:
-	_map_button.visible = not _progress.should_show_rovin_tutorial()
+	# Ordinary navigation is independent from the optional teaching assistance.
+	_map_button.show()
 
 func _on_map_pressed() -> void:
 	if _map_button.visible and not _message.visible:
@@ -104,12 +109,12 @@ func _on_hotspot_pressed(id: String) -> void:
 
 
 func _update_status() -> void:
-	var material_count := 0
-	for id in material_rewards:
-		if _progress.is_interaction_claimed(_interaction_id(str(id))):
-			material_count += 1
-	var has_recipe := _inventory.get_amount(recipe_item_id) >= 1
-	_status.text = "清洗剂配方：%s    已搜集：%d / %d处" % ["已获得" if has_recipe else "未获得", material_count, material_rewards.size()]
+	#var material_count := 0
+	#for id in material_rewards:
+		#if _progress.is_interaction_claimed(_interaction_id(str(id))):
+			#material_count += 1
+	#var has_recipe := _inventory.get_amount(recipe_item_id) >= 1 or (found_recipe != null and _progress.is_recipe_unlocked(found_recipe.recipe_id))
+	#_status.text = "清洗剂配方：%s    已搜集：%d / %d处" % ["已获得" if has_recipe else "未获得", material_count, material_rewards.size()]
 	for id in _hotspots:
 		if id == "stairs":
 			continue
@@ -120,16 +125,16 @@ func _update_status() -> void:
 
 
 func _check_alchemy_entry() -> Dictionary:
-	# Owning the completed cleanser allows returning even after ingredients are spent.
-	if _inventory.get_amount(&"clear_potion") >= 1:
+	# A completed craft remains complete after the materials or output are spent.
+	if _quests.is_completed(introductory_quest_id) or _progress.cleanser_timeline_completed:
 		return {"ok": true, "error": ""}
-	var reasons: PackedStringArray = []
-	if _inventory.get_amount(recipe_item_id) < 1:
-		reasons.append("背包中没有清洗剂配方 ×1，请先检查书柜。")
-	var water_amount := _inventory.get_amount(&"Water")
-	if water_amount < 3:
-		reasons.append("素材不足：清水需要 3，现有 %d，还缺 %d。" % [water_amount, 3 - water_amount])
-	return {"ok": reasons.is_empty(), "error": "\n".join(reasons)}
+	var system := AlchemySystem.new(_inventory)
+	var check := system.check_recipe(found_recipe)
+	if not check.ok:
+		return check
+	if _inventory.get_amount(recipe_item_id) < 1 and not _progress.is_recipe_unlocked(found_recipe.recipe_id):
+		return {"ok": false, "error": "尚未获得清洗剂配方，请先检查书柜。"}
+	return system.check_material_availability(found_recipe)
 
 
 func _interaction_id(id: String) -> StringName:

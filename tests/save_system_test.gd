@@ -47,6 +47,7 @@ func _run() -> void:
 		_inventory.remove_item(id, _inventory.get_amount(id))
 	_inventory.add_item(&"Water", 3)
 	_inventory.add_item(&"cleaning_powder", 1)
+	_inventory.add_item(&"Herb", 1)
 	_inventory.add_item(&"clear_potion_recipe", 1)
 	_save.set_chapter(2)
 	_save.play_seconds = 3661.0
@@ -101,7 +102,7 @@ func _run() -> void:
 	alchemy._select_recipe(load("res://data/recipes/clear_potion.tres"))
 	alchemy._select_material(&"cleaning_powder", 1)
 	alchemy._activate_slot(1)
-	alchemy._select_material(&"Water", 1)
+	alchemy._select_material(&"Herb", 1)
 	var selected: Array = alchemy._selection.duplicate(true)
 	_expect(_save.save_slot(13, thumbnail).ok, "Partial alchemy selection can be saved")
 	alchemy._clear_slot(1)
@@ -136,7 +137,7 @@ func _run() -> void:
 	# Restored scene controllers must continue their original end-of-timeline routes.
 	current_scene._story.restore_playback(true)
 	_progress.cleanser_timeline_started = true
-	_dialogic.start("res://tests/fixtures/CP03_save_test.dtl")
+	_dialogic.start(current_scene._story.timeline_path)
 	await _dialogic.Text.text_started
 	await _settle()
 	_expect(_save.save_slot(14, thumbnail).ok, "Alchemy follow-up playback state saves")
@@ -144,9 +145,7 @@ func _run() -> void:
 	await _settle()
 	_expect(result.ok and current_scene._story.is_playing and not current_scene.get_node("Margin").visible,
 		"Loading alchemy follow-up restores its hidden interface and active story controller")
-	_dialogic.paused = true
-	await _dialogic.end_timeline(true)
-	_dialogic.paused = false
+	_dialogic.signal_event.emit("CheckAndActiveStairs")
 	await _settle()
 	_expect(current_scene.scene_file_path == "res://scenes/RovinRoom.tscn" and _progress.cleanser_timeline_completed,
 		"A restored alchemy follow-up still returns to the room and completes progression")

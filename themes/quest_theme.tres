@@ -1,0 +1,99 @@
+[gd_resource type="Theme" format=3 uid="uid://c4c2xeerqq0re"]
+
+[sub_resource type="StyleBoxFlat" id="selected"]
+content_margin_left = 12.0
+content_margin_top = 9.0
+content_margin_right = 12.0
+content_margin_bottom = 9.0
+bg_color = Color(0.3, 0.28, 0.21, 1)
+border_width_bottom = 2
+border_color = Color(0.92, 0.77, 0.46, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="button"]
+content_margin_left = 12.0
+content_margin_top = 9.0
+content_margin_right = 12.0
+content_margin_bottom = 9.0
+bg_color = Color(0.14, 0.18, 0.24, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="panel"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+bg_color = Color(0.07, 0.09, 0.13, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.48, 0.32, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="tracker_panel"]
+content_margin_left = 12.0
+content_margin_top = 7.0
+content_margin_right = 12.0
+content_margin_bottom = 7.0
+bg_color = Color(0.04, 0.06, 0.09, 0.28)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="tracker_hover"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.3, 0.28, 0.21, 0.4)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="tracker_button"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.14, 0.18, 0.24, 0.18)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+default_font_size = 18
+Button/colors/font_color = Color(0.94, 0.91, 0.83, 1)
+Button/styles/focus = SubResource("selected")
+Button/styles/hover = SubResource("selected")
+Button/styles/normal = SubResource("button")
+Button/styles/pressed = SubResource("selected")
+HBoxContainer/constants/separation = 12
+Label/colors/font_color = Color(0.9, 0.91, 0.93, 1)
+PanelContainer/styles/panel = SubResource("panel")
+QuestCaption/base_type = &"Label"
+QuestCaption/colors/font_color = Color(0.66, 0.72, 0.79, 1)
+QuestCaption/font_sizes/font_size = 15
+QuestTitle/base_type = &"Label"
+QuestTitle/colors/font_color = Color(0.98, 0.84, 0.56, 1)
+QuestTitle/font_sizes/font_size = 26
+QuestTracker/base_type = &"PanelContainer"
+QuestTracker/styles/panel = SubResource("tracker_panel")
+QuestTrackerAction/base_type = &"Button"
+QuestTrackerAction/styles/focus = SubResource("tracker_hover")
+QuestTrackerAction/styles/hover = SubResource("tracker_hover")
+QuestTrackerAction/styles/normal = SubResource("tracker_button")
+QuestTrackerAction/styles/pressed = SubResource("tracker_hover")
+VBoxContainer/constants/separation = 12

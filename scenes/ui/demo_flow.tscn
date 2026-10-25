@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/core/demo_flow.gd" id="1"]
+[ext_resource type="Theme" path="res://themes/settings_theme.tres" id="2"]
+
+[node name="DemoFlow" type="CanvasLayer"]
+process_mode = 3
+layer = 250
+script = ExtResource("1")
+
+[node name="Message" type="AcceptDialog" parent="."]
+theme = ExtResource("2")
+borderless = true
+unresizable = true
+exclusive = true
+popup_window = false
+dialog_autowrap = true
+dialog_close_on_escape = false
+ok_button_text = "确认"
+
+[connection signal="confirmed" from="Message" to="." method="_on_confirmed"]

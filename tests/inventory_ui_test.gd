@@ -89,11 +89,15 @@ func _run() -> void:
 	await _capture("bag")
 	await _click(_slot(&"clear_potion_recipe").get_global_rect().get_center())
 	_expect(_ui._details.visible and _ui._detail_icon.texture != null and _ui._detail_description.text.contains("配方"), "Selecting a recipe shows its icon and introduction")
-	_expect(_ui._ingredients.get_child_count() == 2, "Repeated recipe slots aggregate into two material types")
+	var required := {}
+	for requirement in _inventory.get_item(&"clear_potion_recipe").alchemy_recipe.ingredients:
+		required[requirement.item_id] = int(required.get(requirement.item_id, 0)) + requirement.amount
+	_expect(_ui._ingredients.get_child_count() == required.size(), "Repeated recipe slots aggregate by material")
 	var requirement_labels: Array[String] = []
 	for badge in _ui._ingredients.get_children():
 		requirement_labels.append(badge.get_node("Label").text)
-	_expect(requirement_labels.has("清水 ×3") and requirement_labels.has("清洗剂粉末 ×1"), "Recipe details show actual icons and combined required amounts")
+	for id in required:
+		_expect(requirement_labels.has("%s ×%d" % [_inventory.get_item(id).display_name, required[id]]), "Recipe details show current combined requirements")
 	await _capture("recipe")
 	await _click(_slot(&"Water").get_global_rect().get_center())
 	_expect(_ui._detail_description.text == _inventory.get_item(&"Water").description and not _ui._ingredients.visible,

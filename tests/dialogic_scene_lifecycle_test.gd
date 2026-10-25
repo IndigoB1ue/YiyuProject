@@ -22,6 +22,7 @@ func _run() -> void:
 	var dialogic: Node = root.get_node("Dialogic")
 	var progress: Node = root.get_node("GameProgress")
 	var save_system: Node = root.get_node("SaveSystem")
+	var flow: QuestFlowRunner = root.get_node("QuestFlow")
 	progress.skip_rovin_tutorial()
 	progress.unlock_recipe(&"ClearPotion")
 	change_scene_to_file("res://scenes/AlchemyRoom.tscn")
@@ -36,6 +37,7 @@ func _run() -> void:
 		"The authored return signal finishes the timeline before changing rooms")
 	progress.cleanser_timeline_started = false
 	progress.cleanser_timeline_completed = false
+	flow.reset_for_new_game()
 	change_scene_to_file("res://scenes/AlchemyRoom.tscn")
 	await _settle()
 	story = current_scene.get_node("StoryTrigger")
@@ -49,8 +51,8 @@ func _run() -> void:
 	_expect(not story.is_inside_tree(), "AlchemyRoom detaches immediately after the return signal")
 	_expect(not dialogic.timeline_ended.is_connected(story._on_timeline_ended),
 		"Detached alchemy controller stops receiving timeline-ended callbacks")
-	_expect(not dialogic.signal_event.is_connected(story._on_dialogic_signal),
-		"Detached alchemy controller stops receiving authored timeline signals")
+	_expect(not flow.story_started.is_connected(story._on_story_started) and not flow.story_finished.is_connected(story._on_story_finished),
+		"Detached alchemy controller stops receiving flow playback callbacks")
 	# An already queued callback must also be harmless before the object is freed.
 	story._on_timeline_ended()
 	await _settle()

@@ -19,6 +19,8 @@ var _chapter_pattern := RegEx.new()
 @onready var _dialogic: Node = get_node("/root/Dialogic")
 @onready var _inventory: InventorySystem = get_node("/root/PlayerInventory")
 @onready var _progress: Node = get_node("/root/GameProgress")
+@onready var _quests: QuestManager = get_node("/root/QuestSystem")
+@onready var _quest_flow: QuestFlowRunner = get_node("/root/QuestFlow")
 
 
 func _ready() -> void:
@@ -37,11 +39,15 @@ func _process(_delta: float) -> void:
 
 func is_gameplay_context() -> bool:
 	var scene := get_tree().current_scene
+	if scene != null and scene.is_in_group("quest_sandbox"):
+		return false
 	return _dialogic.current_timeline != null or (scene != null and scene.is_in_group("settings_context"))
 
 
 func can_save() -> Dictionary:
 	var scene := get_tree().current_scene
+	if _quests.is_transaction_active() or _quest_flow.is_action_transaction_active():
+		return _error("正在提交物品或任务动作，请稍后保存。")
 	if is_restoring or scene == null or not is_gameplay_context() or scene.scene_file_path.is_empty():
 		return _error("当前没有可以保存的游戏进度。")
 	if _dialogic.current_timeline != null:
@@ -121,6 +127,8 @@ func save_slot(index: int, thumbnail: Image = null) -> Dictionary:
 	data.play_seconds = play_seconds
 	data.inventory = _inventory.get_save_state()
 	data.progress = _progress.get_save_state()
+	data.quests = _quests.get_save_state()
+	data.quest_flow = _quest_flow.get_save_state()
 	data.scene_state = scene.get_save_state() if scene.has_method("get_save_state") else {}
 	data.dialogic_state = _dialogic.get_full_state()
 	if data.dialogic_state.timeline.is_empty():
@@ -192,8 +200,19 @@ func _validate(data: GameSaveData) -> Dictionary:
 	check = _progress.validate_save_state(data.progress)
 	if not check.ok:
 		return check
+	check = _quests.validate_save_state(data.quests)
+	if not check.ok:
+		return check
+	check = _quest_flow.validate_save_state(data.quest_flow)
+	if not check.ok:
+		return check
 	if data.dialogic_state == null:
 		return _error("存档缺少剧情状态。")
+	var active_story: StringName = data.quest_flow.get("active_story_id", &"")
+	if active_story != &"":
+		var story_record: Dictionary = data.quest_flow.stories[active_story]
+		if data.dialogic_state.timeline.is_empty() or load(story_record.timeline_path) != load(data.dialogic_state.timeline):
+			return _error("存档中的任务剧情与对话播放位置不一致。")
 	if data.dialogic_state.timeline.is_empty() and (data.scene_state.get("playing", false) == true or data.scene_state.get("story_playing", false) == true):
 		return _error("存档中的后续剧情缺少 timeline。")
 	if not data.dialogic_state.timeline.is_empty():
@@ -254,15 +273,24 @@ func load_slot(index: int) -> Dictionary:
 	# The old scene is detached but not freed yet. Notify after the new one is ready.
 	_inventory.restore_save_state(data.inventory, false)
 	_progress.restore_save_state(data.progress, false)
+	var quest_state := data.quests if not data.quests.is_empty() else _quests.migrate_legacy_state(data.progress, data.scene_path)
+	_quests.restore_save_state(quest_state, false)
+	var flow_state := data.quest_flow if not data.quest_flow.is_empty() else _quest_flow.migrate_legacy_state(data.progress, data.scene_path, data.scene_state, data.dialogic_state.timeline)
+	_quest_flow.restore_save_state(flow_state, false)
 	chapter = data.chapter
 	play_seconds = data.play_seconds
 	await get_tree().scene_changed
 	_inventory.inventory_changed.emit()
 	_progress.notify_save_state_restored()
+	_quests.notify_save_state_restored()
 	var scene := get_tree().current_scene
 	if scene.has_method("restore_save_state"):
 		scene.restore_save_state(data.scene_state)
 	await _dialogic.load_full_state(data.dialogic_state)
+	if data.dialogic_state.timeline.is_empty():
+		# Finish Dialogic's deferred empty-state cleanup before accepting new play.
+		await get_tree().process_frame
+		await get_tree().process_frame
 	get_node("/root/GameSettings").apply_all()
 	_dialogic.Inputs.block_input(0.2)
 	is_restoring = false
@@ -288,6 +316,8 @@ func start_new_game() -> Dictionary:
 	await _dialogic.clear()
 	_inventory.reset_for_new_game()
 	_progress.reset_for_new_game()
+	_quests.reset_for_new_game()
+	_quest_flow.reset_for_new_game()
 	chapter = 1
 	play_seconds = 0.0
 	var error := get_tree().change_scene_to_file(WORLD_SCENE)
@@ -303,8 +333,8 @@ func start_new_game() -> Dictionary:
 
 
 func _close_overlays() -> void:
-	_progress.message_dialog.hide()
-	for entry in [["SettingsUI", "close_settings"], ["InventoryUI", "close_inventory"], ["SaveUI", "close_window"]]:
+	get_node("/root/DemoFlow").close_message()
+	for entry in [["SettingsUI", "close_settings"], ["InventoryUI", "close_inventory"], ["SaveUI", "close_window"], ["QuestUI", "close_quests"]]:
 		var overlay := get_node_or_null("/root/" + entry[0])
 		if overlay != null:
 			overlay.call(entry[1])

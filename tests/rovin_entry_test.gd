@@ -16,18 +16,19 @@ func _settle() -> void:
 
 func _run() -> void:
 	var inventory := root.get_node("PlayerInventory") as InventorySystem
-	# The learned flag alone must not replace an actual backpack recipe item.
+	# Discovery can be restored through the existing unlock record.
 	(root.get_node("GameProgress") as GameProgressState).unlock_recipe(&"ClearPotion")
 	var cases: Array[Dictionary] = [
 		{"name": "Empty backpack", "items": {}, "allowed": false},
 		{"name": "Only three waters", "items": {&"Water": 3}, "allowed": false},
 		{"name": "Only recipe item", "items": {&"clear_potion_recipe": 1}, "allowed": false},
 		{"name": "Recipe and two waters", "items": {&"clear_potion_recipe": 1, &"Water": 2}, "allowed": false},
-		{"name": "Recipe and three waters without powder", "items": {&"clear_potion_recipe": 1, &"Water": 3}, "allowed": true},
-		{"name": "Recipe and excess water", "items": {&"clear_potion_recipe": 1, &"Water": 4}, "allowed": true},
-		{"name": "Only completed cleanser", "items": {&"clear_potion": 1}, "allowed": true},
-		{"name": "Completed cleanser and insufficient water", "items": {&"clear_potion": 1, &"Water": 1}, "allowed": true},
-		{"name": "Completed cleanser without configured recipe", "items": {&"clear_potion": 1}, "allowed": true, "clear_config": true},
+		{"name": "Recipe and three waters without powder", "items": {&"clear_potion_recipe": 1, &"Water": 3}, "allowed": false},
+		{"name": "Recipe and excess water without herb", "items": {&"clear_potion_recipe": 1, &"Water": 4, &"cleaning_powder": 1}, "allowed": false},
+		{"name": "Only cleanser from another source", "items": {&"clear_potion": 1}, "allowed": false},
+		{"name": "All current recipe materials", "items": {&"clear_potion_recipe": 1, &"Water": 2, &"cleaning_powder": 1, &"Herb": 1}, "allowed": true},
+		{"name": "Unlocked recipe and all materials", "items": {&"Water": 2, &"cleaning_powder": 1, &"Herb": 1}, "allowed": true},
+		{"name": "Missing recipe configuration", "items": {&"clear_potion": 1}, "allowed": false, "clear_config": true},
 	]
 	for entry in cases:
 		change_scene_to_file("res://scenes/RovinRoom.tscn")

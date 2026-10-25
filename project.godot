@@ -26,10 +26,15 @@ GameSettings="*res://scripts/core/game_settings.gd"
 SceneManager="*uid://c20qjapljbkhl"
 PlayerInventory="*res://scripts/inventory/inventory_system.gd"
 GameProgress="*res://scripts/core/game_progress.gd"
+QuestSystem="*res://scripts/quest/quest_system.gd"
+QuestFlow="*res://scripts/quest/quest_flow.gd"
+OverlayPauseManager="*res://scripts/core/overlay_pause_manager.gd"
+DemoFlow="*res://scenes/ui/demo_flow.tscn"
 SaveSystem="*res://scripts/save/save_system.gd"
 InventoryUI="*res://scenes/ui/inventory/inventory_ui.tscn"
 SettingsUI="*res://scenes/ui/settings/settings_overlay.tscn"
 SaveUI="*res://scenes/ui/save/save_ui.tscn"
+QuestUI="*res://scenes/ui/quest/quest_ui.tscn"
 
 [dialogic]
 
@@ -51,6 +56,8 @@ directories/dtl_directory={
 "CP_02": "res://dialogic/timeline/CP_02.dtl",
 "TestTimeline": "res://dialogic/timeline/TestTimeline.dtl",
 "character_test_timeline": "res://dialogic/timeline/character_test_timeline.dtl",
+"quest_sandbox_briefing": "res://tests/fixtures/quest_sandbox_briefing.dtl",
+"quest_sandbox_ending": "res://tests/fixtures/quest_sandbox_ending.dtl",
 "talk_1": "res://dialogic/timeline/talk_1.dtl",
 "talk_2": "res://dialogic/timeline/talk_2.dtl"
 }
@@ -115,12 +122,13 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/alchemy_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/alchemy_editor/plugin.cfg", "res://addons/quest_editor/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://asserts/": "green",
+"res://data/": "purple",
 "res://scenes/": "red",
 "res://scripts/": "orange"
 }

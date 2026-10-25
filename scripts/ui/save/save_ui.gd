@@ -12,9 +12,6 @@ var _page := 0
 var _pending_slot := -1
 var _busy := false
 var _thumbnail: Image
-var _tree_was_paused := false
-var _dialogue_was_paused := false
-var _paused_dialogue := false
 var _previous_focus: WeakRef
 
 @onready var _system: Node = get_node("/root/SaveSystem")
@@ -69,6 +66,9 @@ func open_save() -> void:
 
 
 func _open(mode: Mode) -> void:
+	var quest_ui := get_node_or_null("/root/QuestUI")
+	if quest_ui != null and quest_ui.is_open():
+		return
 	if is_open() or _busy or _system.is_restoring or _settings_ui.is_open() or _inventory_ui.is_open() or _has_popup():
 		return
 	# Capture the gameplay framebuffer before showing the modal window.
@@ -78,12 +78,7 @@ func _open(mode: Mode) -> void:
 	_pending_slot = -1
 	var focus := get_viewport().gui_get_focus_owner()
 	_previous_focus = weakref(focus) if focus != null else null
-	_tree_was_paused = get_tree().paused
-	_dialogue_was_paused = _dialogic.paused
-	_paused_dialogue = _dialogic.current_timeline != null
-	if _paused_dialogue and not _dialogue_was_paused:
-		_dialogic.paused = true
-	get_tree().paused = true
+	get_node("/root/OverlayPauseManager").acquire(self)
 	_overlay.show()
 	_open_button.hide()
 	_refresh_mode()
@@ -99,13 +94,7 @@ func close_window() -> void:
 	_pending_slot = -1
 	_thumbnail = null
 	get_viewport().set_input_as_handled()
-	get_tree().paused = _tree_was_paused
-	if _paused_dialogue:
-		if _dialogic.paused != _dialogue_was_paused:
-			_dialogic.paused = _dialogue_was_paused
-		if not _dialogic.paused and _dialogic.Inputs.auto_skip.enabled:
-			_dialogic.Inputs.set_process(true)
-	_paused_dialogue = false
+	get_node("/root/OverlayPauseManager").release(self)
 	if _dialogic.current_timeline != null:
 		_dialogic.Inputs.block_input(0.15)
 	if _previous_focus != null:
@@ -243,6 +232,9 @@ func _has_popup() -> bool:
 
 func _refresh_entry() -> void:
 	_open_button.visible = not is_open() and not _busy and not _system.is_restoring and _system.is_gameplay_context() and not _settings_ui.is_open() and not _inventory_ui.is_open()
+	var quest_ui := get_node_or_null("/root/QuestUI")
+	if quest_ui != null and quest_ui.is_open():
+		_open_button.hide()
 
 
 func _on_context_changed() -> void:

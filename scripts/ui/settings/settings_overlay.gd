@@ -5,9 +5,6 @@ signal settings_closed
 
 @export_file("*.tscn") var main_menu_path := "res://scenes/main_menu.tscn"
 
-var _tree_was_paused := false
-var _dialogue_was_paused := false
-var _paused_dialogue := false
 var _previous_focus: WeakRef
 
 @onready var _dialogic: Node = get_node("/root/Dialogic")
@@ -36,12 +33,7 @@ func open_settings() -> void:
 		return
 	var focus := get_viewport().gui_get_focus_owner()
 	_previous_focus = weakref(focus) if focus != null else null
-	_tree_was_paused = get_tree().paused
-	_dialogue_was_paused = _dialogic.paused
-	_paused_dialogue = _dialogic.current_timeline != null
-	if _paused_dialogue and not _dialogue_was_paused:
-		_dialogic.paused = true
-	get_tree().paused = true
+	get_node("/root/OverlayPauseManager").acquire(self)
 	_panel.open_settings()
 	_open_button.hide()
 	settings_opened.emit()
@@ -54,14 +46,7 @@ func close_settings() -> void:
 
 func _on_panel_closed() -> void:
 	get_viewport().set_input_as_handled()
-	get_tree().paused = _tree_was_paused
-	if _paused_dialogue:
-		if _dialogic.paused != _dialogue_was_paused:
-			_dialogic.paused = _dialogue_was_paused
-		# Dialogic Alpha 20 can leave a pending auto-skip timer disabled on resume.
-		if not _dialogic.paused and _dialogic.Inputs.auto_skip.enabled:
-			_dialogic.Inputs.set_process(true)
-	_paused_dialogue = false
+	get_node("/root/OverlayPauseManager").release(self)
 	if _dialogic.current_timeline != null:
 		_dialogic.Inputs.block_input(0.15)
 	if _previous_focus != null:
@@ -101,6 +86,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 func _can_open() -> bool:
+	var quest_ui := get_node_or_null("/root/QuestUI")
+	if quest_ui != null and quest_ui.is_open():
+		return false
 	if _inventory_ui.is_open():
 		return false
 	var save_ui := get_node_or_null("/root/SaveUI")

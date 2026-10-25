@@ -11,9 +11,6 @@ var _inventory: InventorySystem
 var _dialogic: Node
 var _selected_id: StringName = &""
 var _owned_items: Array[ItemData] = []
-var _tree_was_paused := false
-var _dialogue_was_paused := false
-var _paused_dialogue := false
 var _previous_focus: WeakRef
 
 @onready var _overlay: Control = %Overlay
@@ -58,14 +55,9 @@ func open_inventory() -> void:
 	_details.hide()
 	_rebuild_slots()
 	_scroll.scroll_vertical = 0
-	_tree_was_paused = get_tree().paused
-	_dialogue_was_paused = _dialogic.paused
-	_paused_dialogue = _dialogic.current_timeline != null
 	_overlay.show()
 	_open_button.hide()
-	if _paused_dialogue:
-		_dialogic.paused = true
-	get_tree().paused = true
+	get_node("/root/OverlayPauseManager").acquire(self)
 	_close_button.grab_focus()
 	inventory_opened.emit()
 
@@ -75,13 +67,7 @@ func close_inventory() -> void:
 		return
 	_overlay.hide()
 	get_viewport().set_input_as_handled()
-	get_tree().paused = _tree_was_paused
-	if _paused_dialogue:
-		_dialogic.paused = _dialogue_was_paused
-		# Alpha 20's resume can leave the auto-skip timer's process disabled.
-		if not _dialogic.paused and _dialogic.Inputs.auto_skip.enabled:
-			_dialogic.Inputs.set_process(true)
-	_paused_dialogue = false
+	get_node("/root/OverlayPauseManager").release(self)
 	if _dialogic.current_timeline != null:
 		_dialogic.Inputs.block_input(0.15)
 	if _previous_focus != null:
@@ -138,7 +124,8 @@ func _can_open() -> bool:
 func _settings_are_open() -> bool:
 	var settings_ui := get_node_or_null("/root/SettingsUI")
 	var save_ui := get_node_or_null("/root/SaveUI")
-	return (settings_ui != null and settings_ui.is_open()) or (save_ui != null and save_ui.is_open())
+	var quest_ui := get_node_or_null("/root/QuestUI")
+	return (settings_ui != null and settings_ui.is_open()) or (save_ui != null and save_ui.is_open()) or (quest_ui != null and quest_ui.is_open())
 
 
 func _refresh_entry() -> void:

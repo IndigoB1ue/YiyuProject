@@ -1,6 +1,7 @@
 class_name RovinTutorialController
 extends Node
 
+## Only maps quest objectives to room hotspots; QuestSystem owns progression.
 enum Stage { GET_RECIPE, COLLECT_MATERIALS, ENTER_ALCHEMY }
 
 @export_node_path("CanvasLayer") var tutorial_ui_path: NodePath = ^"../TutorialUI"
@@ -8,80 +9,78 @@ enum Stage { GET_RECIPE, COLLECT_MATERIALS, ENTER_ALCHEMY }
 var stage: Stage = Stage.GET_RECIPE
 var _inventory: InventorySystem
 var _progress: GameProgressState
-var _recipe: AlchemyRecipe
-var _recipe_item_id: StringName
+var _quests: Node
 var _rewards: Dictionary
 var _hotspots: Dictionary
-var _required_materials: Dictionary = {}
 var _view: RovinTutorialUI
 var _configured := false
+var _quest_id: StringName = &"make_cleanser"
+var _guidance_id: StringName = &""
 
-func setup(inventory: InventorySystem, progress: GameProgressState, recipe: AlchemyRecipe, recipe_item_id: StringName, rewards: Dictionary, hotspots: Dictionary) -> void:
+func setup(inventory: InventorySystem, progress: GameProgressState, _recipe: AlchemyRecipe, _recipe_item_id: StringName, rewards: Dictionary, hotspots: Dictionary, quest_id: StringName = &"make_cleanser") -> void:
 	_inventory = inventory
 	_progress = progress
-	_recipe = recipe
-	_recipe_item_id = recipe_item_id
+	_quests = get_node("/root/QuestSystem")
 	_rewards = rewards
 	_hotspots = hotspots
+	_quest_id = quest_id
+	var quest: QuestData = _quests.get_quest(_quest_id)
+	_guidance_id = quest.guidance_id if quest != null else &""
 	_view = get_node(tutorial_ui_path) as RovinTutorialUI
-	if _recipe != null:
-		for index in _recipe.ingredients.size():
-			if _recipe.is_hidden_slot(index):
-				continue
-			var requirement := _recipe.ingredients[index]
-			if requirement != null and requirement.item_id != &"":
-				_required_materials[requirement.item_id] = int(_required_materials.get(requirement.item_id, 0)) + requirement.amount
+	_quests.quests_changed.connect(refresh)
 	_inventory.inventory_changed.connect(refresh)
-	_progress.recipes_changed.connect(refresh)
-	_progress.rovin_tutorial_changed.connect(refresh)
-	_view.skip_requested.connect(_progress.skip_rovin_tutorial)
+	_progress.guidance_changed.connect(_on_guidance_changed)
 	_configured = true
 	refresh()
 
 func refresh() -> void:
 	if not _configured:
 		return
-	if not _progress.should_show_rovin_tutorial():
+	var state: Dictionary = _quests.get_quest_state(_quest_id)
+	if state.is_empty() or not _progress.should_show_guidance(_guidance_id):
 		_view.hide_tutorial()
 		return
-	# A player who already owns the result has passed this introductory task.
-	if _inventory.get_amount(&"clear_potion") >= 1:
-		_progress.complete_rovin_tutorial()
+	if state.status == &"completed":
+		_progress.complete_guidance(_guidance_id)
+		_view.hide_tutorial()
 		return
-	var counts: PackedStringArray = ["清洗剂配方：%d / 1" % _inventory.get_amount(_recipe_item_id)]
-	for id in _required_materials:
-		var item := _inventory.get_item(id)
-		counts.append("%s：%d / %d" % [item.display_name if item != null else str(id), _inventory.get_amount(id), _required_materials[id]])
 	var targets: Array[Dictionary] = []
-	if _inventory.get_amount(_recipe_item_id) < 1:
-		stage = Stage.GET_RECIPE
-		var instruction := "先检查高亮的书柜，寻找清洗剂配方。"
-		if not _progress.is_interaction_claimed(&"RovinRoom/recipe"):
+	var active_stage: QuestStageData = _quests.get_active_stage(_quest_id)
+	var objective: QuestObjectiveData
+	if active_stage != null:
+		for candidate: QuestObjectiveData in active_stage.objectives:
+			if candidate == null:
+				continue
+			objective = _quests.get_active_objective(_quest_id, candidate.objective_id)
+			if objective != null:
+				break
+	if objective == null:
+		_view.hide_tutorial()
+		return
+	match objective.kind:
+		&"recipe_known":
+			stage = Stage.GET_RECIPE
 			_add_target(targets, "recipe", "获取配方")
-		else:
-			instruction = "背包中已没有配方物品，请补充配方后继续。"
-		_view.show_step("第一步 · 寻找配方", instruction, "\n".join(counts), targets)
-		return
-	var stock_check := AlchemySystem.new(_inventory).check_material_availability(_recipe)
-	if not stock_check.ok:
-		stage = Stage.COLLECT_MATERIALS
-		for id in _rewards:
-			var reward: Dictionary = _rewards[id]
-			var item_id := StringName(reward.get("item_id", ""))
-			if _inventory.get_amount(item_id) < int(_required_materials.get(item_id, 0)) and not _progress.is_interaction_claimed(StringName("RovinRoom/" + str(id))):
-				_add_target(targets, str(id), "搜集素材")
-		var instruction := "搜寻高亮地点，按下方数量准备素材。可以自由选择搜集顺序。"
-		if targets.is_empty():
-			instruction = "当前素材仍不足，请补充背包后继续。\n" + str(stock_check.error)
-		_view.show_step("第二步 · 收集素材", instruction, "\n".join(counts), targets)
-		return
-	stage = Stage.ENTER_ALCHEMY
-	_add_target(targets, "alchemy", "开始制作")
-	_view.show_step("第三步 · 前往炼金", "配方和素材已准备好！点击高亮的炼金区域，开始制作清洗剂。", "\n".join(counts), targets)
+		&"recipe_materials":
+			stage = Stage.COLLECT_MATERIALS
+			# Only public mandatory ItemIDs may determine a highlighted location.
+			var required: Dictionary = _quests.get_public_material_requirements(_quest_id)
+			for id in _rewards:
+				var item_id := StringName((_rewards[id] as Dictionary).get("item_id", ""))
+				if required.has(item_id) and _inventory.get_amount(item_id) < int(required[item_id]):
+					_add_target(targets, str(id), "搜集素材")
+		&"craft_confirmed":
+			stage = Stage.ENTER_ALCHEMY
+			_add_target(targets, "alchemy", "制作并确认清洗剂")
+	_view.show_targets(targets)
+
+func _on_guidance_changed(id: StringName) -> void:
+	if id == &"" or id == _guidance_id:
+		refresh()
 
 func on_alchemy_entered() -> void:
-	if _configured:
-		_progress.complete_rovin_tutorial()
+	# Entering the room is not a completed craft or the end of the quest.
+	pass
 
 func update_highlight_positions() -> void:
 	if _configured:

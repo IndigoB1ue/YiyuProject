@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cvffj58hyg212" path="res://scripts/ui/alchemy/ingredient_select_ui.gd" id="1"]
 [ext_resource type="Theme" uid="uid://cdebe516low67" path="res://themes/alchemy_theme.tres" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/material_cell_ui.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/alchemy/empty_material_cell.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cjpr773atufv5" path="res://scenes/ui/alchemy/material_cell_ui.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://ivmryc11dpaq" path="res://scenes/ui/alchemy/empty_material_cell.tscn" id="4"]
 
 [node name="IngredientSelectUI" type="VBoxContainer" unique_id=500203024]
 offset_right = 760.0

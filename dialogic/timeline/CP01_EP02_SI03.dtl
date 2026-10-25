@@ -130,5 +130,5 @@ Elder: “很好，我不喜欢占用太长的时间，只是有一点我必须�
 像是一种警告，但又说得很自然。
 Elder: “那么，接下来请各位特级讲师发言。”
 典礼顺利且无聊的进行着。
-do GameProgress.show_message("本次Demo游玩结束，感谢您的游玩！")
+do DemoFlow.show_message("本次Demo游玩结束，感谢您的游玩！")
 [wait time="99999.0" hide_text="false"]

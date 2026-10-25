@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="QuestData" format=3 uid="uid://djrlvqvffckoq"]
+
+[ext_resource type="Script" uid="uid://b2otgm42qtac7" path="res://scripts/quest/quest_condition_data.gd" id="1_rvjdl"]
+[ext_resource type="Script" uid="uid://baoi5dndmueft" path="res://scripts/quest/quest_action_data.gd" id="2_wv2sb"]
+[ext_resource type="Resource" uid="uid://cmm2a3untoja7" path="res://data/recipes/clear_potion.tres" id="3_c07si"]
+[ext_resource type="Script" uid="uid://1x0fl8ug8kco" path="res://scripts/quest/quest_data.gd" id="4_026ib"]
+[ext_resource type="Script" uid="uid://bys3fofvmh8yx" path="res://scripts/quest/quest_stage_data.gd" id="5_3uoua"]
+[ext_resource type="Script" uid="uid://b1d0kafhknodb" path="res://scripts/quest/quest_objective_data.gd" id="6_eafcv"]
+
+[sub_resource type="Resource" id="Resource_uaxb4"]
+script = ExtResource("1_rvjdl")
+kind = &"scene"
+target_id = &"res://scenes/RovinRoom.tscn"
+
+[sub_resource type="Resource" id="Resource_27u3k"]
+script = ExtResource("2_wv2sb")
+action_id = &"after_cleanser"
+target_id = &"after_cleanser"
+
+[sub_resource type="Resource" id="Resource_1ht2s"]
+script = ExtResource("6_eafcv")
+objective_id = &"learn_recipe"
+kind = &"recipe_known"
+text = "寻找清洗剂配方"
+target_id = &"ClearPotion"
+recipe = ExtResource("3_c07si")
+
+[sub_resource type="Resource" id="Resource_kcsx4"]
+script = ExtResource("5_3uoua")
+stage_id = &"get_recipe"
+title = "寻找清洗剂配方"
+description = "检查宿舍书柜，寻找清洗剂配方。"
+objectives = Array[ExtResource("6_eafcv")]([SubResource("Resource_1ht2s")])
+
+[sub_resource type="Resource" id="Resource_xqud0"]
+script = ExtResource("6_eafcv")
+objective_id = &"prepare_materials"
+kind = &"recipe_materials"
+text = "收集清洗剂素材"
+recipe = ExtResource("3_c07si")
+
+[sub_resource type="Resource" id="Resource_w0j1i"]
+script = ExtResource("5_3uoua")
+stage_id = &"collect_materials"
+title = "收集炼金素材"
+description = "搜寻宿舍，准备配方要求的素材。"
+objectives = Array[ExtResource("6_eafcv")]([SubResource("Resource_xqud0")])
+
+[sub_resource type="Resource" id="Resource_ue0r8"]
+script = ExtResource("6_eafcv")
+objective_id = &"confirm_cleanser"
+kind = &"craft_confirmed"
+text = "制作并确认获得清洗剂"
+target_id = &"clear_potion"
+recipe = ExtResource("3_c07si")
+
+[sub_resource type="Resource" id="Resource_gpdyc"]
+script = ExtResource("5_3uoua")
+stage_id = &"craft"
+title = "制作并确认获得清洗剂"
+description = "前往炼金区域，制作清洗剂并确认领取结果。"
+objectives = Array[ExtResource("6_eafcv")]([SubResource("Resource_ue0r8")])
+
+[resource]
+script = ExtResource("4_026ib")
+quest_id = &"make_cleanser"
+display_name = "制作清洗剂"
+description = "在宿舍找到清洗剂配方，准备素材，在炼金区域完成制作并确认获得清洗剂。"
+guidance_id = &"rovin_tutorial"
+auto_accept = true
+accept_conditions = Array[ExtResource("1_rvjdl")]([SubResource("Resource_uaxb4")])
+stages = Array[ExtResource("5_3uoua")]([SubResource("Resource_kcsx4"), SubResource("Resource_w0j1i"), SubResource("Resource_gpdyc")])
+completion_actions = Array[ExtResource("2_wv2sb")]([SubResource("Resource_27u3k")])
+recipe = ExtResource("3_c07si")
+recipe_item_id = &"clear_potion_recipe"
+completion_timeline = "res://dialogic/timeline/CP01_EP02_SI02.dtl"

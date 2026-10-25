@@ -65,7 +65,7 @@ func _run() -> void:
 	_ui = current_scene
 	_expect(_ui._recipe.recipe_id == &"ExperimentThree" and _ui._slots.size() == 4, "An unlocked experimental recipe displays four slots")
 	_expect(_ui._slots[2]._name_label.text == "植物" and _ui._slots[3]._name_label.text == "未知素材", "Hidden slots show type hints and the unused fourth remains unknown")
-	_expect(_ui._slots[2]._icon.texture == load("res://data/items/category_plant.svg"), "A type icon replaces the secret item's icon")
+	_expect(_ui._slots[2]._icon.texture == load("res://asserts/image/icon/category_plant.svg"), "A type icon replaces the secret item's icon")
 	_ui._activate_slot(2)
 	_expect(_ui._picker._heading.text.begins_with("植物"), "The candidate heading does not expose the secret item")
 	var names: Array[String] = []

@@ -1,23 +1,15 @@
 class_name RovinTutorialUI
 extends CanvasLayer
 
-signal skip_requested
-
 @export var target_highlight_scene: PackedScene
 
 @onready var _overlay: Control = $Overlay
 @onready var _highlight_container: Control = $Overlay/Highlights
-@onready var _title: Label = $Overlay/Card/Margin/Content/Title
-@onready var _message: Label = $Overlay/Card/Margin/Content/Message
-@onready var _progress_text: Label = $Overlay/Card/Margin/Content/Progress
 
 var _targets: Array[Dictionary] = []
 var _indicators: Array[Control] = []
 
-func show_step(title: String, message: String, progress_text: String, targets: Array[Dictionary]) -> void:
-	_title.text = title
-	_message.text = message
-	_progress_text.text = progress_text
+func show_targets(targets: Array[Dictionary]) -> void:
 	_clear_highlights()
 	_targets = targets
 	for target in _targets:
@@ -48,6 +40,3 @@ func _clear_highlights() -> void:
 		indicator.queue_free()
 	_indicators.clear()
 	_targets.clear()
-
-func _on_skip_pressed() -> void:
-	skip_requested.emit()

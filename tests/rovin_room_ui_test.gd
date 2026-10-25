@@ -47,7 +47,8 @@ func _run() -> void:
 	_expect(recipe_button.position.is_equal_approx(designed_position), "Runtime respects editor-authored button positions")
 	var expected_scale := minf(room.size.x / 1070.0, room.size.y / 787.0)
 	_expect(canvas.scale.is_equal_approx(Vector2.ONE * expected_scale), "Background and hotspots share uniform canvas scaling")
-	_expect(room._status.get_theme_font_size("font_size") == 25 and room._status.get_theme_constant("shadow_offset_x") == 5, "Status Theme preserves the current font size and shadow")
+	var status: Label = room.get_node("%Status")
+	_expect(status.get_theme_font_size("font_size") == 25 and status.get_theme_constant("shadow_offset_x") == 5, "Status Theme preserves the current font size and shadow")
 	var normal := recipe_button.get_theme_stylebox("normal") as StyleBoxFlat
 	_expect(normal != null and normal.border_width_left == 3 and is_equal_approx(normal.bg_color.a, 0.16), "Hotspot Theme preserves its highlight style")
 	var view = room.get_node("TutorialUI")
@@ -60,7 +61,8 @@ func _run() -> void:
 	var inventory := root.get_node("PlayerInventory") as InventorySystem
 	_expect(inventory.get_amount(&"clear_potion_recipe") == 1 and room._message.visible, "Mouse input on the scene button grants the recipe and opens the scene dialog")
 	room._message.hide()
-	var skip: Button = view.get_node("Overlay/Card/Margin/Content/Skip")
+	root.get_node("QuestSystem").set_tracker_collapsed(false)
+	var skip: Button = root.get_node("QuestUI").get_node("%SkipTutorial")
 	await _settle()
 	await _click(skip.get_global_rect().get_center())
 	_expect(not view.visible, "Skip guidance still works with the migrated room layout")

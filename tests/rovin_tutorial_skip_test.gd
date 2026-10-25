@@ -22,7 +22,9 @@ func _run() -> void:
 	var room: Control = current_scene
 	var view := room.get_node("TutorialUI") as RovinTutorialUI
 	var before := inventory.get_items()
-	var button := view.get_node("Overlay/Card/Margin/Content/Skip") as Button
+	root.get_node("QuestSystem").set_tracker_collapsed(false)
+	await _settle()
+	var button := root.get_node("QuestUI").get_node("%SkipTutorial") as Button
 	var center := button.get_global_rect().get_center()
 	_expect(Rect2(Vector2.ZERO, root.get_visible_rect().size).has_point(center), "Skip button is inside the viewport")
 	for pressed in [true, false]:
@@ -34,6 +36,7 @@ func _run() -> void:
 		root.push_input(event, true)
 		await process_frame
 	_expect(progress.rovin_tutorial_skipped and not progress.rovin_tutorial_completed, "Actual mouse click records skipping")
+	_expect(not root.get_node("QuestSystem").is_completed(&"make_cleanser") and root.get_node("QuestSystem").get_accepted_quests().size() == 1, "Skipping preserves the active quest")
 	_expect(not view.visible and view._indicators.is_empty(), "Skipping removes the hint and all tutorial highlights")
 	_expect(inventory.get_items() == before and not progress.is_recipe_unlocked(&"ClearPotion"), "Skipping does not grant inventory or recipes")
 	room._hotspots.alchemy.pressed.emit()

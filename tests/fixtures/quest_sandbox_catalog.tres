@@ -1,0 +1,175 @@
+[gd_resource type="Resource" script_class="QuestCatalog" format=3 uid="uid://cxplja0gitiot"]
+
+[ext_resource type="Script" uid="uid://baoi5dndmueft" path="res://scripts/quest/quest_action_data.gd" id="action"]
+[ext_resource type="Script" uid="uid://df5ioixpyc0a" path="res://scripts/quest/quest_catalog.gd" id="catalog"]
+[ext_resource type="Script" uid="uid://b2otgm42qtac7" path="res://scripts/quest/quest_condition_data.gd" id="condition"]
+[ext_resource type="Script" uid="uid://b1d0kafhknodb" path="res://scripts/quest/quest_objective_data.gd" id="objective"]
+[ext_resource type="Script" uid="uid://1x0fl8ug8kco" path="res://scripts/quest/quest_data.gd" id="quest"]
+[ext_resource type="Script" uid="uid://bys3fofvmh8yx" path="res://scripts/quest/quest_stage_data.gd" id="stage"]
+[ext_resource type="Script" uid="uid://bu03mhoc2s07h" path="res://scripts/quest/quest_story_data.gd" id="story"]
+
+[sub_resource type="Resource" id="RewardAction"]
+script = ExtResource("action")
+action_id = &"reward"
+kind = &"grant_item"
+target_id = &"Potion"
+
+[sub_resource type="Resource" id="FollowupAction"]
+script = ExtResource("action")
+action_id = &"followup"
+kind = &"accept_quest"
+target_id = &"sandbox_followup"
+
+[sub_resource type="Resource" id="TalkObjective"]
+script = ExtResource("objective")
+objective_id = &"briefing"
+kind = &"talk"
+text = "与测试学生完整交谈"
+target_id = &"sandbox_briefing"
+actor_id = &"sandbox_student_a"
+topic_id = &"briefing"
+
+[sub_resource type="Resource" id="TalkStage"]
+script = ExtResource("stage")
+stage_id = &"briefing"
+title = "了解学生的委托"
+description = "阅读独立测试交谈，完整结束后才算达成。"
+objectives = Array[ExtResource("objective")]([SubResource("TalkObjective")])
+
+[sub_resource type="Resource" id="HerbObjective"]
+script = ExtResource("objective")
+objective_id = &"herbs"
+text = "准备药草"
+target_id = &"Herb"
+amount = 2
+
+[sub_resource type="Resource" id="WaterObjective"]
+script = ExtResource("objective")
+objective_id = &"water"
+text = "准备清水"
+target_id = &"Water"
+amount = 2
+
+[sub_resource type="Resource" id="PrepareStage"]
+script = ExtResource("stage")
+stage_id = &"prepare"
+title = "同时备齐两种材料"
+description = "药草和清水必须同时满足数量；可以提前收集。"
+objectives = Array[ExtResource("objective")]([SubResource("HerbObjective"), SubResource("WaterObjective")])
+
+[sub_resource type="Resource" id="DeliveryObjective"]
+script = ExtResource("objective")
+objective_id = &"handover"
+kind = &"delivery"
+text = "向测试学生交付药草与清水"
+actor_id = &"sandbox_student_a"
+items = {
+&"Herb": 2,
+&"Water": 2
+}
+
+[sub_resource type="Resource" id="DeliveryStage"]
+script = ExtResource("stage")
+stage_id = &"handover"
+title = "交付材料"
+description = "背包数量足够并不代表已交付；提交成功后才扣除物品。"
+objectives = Array[ExtResource("objective")]([SubResource("DeliveryObjective")])
+
+[sub_resource type="Resource" id="EndingObjective"]
+script = ExtResource("objective")
+objective_id = &"ending"
+kind = &"story_completed"
+text = "完整阅读测试后续剧情"
+target_id = &"sandbox_ending"
+
+[sub_resource type="Resource" id="EndingStage"]
+script = ExtResource("stage")
+stage_id = &"report"
+title = "了解实验结果"
+description = "剧情中断不会完成目标；检查点会恢复到当前播放位置。"
+objectives = Array[ExtResource("objective")]([SubResource("EndingObjective")])
+
+[sub_resource type="Resource" id="StudentQuest"]
+script = ExtResource("quest")
+quest_id = &"sandbox_student"
+display_name = "测试学生的材料委托"
+description = "仅用于独立验收：交谈、同时准备、真实交付、剧情完成，并测试奖励和任务链。"
+category = "测试支线"
+student_id = &"sandbox_student_a"
+stages = Array[ExtResource("stage")]([SubResource("TalkStage"), SubResource("PrepareStage"), SubResource("DeliveryStage"), SubResource("EndingStage")])
+completion_actions = Array[ExtResource("action")]([SubResource("RewardAction"), SubResource("FollowupAction")])
+
+[sub_resource type="Resource" id="FollowupCondition"]
+script = ExtResource("condition")
+target_id = &"sandbox_student"
+
+[sub_resource type="Resource" id="FollowupObjective"]
+script = ExtResource("objective")
+objective_id = &"future_topic"
+kind = &"talk"
+text = "后续学生支线已经解锁，可继续扩展内容"
+actor_id = &"sandbox_student_a"
+topic_id = &"future_topic"
+
+[sub_resource type="Resource" id="FollowupStage"]
+script = ExtResource("stage")
+stage_id = &"followup"
+title = "学生支线后续"
+objectives = Array[ExtResource("objective")]([SubResource("FollowupObjective")])
+
+[sub_resource type="Resource" id="FollowupQuest"]
+script = ExtResource("quest")
+quest_id = &"sandbox_followup"
+display_name = "测试学生的后续委托"
+description = "由前一条测试任务的完成动作接取，不属于 demo 正式内容。"
+category = "测试支线"
+student_id = &"sandbox_student_a"
+accept_conditions = Array[ExtResource("condition")]([SubResource("FollowupCondition")])
+stages = Array[ExtResource("stage")]([SubResource("FollowupStage")])
+
+[sub_resource type="Resource" id="OtherDeliveryObjective"]
+script = ExtResource("objective")
+objective_id = &"other_handover"
+kind = &"delivery"
+text = "另一份独立交付，不能共用已提交的材料"
+actor_id = &"sandbox_student_a"
+items = {
+&"Herb": 2,
+&"Water": 2
+}
+
+[sub_resource type="Resource" id="OtherDeliveryStage"]
+script = ExtResource("stage")
+stage_id = &"deliver"
+title = "另一个交付目标"
+objectives = Array[ExtResource("objective")]([SubResource("OtherDeliveryObjective")])
+
+[sub_resource type="Resource" id="OtherDeliveryQuest"]
+script = ExtResource("quest")
+quest_id = &"sandbox_other_delivery"
+display_name = "交付隔离验证"
+description = "自动化测试使用：同一批材料只能完成被选中的交付目标。"
+category = "测试"
+student_id = &"sandbox_student_a"
+stages = Array[ExtResource("stage")]([SubResource("OtherDeliveryStage")])
+
+[sub_resource type="Resource" id="BriefingStory"]
+script = ExtResource("story")
+story_id = &"sandbox_briefing"
+timeline_path = "res://tests/fixtures/quest_sandbox_briefing.dtl"
+completion_signal = &"quest_story_completed"
+allowed_scene_path = "res://tests/fixtures/quest_sandbox.tscn"
+actor_id = &"sandbox_student_a"
+topic_id = &"briefing"
+
+[sub_resource type="Resource" id="EndingStory"]
+script = ExtResource("story")
+story_id = &"sandbox_ending"
+timeline_path = "res://tests/fixtures/quest_sandbox_ending.dtl"
+completion_signal = &"quest_story_completed"
+allowed_scene_path = "res://tests/fixtures/quest_sandbox.tscn"
+
+[resource]
+script = ExtResource("catalog")
+quests = Array[ExtResource("quest")]([SubResource("StudentQuest"), SubResource("FollowupQuest"), SubResource("OtherDeliveryQuest")])
+stories = Array[ExtResource("story")]([SubResource("BriefingStory"), SubResource("EndingStory")])

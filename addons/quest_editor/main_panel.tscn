@@ -1,0 +1,190 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://addons/quest_editor/main_panel.gd" id="1"]
+[ext_resource type="PackedScene" path="res://addons/quest_editor/quest_form.tscn" id="2"]
+[ext_resource type="Theme" path="res://addons/quest_editor/editor_theme.tres" id="3"]
+
+[node name="QuestEditor" type="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 580)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3")
+script = ExtResource("1")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="Header"]
+layout_mode = 2
+text = "任务配置"
+theme_override_font_sizes/font_size = 23
+
+[node name="Pages" type="TabBar" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tab_count = 2
+tab_0/title = "任务"
+tab_1/title = "剧情衔接"
+
+[node name="Reload" type="Button" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重新载入"
+
+[node name="CheckAll" type="Button" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "检查全部配置"
+
+[node name="Columns" type="HSplitContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 220
+
+[node name="Sidebar" type="VBoxContainer" parent="Columns"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="Search" type="LineEdit" parent="Columns/Sidebar"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "搜索任务名称或 ID"
+
+[node name="Entries" type="ItemList" parent="Columns/Sidebar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NewActions" type="HBoxContainer" parent="Columns/Sidebar"]
+layout_mode = 2
+
+[node name="New" type="Button" parent="Columns/Sidebar/NewActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "新建"
+
+[node name="Copy" type="Button" parent="Columns/Sidebar/NewActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "复制"
+
+[node name="Workspace" type="HSplitContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+split_offset = 580
+
+[node name="EditColumn" type="VBoxContainer" parent="Columns/Workspace"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditHeader" type="HBoxContainer" parent="Columns/Workspace/EditColumn"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Columns/Workspace/EditColumn/EditHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "策划表单 · 按阶段推进，阶段内并行目标"
+
+[node name="Dirty" type="Label" parent="Columns/Workspace/EditColumn/EditHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "已保存"
+
+[node name="FormScroll" type="ScrollContainer" parent="Columns/Workspace/EditColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="QuestForm" parent="Columns/Workspace/EditColumn/FormScroll" instance=ExtResource("2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditActions" type="HBoxContainer" parent="Columns/Workspace/EditColumn"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Columns/Workspace/EditColumn/EditActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "保存"
+tooltip_text = "保存当前工作副本并更新任务目录（Ctrl+S）"
+
+[node name="Undo" type="Button" parent="Columns/Workspace/EditColumn/EditActions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "撤销"
+
+[node name="Redo" type="Button" parent="Columns/Workspace/EditColumn/EditActions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重做"
+
+[node name="Revert" type="Button" parent="Columns/Workspace/EditColumn/EditActions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "还原"
+
+[node name="PreviewColumn" type="VBoxContainer" parent="Columns/Workspace"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewHeading" type="Label" parent="Columns/Workspace/PreviewColumn"]
+layout_mode = 2
+text = "玩家公开目标预览"
+
+[node name="PreviewScroll" type="ScrollContainer" parent="Columns/Workspace/PreviewColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Preview" type="Label" parent="Columns/Workspace/PreviewColumn/PreviewScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "选择任务后预览。"
+autowrap_mode = 3
+
+[node name="PreviewNote" type="Label" parent="Columns/Workspace/PreviewColumn"]
+layout_mode = 2
+text = "只显示公开目标；不读取隐藏配方答案。\n修改工作副本后，点击保存才写入项目。"
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="IssueHeading" type="Label" parent="."]
+layout_mode = 2
+text = "配置检查 · 双击问题定位"
+
+[node name="Issues" type="ItemList" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Status" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "加载任务目录…"
+autowrap_mode = 3
+
+[node name="Unsaved" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "未保存的更改"
+dialog_text = "当前配置有未保存更改。"
+ok_button_text = "保存并继续"
+cancel_button_text = "留在当前配置"
+
+[node name="Confirm" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "还原更改"
+dialog_text = "放弃当前未保存的更改？"
+ok_button_text = "还原"
+cancel_button_text = "取消"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="QuestStoryData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/quest/quest_story_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+story_id = &"after_cleanser"
+timeline_path = "res://dialogic/timeline/CP01_EP02_SI02.dtl"
+completion_signal = &"CheckAndActiveStairs"
+return_scene_path = "res://scenes/RovinRoom.tscn"
+allowed_scene_path = "res://scenes/AlchemyRoom.tscn"
+legacy_started_flag = &"cleanser_timeline_started"
+legacy_completed_flag = &"cleanser_timeline_completed"

@@ -157,6 +157,7 @@ disabled = true
 
 [node name="Status" type="Label" parent="." unique_id=805657787]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 16.0
 offset_top = 12.0
@@ -165,13 +166,14 @@ offset_bottom = 50.0
 theme_type_variation = &"RovinStatusLabel"
 text = "清洗剂配方：未获得    已搜集：0 / 4处"
 
-[node name="MapButton" type="Button" parent="."]
-offset_left = 16.0
-offset_top = 60.0
-offset_right = 190.0
-offset_bottom = 104.0
-text = "学院地图  [M]"
+[node name="MapButton" type="Button" parent="." unique_id=1686106427]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 15.0
+offset_right = 640.0
+offset_bottom = 59.0
 mouse_default_cursor_shape = 2
+text = "学院地图  [M]"
 
 [node name="Message" type="AcceptDialog" parent="." unique_id=75907395]
 unique_name_in_owner = true
@@ -189,7 +191,6 @@ script = ExtResource("5_controller")
 script = ExtResource("6_stairs")
 
 [connection signal="layout_updated" from="RoomCanvas" to="." method="_on_room_canvas_layout_updated"]
-[connection signal="pressed" from="MapButton" to="." method="_on_map_pressed"]
 [connection signal="pressed" from="RoomCanvas/Hotspots/RecipeHotspot" to="." method="_on_hotspot_pressed" binds= ["recipe"]]
 [connection signal="pressed" from="RoomCanvas/Hotspots/BedsideHotspot" to="." method="_on_hotspot_pressed" binds= ["bedside"]]
 [connection signal="pressed" from="RoomCanvas/Hotspots/ShoeHotspot" to="." method="_on_hotspot_pressed" binds= ["shoe"]]
@@ -197,4 +198,5 @@ script = ExtResource("6_stairs")
 [connection signal="pressed" from="RoomCanvas/Hotspots/CalculationHotspot" to="." method="_on_hotspot_pressed" binds= ["calculation"]]
 [connection signal="pressed" from="RoomCanvas/Hotspots/AlchemyHotspot" to="." method="_on_hotspot_pressed" binds= ["alchemy"]]
 [connection signal="pressed" from="RoomCanvas/Hotspots/StairsHotspot" to="." method="_on_hotspot_pressed" binds= ["stairs"]]
+[connection signal="pressed" from="MapButton" to="." method="_on_map_pressed"]
 [connection signal="playback_failed" from="StairsTrigger" to="." method="_show_message"]

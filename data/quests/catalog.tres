@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="QuestCatalog" format=3 uid="uid://bsrom11jjqjg3"]
+
+[ext_resource type="Script" uid="uid://df5ioixpyc0a" path="res://scripts/quest/quest_catalog.gd" id="1"]
+[ext_resource type="Script" uid="uid://1x0fl8ug8kco" path="res://scripts/quest/quest_data.gd" id="2"]
+[ext_resource type="Resource" uid="uid://djrlvqvffckoq" path="res://data/quests/make_cleanser.tres" id="3"]
+[ext_resource type="Script" uid="uid://bu03mhoc2s07h" path="res://scripts/quest/quest_story_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/quests/story_after_cleanser.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+quests = Array[ExtResource("2")]([ExtResource("3")])
+stories = Array[ExtResource("4")]([ExtResource("5")])

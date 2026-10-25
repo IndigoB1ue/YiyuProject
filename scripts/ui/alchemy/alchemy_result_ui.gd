@@ -24,3 +24,7 @@ func _on_result_dismissed() -> void:
 	var result := _last_result
 	_last_result = {}
 	result_confirmed.emit(result)
+
+func _on_result_canceled() -> void:
+	# Closing a popup is not a confirmation of the synthesized output.
+	_last_result = {}
