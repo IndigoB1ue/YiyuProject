@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfjtrknyq78c7" path="res://tests/fixtures/quest_sandbox.gd" id="1"]
 [ext_resource type="Theme" uid="uid://c4c2xeerqq0re" path="res://themes/quest_theme.tres" id="2"]
-[ext_resource type="Resource" path="res://tests/fixtures/quest_sandbox_catalog.tres" id="3"]
+[ext_resource type="Resource" uid="uid://cxplja0gitiot" path="res://tests/fixtures/quest_sandbox_catalog.tres" id="3"]
 
 [node name="QuestSandbox" type="Control" unique_id=466006109 groups=["quest_sandbox"]]
 layout_mode = 3
